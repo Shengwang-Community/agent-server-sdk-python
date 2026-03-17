@@ -324,8 +324,10 @@ class FishAudioTTS(BaseTTS):
 
 class MiniMaxTTSOptions(BaseModel):
     key: str = Field(..., description="MiniMax API key")
-    voice_id: Optional[str] = Field(default=None, description="Voice ID")
-    model: Optional[str] = Field(default=None, description="Model name")
+    group_id: str = Field(..., description="MiniMax group identifier")
+    model: str = Field(..., description="TTS model (e.g., 'speech-02-turbo')")
+    voice_id: str = Field(..., description="Voice style identifier (e.g., 'English_captivating_female1')")
+    url: str = Field(..., description="WebSocket endpoint (e.g., 'wss://api-uw.minimax.io/ws/v1/t2a_v2')")
     skip_patterns: Optional[List[int]] = Field(default=None)
 
     class Config:
@@ -341,12 +343,13 @@ class MiniMaxTTS(BaseTTS):
         return None
 
     def to_config(self) -> Dict[str, Any]:
-        params: Dict[str, Any] = {"key": self.options.key}
-
-        if self.options.voice_id is not None:
-            params["voice_id"] = self.options.voice_id
-        if self.options.model is not None:
-            params["model"] = self.options.model
+        params: Dict[str, Any] = {
+            "key": self.options.key,
+            "group_id": self.options.group_id,
+            "model": self.options.model,
+            "voice_setting": {"voice_id": self.options.voice_id},
+            "url": self.options.url,
+        }
 
         result: Dict[str, Any] = {"vendor": "minimax", "params": params}
         if self.options.skip_patterns is not None:
