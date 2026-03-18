@@ -6,7 +6,7 @@ import typing
 
 import httpx
 from .core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
-from .environment import AgoraEnvironment
+from .environment import Environment
 
 if typing.TYPE_CHECKING:
     from .agents.client import AgentsClient, AsyncAgentsClient
@@ -14,7 +14,7 @@ if typing.TYPE_CHECKING:
     from .telephony.client import AsyncTelephonyClient, TelephonyClient
 
 
-class Agora:
+class AgentClient:
     """
     Use this class to access the different functions within the SDK. You can instantiate any number of clients with different configuration that will propagate to these functions.
 
@@ -23,12 +23,12 @@ class Agora:
     base_url : typing.Optional[str]
         The base url to use for requests from the client.
 
-    environment : AgoraEnvironment
-        The environment to use for requests from the client. from .environment import AgoraEnvironment
+    environment : Environment
+        The environment to use for requests from the client. from .environment import Environment
 
 
 
-        Defaults to AgoraEnvironment.DEFAULT
+        Defaults to Environment.DEFAULT
 
 
 
@@ -49,9 +49,9 @@ class Agora:
 
     Examples
     --------
-    from agent import Agora
+    from agent import AgentClient
 
-    client = Agora(
+    client = AgentClient(
         authorization="YOUR_AUTHORIZATION",
         username="YOUR_USERNAME",
         password="YOUR_PASSWORD",
@@ -62,7 +62,7 @@ class Agora:
         self,
         *,
         base_url: typing.Optional[str] = None,
-        environment: AgoraEnvironment = AgoraEnvironment.DEFAULT,
+        environment: Environment = Environment.DEFAULT,
         authorization: str,
         username: typing.Union[str, typing.Callable[[], str]],
         password: typing.Union[str, typing.Callable[[], str]],
@@ -116,7 +116,7 @@ class Agora:
         return self._phone_numbers
 
 
-class AsyncAgora:
+class AsyncAgentClient:
     """
     Use this class to access the different functions within the SDK. You can instantiate any number of clients with different configuration that will propagate to these functions.
 
@@ -125,12 +125,12 @@ class AsyncAgora:
     base_url : typing.Optional[str]
         The base url to use for requests from the client.
 
-    environment : AgoraEnvironment
-        The environment to use for requests from the client. from .environment import AgoraEnvironment
+    environment : Environment
+        The environment to use for requests from the client. from .environment import Environment
 
 
 
-        Defaults to AgoraEnvironment.DEFAULT
+        Defaults to Environment.DEFAULT
 
 
 
@@ -151,9 +151,9 @@ class AsyncAgora:
 
     Examples
     --------
-    from agent import AsyncAgora
+    from agent import AsyncAgentClient
 
-    client = AsyncAgora(
+    client = AsyncAgentClient(
         authorization="YOUR_AUTHORIZATION",
         username="YOUR_USERNAME",
         password="YOUR_PASSWORD",
@@ -164,7 +164,7 @@ class AsyncAgora:
         self,
         *,
         base_url: typing.Optional[str] = None,
-        environment: AgoraEnvironment = AgoraEnvironment.DEFAULT,
+        environment: Environment = Environment.DEFAULT,
         authorization: str,
         username: typing.Union[str, typing.Callable[[], str]],
         password: typing.Union[str, typing.Callable[[], str]],
@@ -218,7 +218,7 @@ class AsyncAgora:
         return self._phone_numbers
 
 
-def _get_base_url(*, base_url: typing.Optional[str] = None, environment: AgoraEnvironment) -> str:
+def _get_base_url(*, base_url: typing.Optional[str] = None, environment: Environment) -> str:
     if base_url is not None:
         return base_url
     elif environment is not None:

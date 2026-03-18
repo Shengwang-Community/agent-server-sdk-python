@@ -6,16 +6,16 @@ description: Configure the client to route requests to the nearest region.
 
 # Regional Routing
 
-The `Agora` and `AsyncAgora` clients include a built-in domain pool that automatically routes requests to the best available regional endpoint. This page explains how the pool works and how to control it.
+The `AgentClient` and `AsyncAgentClient` clients include a built-in domain pool that automatically routes requests to the best available regional endpoint. This page explains how the pool works and how to control it.
 
 ## Area Enum
 
 When you create a client, you specify an `Area` that determines the pool of regional endpoints:
 
 ```python
-from agent import Agora, Area
+from agent import AgentClient, Area
 
-client = Agora(area=Area.CN, app_id='your-app-id', app_certificate='your-app-certificate')
+client = AgentClient(area=Area.CN, app_id='your-app-id', app_certificate='your-app-certificate')
 ```
 
 | Area | Primary Region | Fallback Region | Domain |
@@ -36,14 +36,14 @@ The `Pool` manages region prefixes and domain suffixes:
 
 ## Manual Domain Selection
 
-### Sync (`Agora`)
+### Sync (`AgentClient`)
 
 `select_best_domain()` is a regular method on the sync client:
 
 ```python
-from agent import Agora, Area
+from agent import AgentClient, Area
 
-client = Agora(area=Area.CN, app_id='your-app-id', app_certificate='your-app-certificate')
+client = AgentClient(area=Area.CN, app_id='your-app-id', app_certificate='your-app-certificate')
 
 # Manually trigger DNS-based domain selection
 client.select_best_domain()
@@ -51,18 +51,18 @@ client.select_best_domain()
 print(client.get_current_url())
 ```
 
-### Async (`AsyncAgora`)
+### Async (`AsyncAgentClient`)
 
-On `AsyncAgora`, `select_best_domain()` is a **coroutine** — you must call it with `await`:
+On `AsyncAgentClient`, `select_best_domain()` is a **coroutine** — you must call it with `await`:
 
 ```python
 import asyncio
-from agent import AsyncAgora, Area
+from agent import AsyncAgentClient, Area
 
 async def main():
-    client = AsyncAgora(area=Area.CN, app_id='your-app-id', app_certificate='your-app-certificate')
+    client = AsyncAgentClient(area=Area.CN, app_id='your-app-id', app_certificate='your-app-certificate')
 
-    # IMPORTANT: select_best_domain() is async on AsyncAgora
+    # IMPORTANT: select_best_domain() is async on AsyncAgentClient
     await client.select_best_domain()
 
     print(client.get_current_url())
@@ -70,7 +70,7 @@ async def main():
 asyncio.run(main())
 ```
 
-**Common mistake:** Calling `client.select_best_domain()` without `await` on `AsyncAgora` returns a coroutine object instead of executing the domain selection. No error is raised — the call silently does nothing. Always use `await`:
+**Common mistake:** Calling `client.select_best_domain()` without `await` on `AsyncAgentClient` returns a coroutine object instead of executing the domain selection. No error is raised — the call silently does nothing. Always use `await`:
 
 ```python
 # Wrong — returns a coroutine object, does not execute
@@ -85,9 +85,9 @@ await client.select_best_domain()
 If a request fails, cycle to the next region prefix:
 
 ```python
-from agent import Agora, Area
+from agent import AgentClient, Area
 
-client = Agora(area=Area.CN, app_id='your-app-id', app_certificate='your-app-certificate')
+client = AgentClient(area=Area.CN, app_id='your-app-id', app_certificate='your-app-certificate')
 
 print(client.get_current_url())
 # https://api-cn-east-1.sd-rtn.com/api/conversational-ai-agent
@@ -103,7 +103,7 @@ print(client.get_current_url())
 # https://api-cn-east-1.sd-rtn.com/api/conversational-ai-agent
 ```
 
-`next_region()` is a regular (non-async) method on both `Agora` and `AsyncAgora`.
+`next_region()` is a regular (non-async) method on both `AgentClient` and `AsyncAgentClient`.
 
 ## Accessing the Pool Directly
 
@@ -121,7 +121,7 @@ area = pool.get_area()
 
 ## Client Method Summary
 
-| Method | `Agora` | `AsyncAgora` | Description |
+| Method | `AgentClient` | `AsyncAgentClient` | Description |
 |---|---|---|---|
 | `next_region()` | sync | sync | Cycle to next region prefix |
 | `select_best_domain()` | sync | **`async` (requires `await`)** | DNS-based domain selection |

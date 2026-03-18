@@ -86,9 +86,9 @@ class TelephonyClient:
 
         Examples
         --------
-        from agent import Agora
+        from agent import AgentClient
 
-        client = Agora(
+        client = AgentClient(
             authorization="YOUR_AUTHORIZATION",
             username="YOUR_USERNAME",
             password="YOUR_PASSWORD",
@@ -157,13 +157,13 @@ class TelephonyClient:
 
         Examples
         --------
-        from agent import Agora
+        from agent import AgentClient
         from agent.telephony import (
             CallTelephonyRequestProperties,
             CallTelephonyRequestSip,
         )
 
-        client = Agora(
+        client = AgentClient(
             authorization="YOUR_AUTHORIZATION",
             username="YOUR_USERNAME",
             password="YOUR_PASSWORD",
@@ -215,9 +215,9 @@ class TelephonyClient:
 
         Examples
         --------
-        from agent import Agora
+        from agent import AgentClient
 
-        client = Agora(
+        client = AgentClient(
             authorization="YOUR_AUTHORIZATION",
             username="YOUR_USERNAME",
             password="YOUR_PASSWORD",
@@ -254,9 +254,9 @@ class TelephonyClient:
 
         Examples
         --------
-        from agent import Agora
+        from agent import AgentClient
 
-        client = Agora(
+        client = AgentClient(
             authorization="YOUR_AUTHORIZATION",
             username="YOUR_USERNAME",
             password="YOUR_PASSWORD",
@@ -339,9 +339,9 @@ class AsyncTelephonyClient:
         --------
         import asyncio
 
-        from agent import AsyncAgora
+        from agent import AsyncAgentClient
 
-        client = AsyncAgora(
+        client = AsyncAgentClient(
             authorization="YOUR_AUTHORIZATION",
             username="YOUR_USERNAME",
             password="YOUR_PASSWORD",
@@ -419,13 +419,13 @@ class AsyncTelephonyClient:
         --------
         import asyncio
 
-        from agent import AsyncAgora
+        from agent import AsyncAgentClient
         from agent.telephony import (
             CallTelephonyRequestProperties,
             CallTelephonyRequestSip,
         )
 
-        client = AsyncAgora(
+        client = AsyncAgentClient(
             authorization="YOUR_AUTHORIZATION",
             username="YOUR_USERNAME",
             password="YOUR_PASSWORD",
@@ -485,9 +485,9 @@ class AsyncTelephonyClient:
         --------
         import asyncio
 
-        from agent import AsyncAgora
+        from agent import AsyncAgentClient
 
-        client = AsyncAgora(
+        client = AsyncAgentClient(
             authorization="YOUR_AUTHORIZATION",
             username="YOUR_USERNAME",
             password="YOUR_PASSWORD",
@@ -532,9 +532,9 @@ class AsyncTelephonyClient:
         --------
         import asyncio
 
-        from agent import AsyncAgora
+        from agent import AsyncAgentClient
 
-        client = AsyncAgora(
+        client = AsyncAgentClient(
             authorization="YOUR_AUTHORIZATION",
             username="YOUR_USERNAME",
             password="YOUR_PASSWORD",

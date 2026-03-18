@@ -38,9 +38,9 @@ AgentSession(
 
 | Parameter | Type | Required | Description |
 |---|---|---|---|
-| `client` | `Agora` or `AsyncAgora` | Yes | Authenticated client |
+| `client` | `AgentClient` or `AsyncAgentClient` | Yes | Authenticated client |
 | `agent` | `Agent` | Yes | Agent configuration |
-| `app_id` | `str` | Yes | Agora App ID |
+| `app_id` | `str` | Yes | App ID |
 | `name` | `str` | Yes | Session name |
 | `channel` | `str` | Yes | Channel name |
 | `agent_uid` | `str` | Yes | UID for the agent |
@@ -54,7 +54,7 @@ AgentSession(
 
 ### `start()`
 
-Start the agent session. Generates an RTC token if not provided, validates avatar/TTS config, and calls the Agora API.
+Start the agent session. Generates an RTC token if not provided, validates avatar/TTS config, and calls the API.
 
 | | Sync (`AgentSession`) | Async (`AsyncAgentSession`) |
 |---|---|---|
@@ -209,7 +209,7 @@ session.off('started', my_handler)
 | `id` | `Optional[str]` | Agent ID (set after `start()`) |
 | `status` | `str` | Current state: `idle`, `starting`, `running`, `stopping`, `stopped`, `error` |
 | `agent` | `Agent` | The agent configuration |
-| `app_id` | `str` | Agora App ID |
+| `app_id` | `str` | The App ID |
 | `raw` | `AgentsClient` / `AsyncAgentsClient` | Direct access to Fern-generated agents client |
 
 ## State Transitions

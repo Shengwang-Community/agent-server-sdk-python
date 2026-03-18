@@ -8,7 +8,7 @@ from importlib import import_module
 if typing.TYPE_CHECKING:
     from . import agents, agentkit, core, phone_numbers, telephony
     from .core.domain import Area, Pool, create_pool
-    from .pool_client import Agora, AsyncAgora
+    from .pool_client import AgentClient, AsyncAgentClient
     from .version import __version__
     from .agentkit import (
         Agent,
@@ -19,13 +19,13 @@ if typing.TYPE_CHECKING:
     )
     from .agentkit.agent_session import AsyncAgentSession
 _dynamic_imports: typing.Dict[str, str] = {
-    "Agora": ".pool_client",
+    "AgentClient": ".pool_client",
     "Agent": ".agentkit",
     "AgentSession": ".agentkit",
     "AgentSessionOptions": ".agentkit",
     "Area": ".core.domain",
     "AsyncAgentSession": ".agentkit.agent_session",
-    "AsyncAgora": ".pool_client",
+    "AsyncAgentClient": ".pool_client",
     "GenerateTokenOptions": ".agentkit",
     "Pool": ".core.domain",
     "__version__": ".version",
@@ -61,13 +61,13 @@ def __dir__():
 
 
 __all__ = [
-    "Agora",
+    "AgentClient",
     "Agent",
     "AgentSession",
     "AgentSessionOptions",
     "Area",
     "AsyncAgentSession",
-    "AsyncAgora",
+    "AsyncAgentClient",
     "GenerateTokenOptions",
     "Pool",
     "__version__",

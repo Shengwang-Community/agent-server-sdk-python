@@ -6,14 +6,14 @@ description: The Conversational AI Python SDK — install, concepts, and example
 
 # Conversational AI Python SDK
 
-The Conversational AI Python SDK lets you build voice-powered AI agents that combine speech recognition, large language models, text-to-speech, and optional digital avatars — all routed through Agora's global real-time network.
+The Conversational AI Python SDK lets you build voice-powered AI agents that combine speech recognition, large language models, text-to-speech, and optional digital avatars — all routed through a global real-time network.
 
 ## Sync and Async Clients
 
 The Python SDK provides two client classes:
 
-- **`Agora`** — synchronous client backed by `httpx.Client`. Use this in scripts, Flask apps, or anywhere synchronous code is natural.
-- **`AsyncAgora`** — asynchronous client backed by `httpx.AsyncClient`. Use this in `asyncio` applications, FastAPI, or any async framework.
+- **`AgentClient`** — synchronous client backed by `httpx.Client`. Use this in scripts, Flask apps, or anywhere synchronous code is natural.
+- **`AsyncAgentClient`** — asynchronous client backed by `httpx.AsyncClient`. Use this in `asyncio` applications, FastAPI, or any async framework.
 
 Both clients expose the same capabilities. Choose whichever fits your application's concurrency model.
 
@@ -34,7 +34,7 @@ A multimodal model handles audio input and output end-to-end, with no separate S
 |                Developer API                      |
 |  Agent  ·  AgentSession  ·  Vendors  ·  Token     |  <- agentkit/ (hand-written)
 +--------------------------------------------------+
-|             Agora / AsyncAgora + Pool             |  <- pool_client.py (hand-written)
+|             AgentClient / AsyncAgentClient + Pool  |  <- pool_client.py (hand-written)
 +--------------------------------------------------+
 |          Fern-generated Client Core               |
 |  AgentsClient · TelephonyClient · TypeSystem      |  <- generated, for advanced use
@@ -62,7 +62,7 @@ The **agentkit layer** (`agent.agentkit`) is the primary developer-facing API. I
 | [Pagination](./guides/pagination.md) | Iterate over paginated list endpoints |
 | [Advanced](./guides/advanced.md) | Raw response, retries, timeouts, custom httpx client |
 | [Low-Level API](./guides/low-level-api.md) | Direct client.agents.start() without the builder |
-| [Client Reference](./reference/client.md) | Full Agora/AsyncAgora API |
+| [Client Reference](./reference/client.md) | Full AgentClient/AsyncAgentClient API |
 | [Agent Reference](./reference/agent.md) | Full Agent builder API |
 | [Session Reference](./reference/session.md) | Full AgentSession/AsyncAgentSession API |
 | [Vendor Reference](./reference/vendors.md) | Constructor options for all vendor classes |

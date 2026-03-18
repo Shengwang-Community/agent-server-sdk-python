@@ -1,17 +1,17 @@
 ---
 sidebar_position: 1
-title: Agora / AsyncAgora Client
-description: Constructor options and public methods for the Agora Python client.
+title: AgentClient / AsyncAgentClient
+description: Constructor options and public methods for the AgentClient Python client.
 ---
 
-# Agora / AsyncAgora Client
+# AgentClient / AsyncAgentClient
 
-## `Agora` Constructor
+## `AgentClient` Constructor
 
 ```python
-from agent import Agora, Area
+from agent import AgentClient, Area
 
-client = Agora(
+client = AgentClient(
     area=Area.CN,
     app_id='your-app-id',
     app_certificate='your-app-certificate',
@@ -21,8 +21,8 @@ client = Agora(
 | Parameter | Type | Required | Default | Description |
 |---|---|---|---|---|
 | `area` | `Area` | Yes | — | Region for API routing (`Area.US`, `Area.EU`, `Area.AP`, `Area.CN`) |
-| `app_id` | `str` | Yes* | — | Agora App ID (app-credentials mode) |
-| `app_certificate` | `str` | Yes* | — | Agora App Certificate (app-credentials mode) |
+| `app_id` | `str` | Yes* | — | App ID (app-credentials mode) |
+| `app_certificate` | `str` | Yes* | — | App Certificate (app-credentials mode) |
 | `username` | `str` | Yes* | — | Customer ID (Basic Auth mode) |
 | `password` | `str` | Yes* | — | Customer Secret (Basic Auth mode) |
 | `auth_token` | `str` | No | — | Pre-built `agora token=<value>` |
@@ -33,18 +33,18 @@ client = Agora(
 
 *Provide either `app_id` + `app_certificate`, or `username` + `password`.
 
-## `AsyncAgora` Constructor
+## `AsyncAgentClient` Constructor
 
-Identical to `Agora` except:
+Identical to `AgentClient` except:
 
 | Parameter | Difference |
 |---|---|
 | `httpx_client` | Accepts `httpx.AsyncClient` instead of `httpx.Client` |
 
 ```python
-from agent import AsyncAgora, Area
+from agent import AsyncAgentClient, Area
 
-client = AsyncAgora(
+client = AsyncAgentClient(
     area=Area.CN,
     app_id='your-app-id',
     app_certificate='your-app-certificate',
@@ -62,23 +62,23 @@ client.next_region()
 ```
 
 - **Returns:** `None`
-- **Sync on both `Agora` and `AsyncAgora`**
+- **Sync on both `AgentClient` and `AsyncAgentClient`**
 
 ### `select_best_domain()`
 
 Trigger DNS-based domain selection to find the fastest-responding domain suffix.
 
 ```python
-# Sync (Agora)
+# Sync (AgentClient)
 client.select_best_domain()
 
-# Async (AsyncAgora) — MUST use await
+# Async (AsyncAgentClient) — MUST use await
 await client.select_best_domain()
 ```
 
 - **Returns:** `None`
-- **`Agora`:** regular method
-- **`AsyncAgora`:** coroutine — requires `await`
+- **`AgentClient`:** regular method
+- **`AsyncAgentClient`:** coroutine — requires `await`
 - Results are cached for 30 seconds
 
 ### `get_current_url()`
@@ -91,7 +91,7 @@ url = client.get_current_url()
 ```
 
 - **Returns:** `str`
-- **Sync on both `Agora` and `AsyncAgora`**
+- **Sync on both `AgentClient` and `AsyncAgentClient`**
 
 ### `pool` (property)
 
@@ -106,7 +106,7 @@ pool.get_area()  # Area.US
 
 ## Sub-Clients (Fern-Generated)
 
-Both `Agora` and `AsyncAgora` expose Fern-generated sub-clients as properties:
+Both `AgentClient` and `AsyncAgentClient` expose Fern-generated sub-clients as properties:
 
 | Property | Type (sync / async) | Description |
 |---|---|---|

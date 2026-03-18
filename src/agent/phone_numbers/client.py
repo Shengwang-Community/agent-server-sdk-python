@@ -52,9 +52,9 @@ class PhoneNumbersClient:
 
         Examples
         --------
-        from agent import Agora
+        from agent import AgentClient
 
-        client = Agora(
+        client = AgentClient(
             authorization="YOUR_AUTHORIZATION",
             username="YOUR_USERNAME",
             password="YOUR_PASSWORD",
@@ -114,13 +114,13 @@ class PhoneNumbersClient:
 
         Examples
         --------
-        from agent import Agora
+        from agent import AgentClient
         from agent.phone_numbers import (
             AddPhoneNumbersRequestInboundConfig,
             AddPhoneNumbersRequestOutboundConfig,
         )
 
-        client = Agora(
+        client = AgentClient(
             authorization="YOUR_AUTHORIZATION",
             username="YOUR_USERNAME",
             password="YOUR_PASSWORD",
@@ -173,9 +173,9 @@ class PhoneNumbersClient:
 
         Examples
         --------
-        from agent import Agora
+        from agent import AgentClient
 
-        client = Agora(
+        client = AgentClient(
             authorization="YOUR_AUTHORIZATION",
             username="YOUR_USERNAME",
             password="YOUR_PASSWORD",
@@ -208,9 +208,9 @@ class PhoneNumbersClient:
 
         Examples
         --------
-        from agent import Agora
+        from agent import AgentClient
 
-        client = Agora(
+        client = AgentClient(
             authorization="YOUR_AUTHORIZATION",
             username="YOUR_USERNAME",
             password="YOUR_PASSWORD",
@@ -254,13 +254,13 @@ class PhoneNumbersClient:
 
         Examples
         --------
-        from agent import Agora
+        from agent import AgentClient
         from agent.phone_numbers import (
             UpdatePhoneNumbersRequestInboundConfig,
             UpdatePhoneNumbersRequestOutboundConfig,
         )
 
-        client = Agora(
+        client = AgentClient(
             authorization="YOUR_AUTHORIZATION",
             username="YOUR_USERNAME",
             password="YOUR_PASSWORD",
@@ -319,9 +319,9 @@ class AsyncPhoneNumbersClient:
         --------
         import asyncio
 
-        from agent import AsyncAgora
+        from agent import AsyncAgentClient
 
-        client = AsyncAgora(
+        client = AsyncAgentClient(
             authorization="YOUR_AUTHORIZATION",
             username="YOUR_USERNAME",
             password="YOUR_PASSWORD",
@@ -389,13 +389,13 @@ class AsyncPhoneNumbersClient:
         --------
         import asyncio
 
-        from agent import AsyncAgora
+        from agent import AsyncAgentClient
         from agent.phone_numbers import (
             AddPhoneNumbersRequestInboundConfig,
             AddPhoneNumbersRequestOutboundConfig,
         )
 
-        client = AsyncAgora(
+        client = AsyncAgentClient(
             authorization="YOUR_AUTHORIZATION",
             username="YOUR_USERNAME",
             password="YOUR_PASSWORD",
@@ -456,9 +456,9 @@ class AsyncPhoneNumbersClient:
         --------
         import asyncio
 
-        from agent import AsyncAgora
+        from agent import AsyncAgentClient
 
-        client = AsyncAgora(
+        client = AsyncAgentClient(
             authorization="YOUR_AUTHORIZATION",
             username="YOUR_USERNAME",
             password="YOUR_PASSWORD",
@@ -499,9 +499,9 @@ class AsyncPhoneNumbersClient:
         --------
         import asyncio
 
-        from agent import AsyncAgora
+        from agent import AsyncAgentClient
 
-        client = AsyncAgora(
+        client = AsyncAgentClient(
             authorization="YOUR_AUTHORIZATION",
             username="YOUR_USERNAME",
             password="YOUR_PASSWORD",
@@ -553,13 +553,13 @@ class AsyncPhoneNumbersClient:
         --------
         import asyncio
 
-        from agent import AsyncAgora
+        from agent import AsyncAgentClient
         from agent.phone_numbers import (
             UpdatePhoneNumbersRequestInboundConfig,
             UpdatePhoneNumbersRequestOutboundConfig,
         )
 
-        client = AsyncAgora(
+        client = AsyncAgentClient(
             authorization="YOUR_AUTHORIZATION",
             username="YOUR_USERNAME",
             password="YOUR_PASSWORD",

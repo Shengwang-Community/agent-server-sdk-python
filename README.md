@@ -35,11 +35,11 @@ pip install agent-server-sdk
 Use the **builder pattern** with `Agent` and `AgentSession`. The SDK auto-generates all required tokens:
 
 ```python
-from agent import Agora, Area
+from agent import AgentClient, Area
 from agent.agentkit import Agent, expires_in_hours
 from agent.agentkit.vendors import AliyunLLM, MiniMaxTTS, FengmingSTT
 
-client = Agora(
+client = AgentClient(
     area=Area.CN,
     app_id="your-app-id",
     app_certificate="your-app-certificate",
@@ -70,7 +70,7 @@ agent_session_id = session.start()
 session.stop()
 ```
 
-For async usage, use `AsyncAgora` and `await session.start()`, etc. See [Quick Start](docs/getting-started/quick-start.md).
+For async usage, use `AsyncAgentClient` and `await session.start()`, etc. See [Quick Start](docs/getting-started/quick-start.md).
 
 ### Session lifecycle
 
@@ -95,7 +95,7 @@ agent_session_id = session.start()
 # ... return agent_session_id to client ...
 
 # stop-session handler: client sends back agent_session_id
-client = Agora(area=Area.CN, app_id="...", app_certificate="...")
+client = AgentClient(area=Area.CN, app_id="...", app_certificate="...")
 client.stop_agent(agent_session_id)
 ```
 
@@ -104,7 +104,7 @@ client.stop_agent(agent_session_id)
 Generate tokens yourself and pass them in — useful when inspecting or reusing tokens:
 
 ```python
-from agent import Agora, Area
+from agent import AgentClient, Area
 from agent.agentkit.token import generate_convo_ai_token, expires_in_hours
 
 APP_ID = "your-app-id"
@@ -126,7 +126,7 @@ join_token = generate_convo_ai_token(
     token_expire=expires_in_hours(12),
 )
 
-client = Agora(
+client = AgentClient(
     area=Area.CN,
     app_id=APP_ID,
     app_certificate=APP_CERT,
@@ -153,14 +153,14 @@ A full reference for this library is available [here](https://github.com/Shengwa
 Instantiate and use the client with the following:
 
 ```python
-from agent import Agora, MicrosoftTtsParams, Tts_Microsoft
+from agent import AgentClient, MicrosoftTtsParams, Tts_Microsoft
 from agent.agents import (
     StartAgentsRequestProperties,
     StartAgentsRequestPropertiesAsr,
     StartAgentsRequestPropertiesLlm,
 )
 
-client = Agora(
+client = AgentClient(
     authorization="YOUR_AUTHORIZATION",
     username="YOUR_USERNAME",
     password="YOUR_PASSWORD",
@@ -206,14 +206,14 @@ The SDK also exports an `async` client so that you can make non-blocking calls t
 ```python
 import asyncio
 
-from agent import AsyncAgora, MicrosoftTtsParams, Tts_Microsoft
+from agent import AsyncAgentClient, MicrosoftTtsParams, Tts_Microsoft
 from agent.agents import (
     StartAgentsRequestProperties,
     StartAgentsRequestPropertiesAsr,
     StartAgentsRequestPropertiesLlm,
 )
 
-client = AsyncAgora(
+client = AsyncAgentClient(
     authorization="YOUR_AUTHORIZATION",
     username="YOUR_USERNAME",
     password="YOUR_PASSWORD",
@@ -278,9 +278,9 @@ except ApiError as e:
 Paginated requests will return a `SyncPager` or `AsyncPager`, which can be used as generators for the underlying object.
 
 ```python
-from agent import Agora
+from agent import AgentClient
 
-client = Agora(
+client = AgentClient(
     authorization="YOUR_AUTHORIZATION",
     username="YOUR_USERNAME",
     password="YOUR_PASSWORD",
@@ -312,9 +312,9 @@ The SDK provides access to raw response data, including headers, through the `.w
 The `.with_raw_response` property returns a "raw" client that can be used to access the `.headers` and `.data` attributes.
 
 ```python
-from agent import Agora
+from agent import AgentClient
 
-client = Agora(
+client = AgentClient(
     ...,
 )
 response = client.agents.with_raw_response.start(...)
@@ -356,9 +356,9 @@ The SDK defaults to a 60 second timeout. You can configure this with a timeout o
 
 ```python
 
-from agent import Agora
+from agent import AgentClient
 
-client = Agora(
+client = AgentClient(
     ...,
     timeout=20.0,
 )
@@ -377,9 +377,9 @@ and transports.
 
 ```python
 import httpx
-from agent import Agora
+from agent import AgentClient
 
-client = Agora(
+client = AgentClient(
     ...,
     httpx_client=httpx.Client(
         proxy="http://my.test.proxy.example.com",

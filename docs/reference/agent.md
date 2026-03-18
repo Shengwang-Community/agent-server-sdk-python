@@ -167,7 +167,7 @@ Creates an `AgentSession` bound to the given client and channel.
 
 | Parameter | Type | Required | Description |
 |---|---|---|---|
-| `client` | `Agora` or `AsyncAgora` | Yes | Authenticated client |
+| `client` | `AgentClient` or `AsyncAgentClient` | Yes | Authenticated client |
 | `channel` | `str` | Yes | Channel name |
 | `agent_uid` | `str` | Yes | UID for the agent |
 | `remote_uids` | `List[str]` | Yes | UIDs of remote participants |

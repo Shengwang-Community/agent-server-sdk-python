@@ -17,11 +17,11 @@ User audio → STT → LLM → TTS → Agent audio
 ### Sync
 
 ```python
-from agent import Agora, Area
+from agent import AgentClient, Area
 from agent.agentkit import Agent
 from agent.agentkit.vendors import AliyunLLM, MiniMaxTTS, FengmingSTT
 
-client = Agora(
+client = AgentClient(
     area=Area.CN,
     app_id='your-app-id',
     app_certificate='your-app-certificate',
@@ -45,12 +45,12 @@ session.stop()
 
 ```python
 import asyncio
-from agent import AsyncAgora, Area
+from agent import AsyncAgentClient, Area
 from agent.agentkit import Agent
 from agent.agentkit.vendors import AliyunLLM, MiniMaxTTS, FengmingSTT
 
 async def main():
-    client = AsyncAgora(
+    client = AsyncAgentClient(
         area=Area.CN,
         app_id='your-app-id',
         app_certificate='your-app-certificate',
@@ -77,11 +77,11 @@ asyncio.run(main())
 This combination uses DeepSeek for LLM and Microsoft Azure for speech services:
 
 ```python
-from agent import Agora, Area
+from agent import AgentClient, Area
 from agent.agentkit import Agent
 from agent.agentkit.vendors import DeepSeekLLM, MicrosoftTTS, MicrosoftSTT
 
-client = Agora(
+client = AgentClient(
     area=Area.CN,
     app_id='your-app-id',
     app_certificate='your-app-certificate',

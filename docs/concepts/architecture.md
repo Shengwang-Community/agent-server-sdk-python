@@ -15,7 +15,7 @@ The Python SDK has two layers:
 |                Developer API                      |
 |  Agent  ·  AgentSession  ·  Vendors  ·  Token     |  <- agent.agentkit (hand-written)
 +--------------------------------------------------+
-|             Agora / AsyncAgora + Pool             |  <- agent.pool_client (hand-written)
+|             AgentClient / AsyncAgentClient + Pool  |  <- agent.pool_client (hand-written)
 +--------------------------------------------------+
 |          Fern-generated Client Core               |
 |  AgentsClient · TelephonyClient · TypeSystem      |  <- auto-generated
@@ -33,7 +33,7 @@ This is the primary developer-facing API. It provides:
 
 ### Pool Client Layer (`agent.pool_client`)
 
-`Agora` and `AsyncAgora` extend the Fern-generated base client with regional routing:
+`AgentClient` and `AsyncAgentClient` extend the Fern-generated base client with regional routing:
 
 - Automatic DNS-based domain selection
 - Region prefix cycling on failures
@@ -49,17 +49,17 @@ The SDK provides two parallel client hierarchies:
 
 | Sync | Async | HTTP Backend |
 |---|---|---|
-| `Agora` | `AsyncAgora` | `httpx.Client` / `httpx.AsyncClient` |
+| `AgentClient` | `AsyncAgentClient` | `httpx.Client` / `httpx.AsyncClient` |
 | `AgentSession` | `AsyncAgentSession` | Blocking calls / Coroutines |
 
 ### When to Use Each
 
-**Use `Agora` (sync)** when:
+**Use `AgentClient` (sync)** when:
 - You are writing scripts, CLI tools, or batch jobs
 - Your web framework is synchronous (Flask, Django without async views)
 - You want the simplest possible code
 
-**Use `AsyncAgora` (async)** when:
+**Use `AsyncAgentClient` (async)** when:
 - Your application uses `asyncio` (FastAPI, Starlette, aiohttp)
 - You need to manage multiple concurrent agent sessions
 - You want non-blocking I/O
@@ -86,7 +86,7 @@ The `Agent` builder class is the same for both — it does not make HTTP calls, 
 
 ```python
 # Top-level client and types
-from agent import Agora, AsyncAgora, Area, Pool
+from agent import AgentClient, AsyncAgentClient, Area, Pool
 
 # Agentkit layer
 from agent.agentkit import Agent, AgentSession

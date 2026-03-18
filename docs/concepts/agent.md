@@ -89,11 +89,11 @@ agent = (
 Because each `with_*` call returns a new `Agent`, you can build a base configuration and create multiple sessions from it:
 
 ```python
-from agent import Agora, Area
+from agent import AgentClient, Area
 from agent.agentkit import Agent
 from agent.agentkit.vendors import AliyunLLM, MiniMaxTTS, FengmingSTT
 
-client = Agora(area=Area.CN, app_id='your-app-id', app_certificate='your-app-certificate')
+client = AgentClient(area=Area.CN, app_id='your-app-id', app_certificate='your-app-certificate')
 
 base = (
     Agent(instructions='你是一个智能助手。')
@@ -126,7 +126,7 @@ session = agent.create_session(
 
 | Parameter | Type | Required | Description |
 |---|---|---|---|
-| `client` | `Agora` or `AsyncAgora` | Yes | The authenticated client |
+| `client` | `AgentClient` or `AsyncAgentClient` | Yes | The authenticated client |
 | `channel` | `str` | Yes | Channel name |
 | `agent_uid` | `str` | Yes | UID for the agent in the channel |
 | `remote_uids` | `List[str]` | Yes | UIDs of remote participants to listen to |

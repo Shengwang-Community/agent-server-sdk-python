@@ -11,14 +11,14 @@ For full control over request payloads you can call the generated clients direct
 ## Cascading flow (ASR → LLM → TTS)
 
 ```python
-from agent import Agora, Area
+from agent import AgentClient, Area
 from agent.agents import (
     StartAgentsRequestProperties,
     StartAgentsRequestPropertiesAsr,
     StartAgentsRequestPropertiesLlm,
 )
 
-client = Agora(
+client = AgentClient(
     area=Area.CN,
     app_id="YOUR_APP_ID",
     app_certificate="YOUR_APP_CERTIFICATE",
@@ -55,14 +55,14 @@ client.agents.start(
 
 ```python
 import asyncio
-from agent import Area, AsyncAgora
+from agent import Area, AsyncAgentClient
 from agent.agents import (
     StartAgentsRequestProperties,
     StartAgentsRequestPropertiesAsr,
     StartAgentsRequestPropertiesLlm,
 )
 
-client = AsyncAgora(
+client = AsyncAgentClient(
     area=Area.CN,
     app_id="YOUR_APP_ID",
     app_certificate="YOUR_APP_CERTIFICATE",

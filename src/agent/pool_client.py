@@ -8,8 +8,8 @@ import typing
 
 import httpx
 
-from .client import Agora as BaseAgora
-from .client import AsyncAgora as BaseAsyncAgora
+from .client import AgentClient as BaseAgentClient
+from .client import AsyncAgentClient as BaseAsyncAgentClient
 from .core.api_error import ApiError
 from .core.domain import Area, Pool
 from .agentkit.token import generate_convo_ai_token
@@ -108,9 +108,9 @@ def _basic_auth_header(customer_id: str, customer_secret: str) -> str:
     return f"Basic {encoded}"
 
 
-class Agora(BaseAgora):
+class AgentClient(BaseAgentClient):
     """
-    Agora extends the base client with domain pool support for
+    AgentClient extends the base client with domain pool support for
     regional URL cycling and automatic domain selection.
 
     This client automatically:
@@ -124,10 +124,10 @@ class Agora(BaseAgora):
         The area to use for regional URL selection.
 
     app_id : str
-        Your Agora App ID.
+        Your App ID.
 
     app_certificate : str
-        Your Agora App Certificate.
+        Your App Certificate.
 
     customer_id : typing.Optional[str]
         Customer ID for Basic auth. When provided together with
@@ -172,18 +172,18 @@ class Agora(BaseAgora):
     Examples
     --------
     # App-credentials mode (auto token generation per request)
-    from agent import Agora, Area
+    from agent import AgentClient, Area
 
-    client = Agora(
+    client = AgentClient(
         area=Area.US,
         app_id="YOUR_APP_ID",
         app_certificate="YOUR_APP_CERTIFICATE",
     )
 
     # Basic auth mode
-    from agent import Agora, Area
+    from agent import AgentClient, Area
 
-    client = Agora(
+    client = AgentClient(
         area=Area.US,
         app_id="YOUR_APP_ID",
         app_certificate="YOUR_APP_CERTIFICATE",
@@ -192,11 +192,11 @@ class Agora(BaseAgora):
     )
 
     # Pre-built token mode (for debugging or custom token lifecycles)
-    from agent import Agora, Area
+    from agent import AgentClient, Area
     from agent.agentkit.token import generate_convo_ai_token
 
     raw_token = generate_convo_ai_token(app_id="...", app_certificate="...", channel_name="...", account="1")
-    client = Agora(
+    client = AgentClient(
         area=Area.US,
         app_id="YOUR_APP_ID",
         app_certificate="YOUR_APP_CERTIFICATE",
@@ -314,7 +314,7 @@ class Agora(BaseAgora):
         Example
         -------
         # End-call handler — no session reference needed
-        client = Agora(area=Area.US, app_id="...", app_certificate="...")
+        client = AgentClient(area=Area.US, app_id="...", app_certificate="...")
         client.stop_agent(agent_id)
         """
         request_options: typing.Optional[typing.Dict[str, typing.Any]] = None
@@ -335,9 +335,9 @@ class Agora(BaseAgora):
             raise
 
 
-class AsyncAgora(BaseAsyncAgora):
+class AsyncAgentClient(BaseAsyncAgentClient):
     """
-    AsyncAgora extends the base async client with domain pool support for
+    AsyncAgentClient extends the base async client with domain pool support for
     regional URL cycling and automatic domain selection.
 
     This client automatically:
@@ -351,10 +351,10 @@ class AsyncAgora(BaseAsyncAgora):
         The area to use for regional URL selection.
 
     app_id : str
-        Your Agora App ID.
+        Your App ID.
 
     app_certificate : str
-        Your Agora App Certificate.
+        Your App Certificate.
 
     customer_id : typing.Optional[str]
         Customer ID for Basic auth. When provided together with
@@ -390,23 +390,23 @@ class AsyncAgora(BaseAsyncAgora):
         custom httpx configuration.
 
     debug : bool
-        If True, log HTTP requests and responses. See ``Agora`` docstring.
+        If True, log HTTP requests and responses. See ``AgentClient`` docstring.
 
     Examples
     --------
     # App-credentials mode (auto token generation per request)
-    from agent import AsyncAgora, Area
+    from agent import AsyncAgentClient, Area
 
-    client = AsyncAgora(
+    client = AsyncAgentClient(
         area=Area.US,
         app_id="YOUR_APP_ID",
         app_certificate="YOUR_APP_CERTIFICATE",
     )
 
     # Basic auth mode
-    from agent import AsyncAgora, Area
+    from agent import AsyncAgentClient, Area
 
-    client = AsyncAgora(
+    client = AsyncAgentClient(
         area=Area.US,
         app_id="YOUR_APP_ID",
         app_certificate="YOUR_APP_CERTIFICATE",
@@ -525,7 +525,7 @@ class AsyncAgora(BaseAsyncAgora):
         Example
         -------
         # End-call handler — no session reference needed
-        client = AsyncAgora(area=Area.US, app_id="...", app_certificate="...")
+        client = AsyncAgentClient(area=Area.US, app_id="...", app_certificate="...")
         await client.stop_agent(agent_id)
         """
         request_options: typing.Optional[typing.Dict[str, typing.Any]] = None

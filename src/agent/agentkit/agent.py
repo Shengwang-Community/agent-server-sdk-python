@@ -417,7 +417,7 @@ class Agent:
         enable_string_uid: typing.Optional[bool] = None,
         expires_in: typing.Optional[int] = None,
     ) -> "AsyncAgentSession":
-        """Create an async session for use with :class:`~agent.AsyncAgora`.
+        """Create an async session for use with :class:`~agent.AsyncAgentClient`.
 
         Equivalent to :meth:`create_session` but returns an
         :class:`~agent.agentkit.AsyncAgentSession`.

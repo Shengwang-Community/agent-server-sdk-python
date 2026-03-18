@@ -11,9 +11,9 @@ description: Debug logging, raw response data, retries, timeouts, and custom htt
 Enable HTTP request/response logging by passing `debug=True` when creating the client. This logs each request (method, URL, headers, body preview) and response (status, headers) before and after it is sent. Authorization headers are redacted.
 
 ```python
-from agora_agent import Agora, Area
+from agent import AgentClient, Area
 
-client = Agora(
+client = AgentClient(
     area=Area.US,
     app_id="YOUR_APP_ID",
     app_certificate="YOUR_APP_CERTIFICATE",
@@ -38,9 +38,9 @@ logging.getLogger("agora_agent").setLevel(logging.DEBUG)
 Use `.with_raw_response` to get a client that returns raw responses with `.headers` and `.data`:
 
 ```python
-from agora_agent import Agora, Area
+from agent import AgentClient, Area
 
-client = Agora(
+client = AgentClient(
     area=Area.US,
     app_id="YOUR_APP_ID",
     app_certificate="YOUR_APP_CERTIFICATE",
@@ -69,7 +69,7 @@ client.agents.start(..., request_options={"max_retries": 1})
 Default timeout is 60 seconds. Set at the client or per request:
 
 ```python
-client = Agora(
+client = AgentClient(
     area=Area.US,
     app_id="YOUR_APP_ID",
     app_certificate="YOUR_APP_CERTIFICATE",
@@ -86,9 +86,9 @@ Pass a custom `httpx.Client` or `httpx.AsyncClient` for proxies, custom transpor
 
 ```python
 import httpx
-from agora_agent import Agora, Area
+from agent import AgentClient, Area
 
-client = Agora(
+client = AgentClient(
     area=Area.US,
     app_id="YOUR_APP_ID",
     app_certificate="YOUR_APP_CERTIFICATE",
@@ -99,4 +99,4 @@ client = Agora(
 )
 ```
 
-Use `httpx.AsyncClient()` when constructing an `AsyncAgora` client.
+Use `httpx.AsyncClient()` when constructing an `AsyncAgentClient` client.

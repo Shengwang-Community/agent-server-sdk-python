@@ -27,11 +27,11 @@ Additionally, if the TTS `sample_rate` is not explicitly set (returns `None`), t
 ## Sensetime Avatar
 
 ```python
-from agent import Agora, Area
+from agent import AgentClient, Area
 from agent.agentkit import Agent
 from agent.agentkit.vendors import AliyunLLM, MiniMaxTTS, FengmingSTT, SensetimeAvatar
 
-client = Agora(
+client = AgentClient(
     area=Area.CN,
     app_id='your-app-id',
     app_certificate='your-app-certificate',

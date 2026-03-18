@@ -70,14 +70,14 @@ class AgentsClient:
 
         Examples
         --------
-        from agent import Agora, MicrosoftTtsParams, Tts_Microsoft
+        from agent import AgentClient, MicrosoftTtsParams, Tts_Microsoft
         from agent.agents import (
             StartAgentsRequestProperties,
             StartAgentsRequestPropertiesAsr,
             StartAgentsRequestPropertiesLlm,
         )
 
-        client = Agora(
+        client = AgentClient(
             authorization="YOUR_AUTHORIZATION",
             username="YOUR_USERNAME",
             password="YOUR_PASSWORD",
@@ -173,9 +173,9 @@ class AgentsClient:
 
         Examples
         --------
-        from agent import Agora
+        from agent import AgentClient
 
-        client = Agora(
+        client = AgentClient(
             authorization="YOUR_AUTHORIZATION",
             username="YOUR_USERNAME",
             password="YOUR_PASSWORD",
@@ -224,9 +224,9 @@ class AgentsClient:
 
         Examples
         --------
-        from agent import Agora
+        from agent import AgentClient
 
-        client = Agora(
+        client = AgentClient(
             authorization="YOUR_AUTHORIZATION",
             username="YOUR_USERNAME",
             password="YOUR_PASSWORD",
@@ -265,9 +265,9 @@ class AgentsClient:
 
         Examples
         --------
-        from agent import Agora
+        from agent import AgentClient
 
-        client = Agora(
+        client = AgentClient(
             authorization="YOUR_AUTHORIZATION",
             username="YOUR_USERNAME",
             password="YOUR_PASSWORD",
@@ -301,9 +301,9 @@ class AgentsClient:
 
         Examples
         --------
-        from agent import Agora
+        from agent import AgentClient
 
-        client = Agora(
+        client = AgentClient(
             authorization="YOUR_AUTHORIZATION",
             username="YOUR_USERNAME",
             password="YOUR_PASSWORD",
@@ -348,13 +348,13 @@ class AgentsClient:
 
         Examples
         --------
-        from agent import Agora
+        from agent import AgentClient
         from agent.agents import (
             UpdateAgentsRequestProperties,
             UpdateAgentsRequestPropertiesLlm,
         )
 
-        client = Agora(
+        client = AgentClient(
             authorization="YOUR_AUTHORIZATION",
             username="YOUR_USERNAME",
             password="YOUR_PASSWORD",
@@ -432,9 +432,9 @@ class AgentsClient:
 
         Examples
         --------
-        from agent import Agora
+        from agent import AgentClient
 
-        client = Agora(
+        client = AgentClient(
             authorization="YOUR_AUTHORIZATION",
             username="YOUR_USERNAME",
             password="YOUR_PASSWORD",
@@ -476,9 +476,9 @@ class AgentsClient:
 
         Examples
         --------
-        from agent import Agora
+        from agent import AgentClient
 
-        client = Agora(
+        client = AgentClient(
             authorization="YOUR_AUTHORIZATION",
             username="YOUR_USERNAME",
             password="YOUR_PASSWORD",
@@ -541,14 +541,14 @@ class AsyncAgentsClient:
         --------
         import asyncio
 
-        from agent import AsyncAgora, MicrosoftTtsParams, Tts_Microsoft
+        from agent import AsyncAgentClient, MicrosoftTtsParams, Tts_Microsoft
         from agent.agents import (
             StartAgentsRequestProperties,
             StartAgentsRequestPropertiesAsr,
             StartAgentsRequestPropertiesLlm,
         )
 
-        client = AsyncAgora(
+        client = AsyncAgentClient(
             authorization="YOUR_AUTHORIZATION",
             username="YOUR_USERNAME",
             password="YOUR_PASSWORD",
@@ -654,9 +654,9 @@ class AsyncAgentsClient:
         --------
         import asyncio
 
-        from agent import AsyncAgora
+        from agent import AsyncAgentClient
 
-        client = AsyncAgora(
+        client = AsyncAgentClient(
             authorization="YOUR_AUTHORIZATION",
             username="YOUR_USERNAME",
             password="YOUR_PASSWORD",
@@ -714,9 +714,9 @@ class AsyncAgentsClient:
         --------
         import asyncio
 
-        from agent import AsyncAgora
+        from agent import AsyncAgentClient
 
-        client = AsyncAgora(
+        client = AsyncAgentClient(
             authorization="YOUR_AUTHORIZATION",
             username="YOUR_USERNAME",
             password="YOUR_PASSWORD",
@@ -763,9 +763,9 @@ class AsyncAgentsClient:
         --------
         import asyncio
 
-        from agent import AsyncAgora
+        from agent import AsyncAgentClient
 
-        client = AsyncAgora(
+        client = AsyncAgentClient(
             authorization="YOUR_AUTHORIZATION",
             username="YOUR_USERNAME",
             password="YOUR_PASSWORD",
@@ -807,9 +807,9 @@ class AsyncAgentsClient:
         --------
         import asyncio
 
-        from agent import AsyncAgora
+        from agent import AsyncAgentClient
 
-        client = AsyncAgora(
+        client = AsyncAgentClient(
             authorization="YOUR_AUTHORIZATION",
             username="YOUR_USERNAME",
             password="YOUR_PASSWORD",
@@ -862,13 +862,13 @@ class AsyncAgentsClient:
         --------
         import asyncio
 
-        from agent import AsyncAgora
+        from agent import AsyncAgentClient
         from agent.agents import (
             UpdateAgentsRequestProperties,
             UpdateAgentsRequestPropertiesLlm,
         )
 
-        client = AsyncAgora(
+        client = AsyncAgentClient(
             authorization="YOUR_AUTHORIZATION",
             username="YOUR_USERNAME",
             password="YOUR_PASSWORD",
@@ -956,9 +956,9 @@ class AsyncAgentsClient:
         --------
         import asyncio
 
-        from agent import AsyncAgora
+        from agent import AsyncAgentClient
 
-        client = AsyncAgora(
+        client = AsyncAgentClient(
             authorization="YOUR_AUTHORIZATION",
             username="YOUR_USERNAME",
             password="YOUR_PASSWORD",
@@ -1008,9 +1008,9 @@ class AsyncAgentsClient:
         --------
         import asyncio
 
-        from agent import AsyncAgora
+        from agent import AsyncAgentClient
 
-        client = AsyncAgora(
+        client = AsyncAgentClient(
             authorization="YOUR_AUTHORIZATION",
             username="YOUR_USERNAME",
             password="YOUR_PASSWORD",

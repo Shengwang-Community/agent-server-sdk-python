@@ -58,7 +58,7 @@ Used with `agent.with_stt()`.
 
 | Class | Provider | Required Parameters |
 |---|---|---|
-| `FengmingSTT` | Agora Fengming ASR | — (all optional) |
+| `FengmingSTT` | Fengming ASR | — (all optional) |
 | `TencentSTT` | Tencent | `app_id`, `secret_id`, `secret_key` |
 | `MicrosoftSTT` | Microsoft Azure | `key`, `region` |
 | `XfyunSTT` | Xfyun (iFlytek) | `app_id`, `api_key` |

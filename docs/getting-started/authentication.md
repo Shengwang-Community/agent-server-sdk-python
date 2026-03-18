@@ -15,9 +15,9 @@ Pass your App ID and App Certificate. The SDK generates a fresh ConvoAI token (c
 ### Sync
 
 ```python
-from agent import Agora, Area
+from agent import AgentClient, Area
 
-client = Agora(
+client = AgentClient(
     area=Area.CN,
     app_id='your-app-id',
     app_certificate='your-app-certificate',
@@ -27,9 +27,9 @@ client = Agora(
 ### Async
 
 ```python
-from agent import AsyncAgora, Area
+from agent import AsyncAgentClient, Area
 
-client = AsyncAgora(
+client = AsyncAgentClient(
     area=Area.CN,
     app_id='your-app-id',
     app_certificate='your-app-certificate',
@@ -43,9 +43,9 @@ Use your customer ID and customer secret. The SDK sends `Authorization: Basic ba
 ### Sync
 
 ```python
-from agent import Agora, Area
+from agent import AgentClient, Area
 
-client = Agora(
+client = AgentClient(
     area=Area.CN,
     app_id='your-app-id',
     app_certificate='your-app-certificate',
@@ -57,9 +57,9 @@ client = Agora(
 ### Async
 
 ```python
-from agent import AsyncAgora, Area
+from agent import AsyncAgentClient, Area
 
-client = AsyncAgora(
+client = AsyncAgentClient(
     area=Area.CN,
     app_id='your-app-id',
     app_certificate='your-app-certificate',
@@ -73,7 +73,7 @@ client = AsyncAgora(
 Pass a manually generated `agora token=...` string via `auth_token`. Use this for debugging or when you want to control the REST API token lifecycle yourself:
 
 ```python
-from agent import Agora, Area
+from agent import AgentClient, Area
 from agent.agentkit.token import generate_convo_ai_token
 
 raw_token = generate_convo_ai_token(
@@ -83,7 +83,7 @@ raw_token = generate_convo_ai_token(
     account='1',
 )
 
-client = Agora(
+client = AgentClient(
     area=Area.CN,
     app_id='your-app-id',
     app_certificate='your-app-certificate',

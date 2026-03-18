@@ -29,7 +29,7 @@ For string values with a finite set of options (e.g. `data_channel`, `sal_mode`,
 SAL helps the agent focus on the primary speaker and suppress background noise. Enable it via `advanced_features` and configure with `with_sal`:
 
 ```python
-from agent import Agora, Area
+from agent import AgentClient, Area
 from agent.agentkit import Agent, AdvancedFeatures, SalConfig, SalModeValues
 from agent.agentkit.vendors import AliyunLLM, MiniMaxTTS, FengmingSTT
 
@@ -254,7 +254,7 @@ agent.config         # Full read-only snapshot
 ## Chaining All Features
 
 ```python
-from agent import Agora, Area
+from agent import AgentClient, Area
 from agent.agentkit import (
     Agent,
     AdvancedFeatures,
@@ -274,7 +274,7 @@ from agent.agentkit import (
 )
 from agent.agentkit.vendors import AliyunLLM, MiniMaxTTS, FengmingSTT
 
-client = Agora(
+client = AgentClient(
     area=Area.CN,
     app_id='your-app-id',
     app_certificate='your-app-certificate',

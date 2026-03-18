@@ -13,12 +13,12 @@ This guide walks you through building a voice agent using the cascading flow (AS
 This complete script creates an agent with Aliyun for the LLM, MiniMax for TTS, and Fengming for STT:
 
 ```python
-from agent import Agora, Area
+from agent import AgentClient, Area
 from agent.agentkit import Agent
 from agent.agentkit.vendors import AliyunLLM, MiniMaxTTS, FengmingSTT
 
 # 1. Create a client with app credentials
-client = Agora(
+client = AgentClient(
     area=Area.CN,
     app_id='your-app-id',
     app_certificate='your-app-certificate',
@@ -52,17 +52,17 @@ print('Agent stopped.')
 
 ## Async Example
 
-For async applications, use `AsyncAgora` for the client. All session methods become coroutines that require `await`:
+For async applications, use `AsyncAgentClient` for the client. All session methods become coroutines that require `await`:
 
 ```python
 import asyncio
-from agent import AsyncAgora, Area
+from agent import AsyncAgentClient, Area
 from agent.agentkit import Agent
 from agent.agentkit.vendors import AliyunLLM, MiniMaxTTS, FengmingSTT
 
 async def main():
     # 1. Create an async client
-    client = AsyncAgora(
+    client = AsyncAgentClient(
         area=Area.CN,
         app_id='your-app-id',
         app_certificate='your-app-certificate',

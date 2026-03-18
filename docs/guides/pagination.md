@@ -9,9 +9,9 @@ description: Iterate over paginated list endpoints.
 Paginated requests return a `SyncPager` or `AsyncPager` that you can iterate over.
 
 ```python
-from agent import Agora, Area
+from agent import AgentClient, Area
 
-client = Agora(
+client = AgentClient(
     area=Area.CN,
     app_id="YOUR_APP_ID",
     app_certificate="YOUR_APP_CERTIFICATE",
@@ -31,4 +31,4 @@ for page in response.iter_pages():
         print(item)
 ```
 
-With `AsyncAgora`, use `async for` when iterating over an async pager.
+With `AsyncAgentClient`, use `async for` when iterating over an async pager.

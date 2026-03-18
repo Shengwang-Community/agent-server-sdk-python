@@ -203,10 +203,10 @@ class AgentSession(_AgentSessionBase):
 
     Examples
     --------
-    >>> from agent import Agora, Area
+    >>> from agent import AgentClient, Area
     >>> from agent.agentkit import Agent
     >>>
-    >>> client = Agora(area=Area.US, app_id="...", app_certificate="...")
+    >>> client = AgentClient(area=Area.US, app_id="...", app_certificate="...")
     >>> agent = Agent(name="assistant", instructions="You are a helpful voice assistant.")
     >>> from agent.agentkit.vendors import AliyunLLM, MiniMaxTTS
     >>> agent = agent.with_llm(AliyunLLM(url="https://...", api_key="...")).with_tts(MiniMaxTTS(key="...", model="speech-01-turbo", voice_setting={"voice_id": "female-shaonv"}))
@@ -388,17 +388,17 @@ class AgentSession(_AgentSessionBase):
 
 
 class AsyncAgentSession(_AgentSessionBase):
-    """Async version of :class:`AgentSession` for use with :class:`AsyncAgora`.
+    """Async version of :class:`AgentSession` for use with :class:`AsyncAgentClient`.
 
     Use :meth:`Agent.create_async_session` to create a session — this is the
     recommended entry point.
 
     Examples
     --------
-    >>> from agent import AsyncAgora, Area
+    >>> from agent import AsyncAgentClient, Area
     >>> from agent.agentkit import Agent
     >>>
-    >>> client = AsyncAgora(area=Area.US, app_id="...", app_certificate="...")
+    >>> client = AsyncAgentClient(area=Area.US, app_id="...", app_certificate="...")
     >>> agent = Agent(name="assistant", instructions="You are helpful.")
     >>> from agent.agentkit.vendors import AliyunLLM, MiniMaxTTS
     >>> agent = agent.with_llm(AliyunLLM(url="https://...", api_key="...")).with_tts(MiniMaxTTS(key="...", model="speech-01-turbo", voice_setting={"voice_id": "female-shaonv"}))

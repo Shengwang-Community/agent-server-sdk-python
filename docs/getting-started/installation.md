@@ -36,15 +36,15 @@ The following packages are installed automatically:
 
 The SDK supports both synchronous and asynchronous usage:
 
-- **Synchronous** — import `Agora` from `agent` and use blocking method calls
-- **Asynchronous** — import `AsyncAgora` and `AsyncAgentSession` from `agent` and use `await` with all API calls
+- **Synchronous** — import `AgentClient` from `agent` and use blocking method calls
+- **Asynchronous** — import `AsyncAgentClient` and `AsyncAgentSession` from `agent` and use `await` with all API calls
 
 ```python
 # Sync
-from agent import Agora, Area
+from agent import AgentClient, Area
 
 # Async
-from agent import AsyncAgora, AsyncAgentSession, Area
+from agent import AsyncAgentClient, AsyncAgentSession, Area
 ```
 
 Both clients share the same constructor parameters and capabilities. See [Authentication](./authentication.md) for setup details.

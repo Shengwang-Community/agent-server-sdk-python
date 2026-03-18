@@ -34,11 +34,11 @@ You can check the current state with `session.status`.
 Use `Agent.create_session()` to create a session:
 
 ```python
-from agent import Agora, Area
+from agent import AgentClient, Area
 from agent.agentkit import Agent
 from agent.agentkit.vendors import AliyunLLM, MiniMaxTTS, FengmingSTT
 
-client = Agora(area=Area.CN, app_id='your-app-id', app_certificate='your-app-certificate')
+client = AgentClient(area=Area.CN, app_id='your-app-id', app_certificate='your-app-certificate')
 
 agent = (
     Agent(name='my-agent', instructions='你是一个智能助手。')
