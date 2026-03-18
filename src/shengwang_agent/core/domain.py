@@ -36,6 +36,7 @@ CN_EAST_REGION_DOMAIN_PREFIX = "api-cn-east-1"
 CN_NORTH_REGION_DOMAIN_PREFIX = "api-cn-north-1"
 
 API_PATH_SUFFIX = "/api/conversational-ai-agent"
+CN_API_PATH_SUFFIX = "/cn/api/conversational-ai-agent"
 
 
 class Domain:
@@ -61,8 +62,8 @@ REGION_DOMAIN = {
         [OVERSEA_MAJOR_DOMAIN, CHINESE_MAINLAND_MAJOR_DOMAIN],
     ),
     Area.CN: Domain(
-        [CN_EAST_REGION_DOMAIN_PREFIX, CN_NORTH_REGION_DOMAIN_PREFIX],
-        [CHINESE_MAINLAND_MAJOR_DOMAIN, OVERSEA_MAJOR_DOMAIN],
+        [GLOBAL_DOMAIN_PREFIX],
+        [OVERSEA_MAJOR_DOMAIN],
     ),
 }
 
@@ -192,7 +193,8 @@ class Pool:
         with self._lock:
             current_region = self._current_region_prefixes[0]
             current_domain = self._current_domain
-            return f"https://{current_region}.{current_domain}{API_PATH_SUFFIX}"
+            path_suffix = CN_API_PATH_SUFFIX if self._domain_area == Area.CN else API_PATH_SUFFIX
+            return f"https://{current_region}.{current_domain}{path_suffix}"
 
     def get_area(self) -> Area:
         """Get the current area"""
