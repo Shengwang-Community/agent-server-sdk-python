@@ -11,6 +11,7 @@ class MiniMaxTTSOptions(BaseModel):
     key: str = Field(..., description="Minimax API key")
     model: str = Field(..., description="TTS model (e.g., speech-01-turbo)")
     voice_setting: Dict[str, Any] = Field(..., description="Voice settings (voice_id, speed, vol, pitch, emotion, etc.)")
+    url: str = Field(default="wss://api.minimax.chat/ws/v1/t2a_v2", description="WebSocket endpoint")
     group_id: Optional[str] = Field(default=None, description="Minimax group ID")
     audio_setting: Optional[Dict[str, Any]] = Field(default=None, description="Audio settings (sample_rate, etc.)")
     pronunciation_dict: Optional[Dict[str, Any]] = Field(default=None, description="Pronunciation dictionary")
@@ -18,7 +19,7 @@ class MiniMaxTTSOptions(BaseModel):
     skip_patterns: Optional[List[int]] = Field(default=None)
 
     class Config:
-        extra = "forbid"
+        extra = "allow"
 
 
 class MiniMaxTTS(BaseTTS):
@@ -36,6 +37,7 @@ class MiniMaxTTS(BaseTTS):
             "key": self.options.key,
             "model": self.options.model,
             "voice_setting": self.options.voice_setting,
+            "url": self.options.url,
         }
         if self.options.group_id is not None:
             params["group_id"] = self.options.group_id
@@ -45,6 +47,8 @@ class MiniMaxTTS(BaseTTS):
             params["pronunciation_dict"] = self.options.pronunciation_dict
         if self.options.language_boost is not None:
             params["language_boost"] = self.options.language_boost
+        if self.options.model_extra:
+            params.update(self.options.model_extra)
 
         result: Dict[str, Any] = {"vendor": "minimax", "params": params}
         if self.options.skip_patterns is not None:
@@ -66,7 +70,7 @@ class TencentTTSOptions(BaseModel):
     skip_patterns: Optional[List[int]] = Field(default=None)
 
     class Config:
-        extra = "forbid"
+        extra = "allow"
 
 
 class TencentTTS(BaseTTS):
@@ -92,6 +96,8 @@ class TencentTTS(BaseTTS):
             params["emotion_category"] = self.options.emotion_category
         if self.options.emotion_intensity is not None:
             params["emotion_intensity"] = self.options.emotion_intensity
+        if self.options.model_extra:
+            params.update(self.options.model_extra)
 
         result: Dict[str, Any] = {"vendor": "tencent", "params": params}
         if self.options.skip_patterns is not None:
@@ -113,7 +119,7 @@ class BytedanceTTSOptions(BaseModel):
     skip_patterns: Optional[List[int]] = Field(default=None)
 
     class Config:
-        extra = "forbid"
+        extra = "allow"
 
 
 class BytedanceTTS(BaseTTS):
@@ -140,6 +146,8 @@ class BytedanceTTS(BaseTTS):
             params["pitch_ratio"] = self.options.pitch_ratio
         if self.options.emotion is not None:
             params["emotion"] = self.options.emotion
+        if self.options.model_extra:
+            params.update(self.options.model_extra)
 
         result: Dict[str, Any] = {"vendor": "bytedance", "params": params}
         if self.options.skip_patterns is not None:
@@ -159,7 +167,7 @@ class MicrosoftTTSOptions(BaseModel):
     skip_patterns: Optional[List[int]] = Field(default=None)
 
     class Config:
-        extra = "forbid"
+        extra = "allow"
 
 
 class MicrosoftTTS(BaseTTS):
@@ -182,6 +190,8 @@ class MicrosoftTTS(BaseTTS):
             params["volume"] = self.options.volume
         if self.options.sample_rate is not None:
             params["sample_rate"] = self.options.sample_rate
+        if self.options.model_extra:
+            params.update(self.options.model_extra)
 
         result: Dict[str, Any] = {"vendor": "microsoft", "params": params}
         if self.options.skip_patterns is not None:
@@ -199,7 +209,7 @@ class CosyVoiceTTSOptions(BaseModel):
     skip_patterns: Optional[List[int]] = Field(default=None)
 
     class Config:
-        extra = "forbid"
+        extra = "allow"
 
 
 class CosyVoiceTTS(BaseTTS):
@@ -218,6 +228,8 @@ class CosyVoiceTTS(BaseTTS):
         }
         if self.options.sample_rate is not None:
             params["sample_rate"] = self.options.sample_rate
+        if self.options.model_extra:
+            params.update(self.options.model_extra)
 
         result: Dict[str, Any] = {"vendor": "cosyvoice", "params": params}
         if self.options.skip_patterns is not None:
@@ -234,7 +246,7 @@ class BytedanceDuplexTTSOptions(BaseModel):
     skip_patterns: Optional[List[int]] = Field(default=None)
 
     class Config:
-        extra = "forbid"
+        extra = "allow"
 
 
 class BytedanceDuplexTTS(BaseTTS):
@@ -251,6 +263,8 @@ class BytedanceDuplexTTS(BaseTTS):
             "token": self.options.token,
             "speaker": self.options.speaker,
         }
+        if self.options.model_extra:
+            params.update(self.options.model_extra)
 
         result: Dict[str, Any] = {"vendor": "bytedance_duplex", "params": params}
         if self.options.skip_patterns is not None:
@@ -267,7 +281,7 @@ class StepFunTTSOptions(BaseModel):
     skip_patterns: Optional[List[int]] = Field(default=None)
 
     class Config:
-        extra = "forbid"
+        extra = "allow"
 
 
 class StepFunTTS(BaseTTS):
@@ -284,6 +298,8 @@ class StepFunTTS(BaseTTS):
             "model": self.options.model,
             "voice_id": self.options.voice_id,
         }
+        if self.options.model_extra:
+            params.update(self.options.model_extra)
 
         result: Dict[str, Any] = {"vendor": "stepfun", "params": params}
         if self.options.skip_patterns is not None:
