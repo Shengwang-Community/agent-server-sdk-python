@@ -1,12 +1,12 @@
 ---
 sidebar_position: 1
 title: Overview
-description: The Agora Conversational AI Python SDK — install, concepts, and examples.
+description: The Conversational AI Python SDK — install, concepts, and examples.
 ---
 
-# Agora Conversational AI Python SDK
+# Conversational AI Python SDK
 
-The Agora Conversational AI Python SDK lets you build voice-powered AI agents that combine speech recognition, large language models, text-to-speech, and optional digital avatars — all routed through Agora's global real-time network.
+The Conversational AI Python SDK lets you build voice-powered AI agents that combine speech recognition, large language models, text-to-speech, and optional digital avatars — all routed through Agora's global real-time network.
 
 ## Sync and Async Clients
 
@@ -25,7 +25,7 @@ Speech-to-text transcribes audio, a text LLM generates a response, and text-to-s
 
 ### MLLM Flow (Multimodal LLM)
 
-A multimodal model like OpenAI Realtime or Vertex AI Gemini Live handles audio input and output end-to-end, with no separate STT/TTS step.
+A multimodal model handles audio input and output end-to-end, with no separate STT/TTS step. (Not yet available in the domestic API.)
 
 ## Two-Layer Architecture
 
@@ -41,7 +41,7 @@ A multimodal model like OpenAI Realtime or Vertex AI Gemini Live handles audio i
 +--------------------------------------------------+
 ```
 
-The **agentkit layer** (`agora_agent.agentkit`) is the primary developer-facing API. It provides the `Agent` builder, `AgentSession` lifecycle, typed vendor classes, and token helpers. You rarely need to use the Fern-generated layer directly, but it is accessible via `session.raw` when needed.
+The **agentkit layer** (`agent.agentkit`) is the primary developer-facing API. It provides the `Agent` builder, `AgentSession` lifecycle, typed vendor classes, and token helpers. You rarely need to use the Fern-generated layer directly, but it is accessible via `session.raw` when needed.
 
 ## Navigation
 
@@ -53,10 +53,10 @@ The **agentkit layer** (`agora_agent.agentkit`) is the primary developer-facing 
 | [Architecture](./concepts/architecture.md) | Understand the SDK layers and client types |
 | [Agent](./concepts/agent.md) | Configure agents with the fluent builder |
 | [AgentSession](./concepts/session.md) | Manage the agent lifecycle |
-| [Vendors](./concepts/vendors.md) | Browse all LLM, TTS, STT, MLLM, and Avatar providers |
+| [Vendors](./concepts/vendors.md) | Browse all LLM, TTS, STT, and Avatar providers |
 | [Cascading Flow](./guides/cascading-flow.md) | Build an ASR → LLM → TTS pipeline |
-| [MLLM Flow](./guides/mllm-flow.md) | Use OpenAI Realtime or Vertex AI for end-to-end audio |
-| [Avatars](./guides/avatars.md) | Add a digital avatar with HeyGen or Akool |
+| [MLLM Flow](./guides/mllm-flow.md) | Multimodal flow (reserved for future) |
+| [Avatars](./guides/avatars.md) | Add a digital avatar with Sensetime |
 | [Regional Routing](./guides/regional-routing.md) | Route requests to the nearest region |
 | [Error Handling](./guides/error-handling.md) | Handle API errors with ApiError |
 | [Pagination](./guides/pagination.md) | Iterate over paginated list endpoints |

@@ -6,22 +6,20 @@ description: Direct client.agents.start() usage without the builder pattern.
 
 # Low-Level API
 
-For full control over request payloads you can call the generated clients directly and pass raw types such as `StartAgentsRequestProperties`, `Tts_Elevenlabs`, and `StartAgentsRequestPropertiesAsr`. Use this when you need vendor or options not exposed by the agentkit, or when integrating with generated types from the API spec.
+For full control over request payloads you can call the generated clients directly and pass raw types such as `StartAgentsRequestProperties`. Use this when you need vendor or options not exposed by the agentkit, or when integrating with generated types from the API spec.
 
 ## Cascading flow (ASR → LLM → TTS)
 
 ```python
-from agora_agent import Agora, Area
-from agora_agent.agents import (
+from agent import Agora, Area
+from agent.agents import (
     StartAgentsRequestProperties,
     StartAgentsRequestPropertiesAsr,
     StartAgentsRequestPropertiesLlm,
 )
-from agora_agent.types.eleven_labs_tts_params import ElevenLabsTtsParams
-from agora_agent.types.tts import Tts_Elevenlabs
 
 client = Agora(
-    area=Area.US,
+    area=Area.CN,
     app_id="YOUR_APP_ID",
     app_certificate="YOUR_APP_CERTIFICATE",
 )
@@ -35,28 +33,19 @@ client.agents.start(
         remote_rtc_uids=["1002"],
         idle_timeout=120,
         asr=StartAgentsRequestPropertiesAsr(
-            language="en-US",
-            vendor="deepgram",
-            params={"api_key": "YOUR_DEEPGRAM_API_KEY"},
-        ),
-        tts=Tts_Elevenlabs(
-            params=ElevenLabsTtsParams(
-                key="YOUR_ELEVENLABS_API_KEY",
-                model_id="eleven_flash_v2_5",
-                voice_id="pNInz6obpgDQGcFmaJgB",
-                sample_rate=24000,
-            ),
+            language="zh-CN",
+            vendor="fengming",
         ),
         llm=StartAgentsRequestPropertiesLlm(
-            url="https://api.openai.com/v1/chat/completions",
+            url="https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions",
             api_key="<your_llm_key>",
             system_messages=[
-                {"role": "system", "content": "You are a helpful chatbot."}
+                {"role": "system", "content": "你是一个智能助手。"}
             ],
-            params={"model": "gpt-4o-mini"},
+            params={"model": "qwen-max"},
             max_history=32,
-            greeting_message="Hello, how can I assist you today?",
-            failure_message="Please hold on a second.",
+            greeting_message="你好，有什么可以帮助你的？",
+            failure_message="请稍等一下。",
         ),
     ),
 )
@@ -66,17 +55,15 @@ client.agents.start(
 
 ```python
 import asyncio
-from agora_agent import Area, AsyncAgora
-from agora_agent.agents import (
+from agent import Area, AsyncAgora
+from agent.agents import (
     StartAgentsRequestProperties,
     StartAgentsRequestPropertiesAsr,
     StartAgentsRequestPropertiesLlm,
 )
-from agora_agent.types.eleven_labs_tts_params import ElevenLabsTtsParams
-from agora_agent.types.tts import Tts_Elevenlabs
 
 client = AsyncAgora(
-    area=Area.US,
+    area=Area.CN,
     app_id="YOUR_APP_ID",
     app_certificate="YOUR_APP_CERTIFICATE",
 )
@@ -92,28 +79,19 @@ async def main() -> None:
             remote_rtc_uids=["1002"],
             idle_timeout=120,
             asr=StartAgentsRequestPropertiesAsr(
-                language="en-US",
-                vendor="deepgram",
-                params={"api_key": "YOUR_DEEPGRAM_API_KEY"},
-            ),
-            tts=Tts_Elevenlabs(
-                params=ElevenLabsTtsParams(
-                    key="YOUR_ELEVENLABS_API_KEY",
-                    model_id="eleven_flash_v2_5",
-                    voice_id="pNInz6obpgDQGcFmaJgB",
-                    sample_rate=24000,
-                ),
+                language="zh-CN",
+                vendor="fengming",
             ),
             llm=StartAgentsRequestPropertiesLlm(
-                url="https://api.openai.com/v1/chat/completions",
+                url="https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions",
                 api_key="<your_llm_key>",
                 system_messages=[
-                    {"role": "system", "content": "You are a helpful chatbot."}
+                    {"role": "system", "content": "你是一个智能助手。"}
                 ],
-                params={"model": "gpt-4o-mini"},
+                params={"model": "qwen-max"},
                 max_history=32,
-                greeting_message="Hello, how can I assist you today?",
-                failure_message="Please hold on a second.",
+                greeting_message="你好，有什么可以帮助你的？",
+                failure_message="请稍等一下。",
             ),
         ),
     )
@@ -121,68 +99,4 @@ async def main() -> None:
 asyncio.run(main())
 ```
 
-## MLLM flow (multimodal)
-
-For real-time audio with OpenAI Realtime or Google Gemini Live, use the MLLM flow instead of the cascading ASR → LLM → TTS flow. See the [MLLM Overview](https://docs.agora.io/en/conversational-ai/models/mllm/overview).
-
-```python
-from agora_agent import Agora, Area
-from agora_agent.agentkit import (
-    AdvancedFeatures,
-    TurnDetectionConfig,
-    TurnDetectionTypeValues,
-)
-from agora_agent.agents import (
-    StartAgentsRequestProperties,
-    StartAgentsRequestPropertiesMllm,
-    StartAgentsRequestPropertiesMllmVendor,
-    StartAgentsRequestPropertiesTts,
-    StartAgentsRequestPropertiesTtsVendor,
-    StartAgentsRequestPropertiesLlm,
-)
-
-client = Agora(
-    area=Area.US,
-    app_id="YOUR_APP_ID",
-    app_certificate="YOUR_APP_CERTIFICATE",
-)
-
-client.agents.start(
-    client.app_id,
-    name="mllm_agent",
-    properties=StartAgentsRequestProperties(
-        channel="channel_name",
-        token="your_token",
-        agent_rtc_uid="1001",
-        remote_rtc_uids=["1002"],
-        idle_timeout=120,
-        advanced_features=AdvancedFeatures(enable_mllm=True),
-        mllm=StartAgentsRequestPropertiesMllm(
-            url="wss://api.openai.com/v1/realtime",
-            api_key="<your_openai_api_key>",
-            vendor=StartAgentsRequestPropertiesMllmVendor.OPENAI,
-            params={
-                "model": "gpt-4o-realtime-preview",
-                "voice": "alloy",
-            },
-            input_modalities=["audio"],
-            output_modalities=["text", "audio"],
-            greeting_message="Hello! I'm ready to chat in real-time.",
-        ),
-        turn_detection=TurnDetectionConfig(
-            type=TurnDetectionTypeValues.SERVER_VAD,  # deprecated; use config.end_of_speech instead
-            threshold=0.5,
-            silence_duration_ms=500,
-        ),
-        tts=StartAgentsRequestPropertiesTts(
-            vendor=StartAgentsRequestPropertiesTtsVendor.ELEVENLABS,
-            params={},
-        ),
-        llm=StartAgentsRequestPropertiesLlm(
-            url="https://api.openai.com/v1/chat/completions",
-        ),
-    ),
-)
-```
-
-For more on the agentkit-based MLLM flow, see [MLLM Flow](./mllm-flow.md).
+For more on the agentkit-based flow, see [Cascading Flow](./cascading-flow.md).

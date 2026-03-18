@@ -6,7 +6,7 @@ description: Full API reference for the Python Agent builder class.
 
 # Agent Reference
 
-**Import:** `from agora_agent.agentkit import Agent` or `from agora_agent import Agent`
+**Import:** `from agent.agentkit import Agent` or `from agent import Agent`
 
 ## Constructor
 
@@ -53,8 +53,8 @@ All builder methods return a new `Agent` instance (immutable pattern).
 Set the LLM vendor for cascading flow.
 
 ```python
-from agora_agent.agentkit.vendors import OpenAI
-agent = Agent().with_llm(OpenAI(api_key='your-key', model='gpt-4o-mini'))
+from agent.agentkit.vendors import AliyunLLM
+agent = Agent().with_llm(AliyunLLM(api_key='your-key', model='qwen-max'))
 ```
 
 ### `with_tts(vendor: BaseTTS) -> Agent`
@@ -62,8 +62,8 @@ agent = Agent().with_llm(OpenAI(api_key='your-key', model='gpt-4o-mini'))
 Set the TTS vendor. Records the vendor's `sample_rate` for avatar validation.
 
 ```python
-from agora_agent.agentkit.vendors import ElevenLabsTTS
-agent = Agent().with_tts(ElevenLabsTTS(key='your-key', model_id='eleven_flash_v2_5', voice_id='your-voice-id'))
+from agent.agentkit.vendors import MiniMaxTTS
+agent = Agent().with_tts(MiniMaxTTS(key='your-key', voice_id='your-voice-id'))
 ```
 
 ### `with_stt(vendor: BaseSTT) -> Agent`
@@ -71,8 +71,8 @@ agent = Agent().with_tts(ElevenLabsTTS(key='your-key', model_id='eleven_flash_v2
 Set the STT (ASR) vendor.
 
 ```python
-from agora_agent.agentkit.vendors import DeepgramSTT
-agent = Agent().with_stt(DeepgramSTT(api_key='your-key', language='en-US'))
+from agent.agentkit.vendors import FengmingSTT
+agent = Agent().with_stt(FengmingSTT(language='zh-CN'))
 ```
 
 ### `with_mllm(vendor: BaseMLLM) -> Agent`
@@ -80,9 +80,8 @@ agent = Agent().with_stt(DeepgramSTT(api_key='your-key', language='en-US'))
 Set the MLLM vendor for multimodal flow. Requires `AdvancedFeatures(enable_mllm=True)`.
 
 ```python
-from agora_agent.agentkit import AdvancedFeatures
-from agora_agent.agentkit.vendors import OpenAIRealtime
-agent = Agent(advanced_features=AdvancedFeatures(enable_mllm=True)).with_mllm(OpenAIRealtime(api_key='your-key'))
+from agent.agentkit import AdvancedFeatures
+agent = Agent(advanced_features=AdvancedFeatures(enable_mllm=True)).with_mllm(...)
 ```
 
 ### `with_avatar(vendor: BaseAvatar) -> Agent`
@@ -90,8 +89,8 @@ agent = Agent(advanced_features=AdvancedFeatures(enable_mllm=True)).with_mllm(Op
 Set the avatar vendor. Raises `ValueError` if TTS sample rate does not match the avatar's `required_sample_rate`.
 
 ```python
-from agora_agent.agentkit.vendors import HeyGenAvatar
-agent = agent.with_avatar(HeyGenAvatar(api_key='your-key', quality='medium', agora_uid='2'))
+from agent.agentkit.vendors import SensetimeAvatar
+agent = agent.with_avatar(SensetimeAvatar(api_key='your-key', agora_uid='2'))
 ```
 
 **Raises:** `ValueError` — `"Avatar requires TTS sample rate of {required} Hz, but TTS is configured with {actual} Hz. Please update your TTS sample_rate to {required}."`
@@ -174,7 +173,7 @@ Creates an `AgentSession` bound to the given client and channel.
 | `remote_uids` | `List[str]` | Yes | UIDs of remote participants |
 | `name` | `Optional[str]` | No | Session name (defaults to agent name) |
 | `token` | `Optional[str]` | No | Pre-built RTC+RTM token |
-| `expires_in` | `Optional[int]` | No | Token lifetime in seconds (default: `86400` = 24 h, Agora max). Only applies when the token is auto-generated. Use `expires_in_hours()` or `expires_in_minutes()` for clarity. Valid range: 1–86400. |
+| `expires_in` | `Optional[int]` | No | Token lifetime in seconds (default: `86400` = 24 h). Only applies when the token is auto-generated. Use `expires_in_hours()` or `expires_in_minutes()` for clarity. Valid range: 1–86400. |
 | `idle_timeout` | `Optional[int]` | No | Idle timeout in seconds |
 | `enable_string_uid` | `Optional[bool]` | No | Enable string UIDs |
 
@@ -182,7 +181,7 @@ Creates an `AgentSession` bound to the given client and channel.
 
 ## `to_properties()`
 
-Converts the agent configuration into a `StartAgentsRequestProperties` object for the Agora API. Called internally by `AgentSession.start()`.
+Converts the agent configuration into a `StartAgentsRequestProperties` object for the API. Called internally by `AgentSession.start()`.
 
 ```python
 to_properties(

@@ -4,4 +4,4 @@ import enum
 
 
 class AgoraEnvironment(enum.Enum):
-    DEFAULT = "https://api.agora.io/api/conversational-ai-agent"
+    DEFAULT = "https://api.agora.io/cn/api/conversational-ai-agent"

@@ -13,25 +13,25 @@ The Python SDK has two layers:
 ```
 +--------------------------------------------------+
 |                Developer API                      |
-|  Agent  ·  AgentSession  ·  Vendors  ·  Token     |  <- agora_agent.agentkit (hand-written)
+|  Agent  ·  AgentSession  ·  Vendors  ·  Token     |  <- agent.agentkit (hand-written)
 +--------------------------------------------------+
-|             Agora / AsyncAgora + Pool             |  <- agora_agent.pool_client (hand-written)
+|             Agora / AsyncAgora + Pool             |  <- agent.pool_client (hand-written)
 +--------------------------------------------------+
 |          Fern-generated Client Core               |
 |  AgentsClient · TelephonyClient · TypeSystem      |  <- auto-generated
 +--------------------------------------------------+
 ```
 
-### Agentkit Layer (`agora_agent.agentkit`)
+### Agentkit Layer (`agent.agentkit`)
 
 This is the primary developer-facing API. It provides:
 
-- **`Agent`** — a fluent builder for configuring AI agents with LLM, TTS, STT, MLLM, and avatar vendors
+- **`Agent`** — a fluent builder for configuring AI agents with LLM, TTS, STT, and avatar vendors
 - **`AgentSession` / `AsyncAgentSession`** — lifecycle management for running agents (start, stop, say, interrupt)
-- **Vendor classes** — typed configuration for 28+ vendor integrations across 5 categories
+- **Vendor classes** — typed configuration for domestic vendor integrations across 4 categories
 - **`generate_rtc_token()`** — helper for building RTC tokens
 
-### Pool Client Layer (`agora_agent.pool_client`)
+### Pool Client Layer (`agent.pool_client`)
 
 `Agora` and `AsyncAgora` extend the Fern-generated base client with regional routing:
 
@@ -41,7 +41,7 @@ This is the primary developer-facing API. It provides:
 
 ### Fern-Generated Layer
 
-The auto-generated core provides typed HTTP methods for every Agora API endpoint. You rarely need this directly, but it is accessible via `session.raw` for advanced use cases or new endpoints that the agentkit layer does not yet cover.
+The auto-generated core provides typed HTTP methods for every API endpoint. You rarely need this directly, but it is accessible via `session.raw` for advanced use cases or new endpoints that the agentkit layer does not yet cover.
 
 ## Sync vs. Async
 
@@ -86,18 +86,18 @@ The `Agent` builder class is the same for both — it does not make HTTP calls, 
 
 ```python
 # Top-level client and types
-from agora_agent import Agora, AsyncAgora, Area, Pool
+from agent import Agora, AsyncAgora, Area, Pool
 
 # Agentkit layer
-from agora_agent.agentkit import Agent, AgentSession
-from agora_agent.agentkit.agent_session import AsyncAgentSession
+from agent.agentkit import Agent, AgentSession
+from agent.agentkit.agent_session import AsyncAgentSession
 
 # Vendor classes
-from agora_agent.agentkit.vendors import OpenAI, ElevenLabsTTS, DeepgramSTT
+from agent.agentkit.vendors import AliyunLLM, MiniMaxTTS, FengmingSTT
 
 # Token helpers
-from agora_agent.agentkit.token import generate_rtc_token
+from agent.agentkit.token import generate_rtc_token
 
 # Also available from top-level
-from agora_agent import Agent, AgentSession, AsyncAgentSession, generate_rtc_token
+from agent import Agent, AgentSession, AsyncAgentSession, generate_rtc_token
 ```

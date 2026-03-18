@@ -6,18 +6,18 @@ description: The Agent builder — configure an AI agent with LLM, TTS, STT, and
 
 # Agent
 
-The `Agent` class is a fluent builder for configuring AI agent properties. It collects vendor settings (LLM, TTS, STT, MLLM, avatar) and session parameters, then produces a fully configured `AgentSession` when you call `create_session()`.
+The `Agent` class is a fluent builder for configuring AI agent properties. It collects vendor settings (LLM, TTS, STT, avatar) and session parameters, then produces a fully configured `AgentSession` when you call `create_session()`.
 
 ## Constructor
 
 ```python
-from agora_agent.agentkit import Agent
+from agent.agentkit import Agent
 
 agent = Agent(
     name='support-assistant',
-    instructions='You are a helpful voice assistant.',
-    greeting='Hello! How can I help you?',
-    failure_message='Sorry, something went wrong.',
+    instructions='你是一个智能语音助手。',
+    greeting='你好！有什么可以帮你的？',
+    failure_message='抱歉，出了点问题。',
     max_history=20,
 )
 ```
@@ -59,7 +59,7 @@ Each `with_*` method returns a **new** `Agent` instance — the original is unch
 | `with_instructions(text)` | `str` | Override the system prompt |
 | `with_greeting(text)` | `str` | Override the greeting message |
 | `with_name(name)` | `str` | Override the agent name |
-| `with_turn_detection(config)` | `TurnDetectionConfig` | Override turn detection (use `config.start_of_speech` / `config.end_of_speech` for SOS/EOS) |
+| `with_turn_detection(config)` | `TurnDetectionConfig` | Override turn detection |
 | `with_sal(config)` | `SalConfig` | Set SAL configuration |
 | `with_advanced_features(features)` | `Dict[str, Any]` | Set advanced features |
 | `with_parameters(parameters)` | `SessionParams` | Set session parameters |
@@ -73,14 +73,14 @@ Each `with_*` method returns a **new** `Agent` instance — the original is unch
 ## Chaining Example
 
 ```python
-from agora_agent.agentkit import Agent
-from agora_agent.agentkit.vendors import OpenAI, ElevenLabsTTS, DeepgramSTT
+from agent.agentkit import Agent
+from agent.agentkit.vendors import AliyunLLM, MiniMaxTTS, FengmingSTT
 
 agent = (
-    Agent(name='my-agent', instructions='You are a helpful assistant.')
-    .with_llm(OpenAI(api_key='your-openai-key', model='gpt-4o-mini'))
-    .with_tts(ElevenLabsTTS(key='your-elevenlabs-key', model_id='eleven_flash_v2_5', voice_id='your-voice-id'))
-    .with_stt(DeepgramSTT(api_key='your-deepgram-key', language='en-US'))
+    Agent(name='my-agent', instructions='你是一个智能助手。')
+    .with_llm(AliyunLLM(api_key='your-aliyun-key', model='qwen-max'))
+    .with_tts(MiniMaxTTS(key='your-minimax-key', voice_id='your-voice-id'))
+    .with_stt(FengmingSTT(language='zh-CN'))
 )
 ```
 
@@ -89,17 +89,17 @@ agent = (
 Because each `with_*` call returns a new `Agent`, you can build a base configuration and create multiple sessions from it:
 
 ```python
-from agora_agent import Agora, Area
-from agora_agent.agentkit import Agent
-from agora_agent.agentkit.vendors import OpenAI, ElevenLabsTTS, DeepgramSTT
+from agent import Agora, Area
+from agent.agentkit import Agent
+from agent.agentkit.vendors import AliyunLLM, MiniMaxTTS, FengmingSTT
 
-client = Agora(area=Area.US, app_id='your-app-id', app_certificate='your-app-certificate')
+client = Agora(area=Area.CN, app_id='your-app-id', app_certificate='your-app-certificate')
 
 base = (
-    Agent(instructions='You are a helpful assistant.')
-    .with_llm(OpenAI(api_key='your-openai-key', model='gpt-4o-mini'))
-    .with_tts(ElevenLabsTTS(key='your-elevenlabs-key', model_id='eleven_flash_v2_5', voice_id='your-voice-id'))
-    .with_stt(DeepgramSTT(api_key='your-deepgram-key', language='en-US'))
+    Agent(instructions='你是一个智能助手。')
+    .with_llm(AliyunLLM(api_key='your-aliyun-key', model='qwen-max'))
+    .with_tts(MiniMaxTTS(key='your-minimax-key', voice_id='your-voice-id'))
+    .with_stt(FengmingSTT(language='zh-CN'))
 )
 
 # Same agent config, different channels
@@ -127,7 +127,7 @@ session = agent.create_session(
 | Parameter | Type | Required | Description |
 |---|---|---|---|
 | `client` | `Agora` or `AsyncAgora` | Yes | The authenticated client |
-| `channel` | `str` | Yes | Agora channel name |
+| `channel` | `str` | Yes | Channel name |
 | `agent_uid` | `str` | Yes | UID for the agent in the channel |
 | `remote_uids` | `List[str]` | Yes | UIDs of remote participants to listen to |
 | `name` | `str` | No | Session name (defaults to agent name or auto-generated) |

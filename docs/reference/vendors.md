@@ -1,30 +1,30 @@
 ---
 sidebar_position: 4
 title: Vendor Reference
-description: Constructor options for all LLM, TTS, STT, MLLM, and Avatar vendor classes.
+description: Constructor options for all LLM, TTS, STT, and Avatar vendor classes.
 ---
 
 # Vendor Reference
 
-All vendor classes are available from `agora_agent.agentkit.vendors`:
+All vendor classes are available from `agent.agentkit.vendors`:
 
 ```python
-from agora_agent.agentkit.vendors import OpenAI, ElevenLabsTTS, DeepgramSTT, OpenAIRealtime, HeyGenAvatar
+from agent.agentkit.vendors import AliyunLLM, MiniMaxTTS, FengmingSTT, SensetimeAvatar
 ```
 
 ---
 
 ## LLM Vendors
 
-### `OpenAI`
+### `AliyunLLM`
 
 | Parameter | Type | Required | Default | Description |
 |---|---|---|---|---|
-| `api_key` | `str` | Yes | — | OpenAI API key |
-| `model` | `str` | No | `gpt-4o-mini` | Model name |
-| `base_url` | `str` | No | `None` | Custom base URL (overrides default OpenAI endpoint) |
-| `temperature` | `float` | No | `None` | Sampling temperature (0.0–2.0) |
-| `top_p` | `float` | No | `None` | Nucleus sampling (0.0–1.0) |
+| `api_key` | `str` | Yes | — | Aliyun API key |
+| `model` | `str` | No | `None` | Model name |
+| `base_url` | `str` | No | `None` | Custom base URL |
+| `temperature` | `float` | No | `None` | Sampling temperature |
+| `top_p` | `float` | No | `None` | Nucleus sampling |
 | `max_tokens` | `int` | No | `None` | Maximum tokens to generate |
 | `system_messages` | `List[Dict]` | No | `None` | System messages |
 | `greeting_message` | `str` | No | `None` | Greeting message |
@@ -33,21 +33,20 @@ from agora_agent.agentkit.vendors import OpenAI, ElevenLabsTTS, DeepgramSTT, Ope
 | `params` | `Dict[str, Any]` | No | `None` | Additional model parameters |
 
 ```python
-from agora_agent.agentkit.vendors import OpenAI
+from agent.agentkit.vendors import AliyunLLM
 
-llm = OpenAI(api_key='your-key', model='gpt-4o-mini', temperature=0.7)
+llm = AliyunLLM(api_key='your-key', model='qwen-max')
 ```
 
-### `AzureOpenAI`
+### `BytedanceLLM`
 
 | Parameter | Type | Required | Default | Description |
 |---|---|---|---|---|
-| `api_key` | `str` | Yes | — | Azure OpenAI API key |
-| `endpoint` | `str` | Yes | — | Azure endpoint URL |
-| `deployment_name` | `str` | Yes | — | Azure deployment name |
-| `api_version` | `str` | No | `2024-08-01-preview` | Azure API version |
-| `temperature` | `float` | No | `None` | Sampling temperature (0.0–2.0) |
-| `top_p` | `float` | No | `None` | Nucleus sampling (0.0–1.0) |
+| `api_key` | `str` | Yes | — | Bytedance API key |
+| `model` | `str` | No | `None` | Model name |
+| `base_url` | `str` | No | `None` | Custom base URL |
+| `temperature` | `float` | No | `None` | Sampling temperature |
+| `top_p` | `float` | No | `None` | Nucleus sampling |
 | `max_tokens` | `int` | No | `None` | Maximum tokens |
 | `system_messages` | `List[Dict]` | No | `None` | System messages |
 | `greeting_message` | `str` | No | `None` | Greeting message |
@@ -55,158 +54,74 @@ llm = OpenAI(api_key='your-key', model='gpt-4o-mini', temperature=0.7)
 | `input_modalities` | `List[str]` | No | `None` | Input modalities |
 
 ```python
-from agora_agent.agentkit.vendors import AzureOpenAI
+from agent.agentkit.vendors import BytedanceLLM
 
-llm = AzureOpenAI(
-    api_key='your-azure-key',
-    endpoint='https://your-resource.openai.azure.com',
-    deployment_name='gpt-4o-mini',
-)
+llm = BytedanceLLM(api_key='your-key', model='doubao-pro')
 ```
 
-### `Anthropic`
+### `DeepSeekLLM`
 
 | Parameter | Type | Required | Default | Description |
 |---|---|---|---|---|
-| `api_key` | `str` | Yes | — | Anthropic API key |
-| `model` | `str` | No | `claude-3-5-sonnet-20241022` | Model name |
+| `api_key` | `str` | Yes | — | DeepSeek API key |
+| `model` | `str` | No | `None` | Model name |
+| `base_url` | `str` | No | `None` | Custom base URL |
+| `temperature` | `float` | No | `None` | Sampling temperature |
 | `max_tokens` | `int` | No | `None` | Maximum tokens |
-| `temperature` | `float` | No | `None` | Sampling temperature (0.0–1.0) |
-| `top_p` | `float` | No | `None` | Nucleus sampling (0.0–1.0) |
 | `system_messages` | `List[Dict]` | No | `None` | System messages |
 | `greeting_message` | `str` | No | `None` | Greeting message |
 | `failure_message` | `str` | No | `None` | Failure message |
 | `input_modalities` | `List[str]` | No | `None` | Input modalities |
 
 ```python
-from agora_agent.agentkit.vendors import Anthropic
+from agent.agentkit.vendors import DeepSeekLLM
 
-llm = Anthropic(api_key='your-anthropic-key', model='claude-3-5-sonnet-20241022')
+llm = DeepSeekLLM(api_key='your-key', model='deepseek-chat')
 ```
 
-### `Gemini`
+### `TencentLLM`
 
 | Parameter | Type | Required | Default | Description |
 |---|---|---|---|---|
-| `api_key` | `str` | Yes | — | Google AI API key |
-| `model` | `str` | No | `gemini-2.0-flash-exp` | Model name |
-| `temperature` | `float` | No | `None` | Sampling temperature (0.0–2.0) |
-| `top_p` | `float` | No | `None` | Nucleus sampling (0.0–1.0) |
-| `top_k` | `int` | No | `None` | Top-k sampling |
-| `max_output_tokens` | `int` | No | `None` | Maximum output tokens |
+| `api_key` | `str` | Yes | — | Tencent API key |
+| `model` | `str` | No | `None` | Model name |
+| `base_url` | `str` | No | `None` | Custom base URL |
+| `temperature` | `float` | No | `None` | Sampling temperature |
+| `max_tokens` | `int` | No | `None` | Maximum tokens |
 | `system_messages` | `List[Dict]` | No | `None` | System messages |
 | `greeting_message` | `str` | No | `None` | Greeting message |
 | `failure_message` | `str` | No | `None` | Failure message |
 | `input_modalities` | `List[str]` | No | `None` | Input modalities |
 
 ```python
-from agora_agent.agentkit.vendors import Gemini
+from agent.agentkit.vendors import TencentLLM
 
-llm = Gemini(api_key='your-google-key', model='gemini-2.0-flash-exp')
+llm = TencentLLM(api_key='your-key', model='hunyuan-pro')
+```
+
+### `CustomLLM`
+
+| Parameter | Type | Required | Default | Description |
+|---|---|---|---|---|
+| `api_key` | `str` | Yes | — | API key |
+| `model` | `str` | No | `None` | Model name |
+| `base_url` | `str` | No | `None` | Custom base URL |
+| `temperature` | `float` | No | `None` | Sampling temperature |
+| `max_tokens` | `int` | No | `None` | Maximum tokens |
+| `system_messages` | `List[Dict]` | No | `None` | System messages |
+| `greeting_message` | `str` | No | `None` | Greeting message |
+| `failure_message` | `str` | No | `None` | Failure message |
+| `input_modalities` | `List[str]` | No | `None` | Input modalities |
+
+```python
+from agent.agentkit.vendors import CustomLLM
+
+llm = CustomLLM(api_key='your-key', base_url='https://your-endpoint.com/v1')
 ```
 
 ---
 
 ## TTS Vendors
-
-### `ElevenLabsTTS`
-
-| Parameter | Type | Required | Default | Description |
-|---|---|---|---|---|
-| `key` | `str` | Yes | — | ElevenLabs API key |
-| `model_id` | `str` | Yes | — | Model ID (e.g., `eleven_flash_v2_5`) |
-| `voice_id` | `str` | Yes | — | Voice ID |
-| `base_url` | `str` | No | `None` | Custom WebSocket base URL |
-| `sample_rate` | `int` | No | `None` | Sample rate: 16000, 22050, 24000, or 44100 Hz |
-| `skip_patterns` | `List[int]` | No | `None` | Skip patterns |
-| `optimize_streaming_latency` | `int` | No | `None` | Latency optimization level (0–4) |
-| `stability` | `float` | No | `None` | Voice stability (0.0–1.0) |
-| `similarity_boost` | `float` | No | `None` | Similarity boost (0.0–1.0) |
-| `style` | `float` | No | `None` | Style exaggeration (0.0–1.0) |
-| `use_speaker_boost` | `bool` | No | `None` | Enable speaker boost |
-
-### `MicrosoftTTS`
-
-| Parameter | Type | Required | Default | Description |
-|---|---|---|---|---|
-| `key` | `str` | Yes | — | Azure subscription key |
-| `region` | `str` | Yes | — | Azure region (e.g., `eastus`) |
-| `voice_name` | `str` | Yes | — | Voice name (e.g., `en-US-JennyNeural`) |
-| `sample_rate` | `int` | No | `None` | Sample rate: 8000, 16000, 24000, or 48000 Hz |
-| `skip_patterns` | `List[int]` | No | `None` | Skip patterns |
-
-### `OpenAITTS`
-
-| Parameter | Type | Required | Default | Description |
-|---|---|---|---|---|
-| `key` | `str` | Yes | — | OpenAI API key |
-| `voice` | `str` | Yes | — | Voice: `alloy`, `echo`, `fable`, `onyx`, `nova`, `shimmer` |
-| `model` | `str` | No | `None` | Model: `tts-1` or `tts-1-hd` |
-| `skip_patterns` | `List[int]` | No | `None` | Skip patterns |
-
-Fixed sample rate: 24000 Hz.
-
-### `CartesiaTTS`
-
-| Parameter | Type | Required | Default | Description |
-|---|---|---|---|---|
-| `key` | `str` | Yes | — | Cartesia API key |
-| `voice_id` | `str` | Yes | — | Voice ID |
-| `model_id` | `str` | No | `None` | Model ID |
-| `sample_rate` | `int` | No | `None` | Sample rate: 8000–48000 Hz |
-| `skip_patterns` | `List[int]` | No | `None` | Skip patterns |
-
-### `GoogleTTS`
-
-| Parameter | Type | Required | Default | Description |
-|---|---|---|---|---|
-| `key` | `str` | Yes | — | Google Cloud API key |
-| `voice_name` | `str` | Yes | — | Voice name |
-| `language_code` | `str` | No | `None` | Language code (e.g., `en-US`) |
-| `skip_patterns` | `List[int]` | No | `None` | Skip patterns |
-
-### `AmazonTTS`
-
-| Parameter | Type | Required | Default | Description |
-|---|---|---|---|---|
-| `access_key` | `str` | Yes | — | AWS access key |
-| `secret_key` | `str` | Yes | — | AWS secret key |
-| `region` | `str` | Yes | — | AWS region (e.g., `us-east-1`) |
-| `voice_id` | `str` | Yes | — | Amazon Polly voice ID |
-| `skip_patterns` | `List[int]` | No | `None` | Skip patterns |
-
-### `HumeAITTS`
-
-| Parameter | Type | Required | Default | Description |
-|---|---|---|---|---|
-| `key` | `str` | Yes | — | Hume AI API key |
-| `config_id` | `str` | No | `None` | Configuration ID |
-| `skip_patterns` | `List[int]` | No | `None` | Skip patterns |
-
-### `RimeTTS`
-
-| Parameter | Type | Required | Default | Description |
-|---|---|---|---|---|
-| `key` | `str` | Yes | — | Rime API key |
-| `speaker` | `str` | Yes | — | Speaker ID |
-| `model_id` | `str` | No | `None` | Model ID |
-| `skip_patterns` | `List[int]` | No | `None` | Skip patterns |
-
-### `FishAudioTTS`
-
-| Parameter | Type | Required | Default | Description |
-|---|---|---|---|---|
-| `key` | `str` | Yes | — | Fish Audio API key |
-| `reference_id` | `str` | Yes | — | Reference ID |
-| `skip_patterns` | `List[int]` | No | `None` | Skip patterns |
-
-### `GroqTTS`
-
-| Parameter | Type | Required | Default | Description |
-|---|---|---|---|---|
-| `key` | `str` | Yes | — | Groq API key |
-| `model` | `str` | No | `None` | Model name |
-| `skip_patterns` | `List[int]` | No | `None` | Skip patterns |
 
 ### `MiniMaxTTS`
 
@@ -217,36 +132,94 @@ Fixed sample rate: 24000 Hz.
 | `model` | `str` | No | `None` | Model name |
 | `skip_patterns` | `List[int]` | No | `None` | Skip patterns |
 
-### `SarvamTTS`
+```python
+from agent.agentkit.vendors import MiniMaxTTS
+
+tts = MiniMaxTTS(key='your-key', voice_id='your-voice-id')
+```
+
+### `TencentTTS`
 
 | Parameter | Type | Required | Default | Description |
 |---|---|---|---|---|
-| `api_key` | `str` | Yes | — | Sarvam API key |
-| `voice_id` | `str` | No | `None` | Voice ID |
+| `key` | `str` | Yes | — | Tencent API key |
+| `voice_type` | `int` | No | `None` | Voice type |
+| `sample_rate` | `int` | No | `None` | Sample rate |
+| `skip_patterns` | `List[int]` | No | `None` | Skip patterns |
+
+### `BytedanceTTS`
+
+| Parameter | Type | Required | Default | Description |
+|---|---|---|---|---|
+| `key` | `str` | Yes | — | Bytedance API key |
+| `voice_type` | `str` | No | `None` | Voice type |
+| `app_id` | `str` | No | `None` | App ID |
+| `cluster` | `str` | No | `None` | Cluster |
+| `skip_patterns` | `List[int]` | No | `None` | Skip patterns |
+
+### `MicrosoftTTS`
+
+| Parameter | Type | Required | Default | Description |
+|---|---|---|---|---|
+| `key` | `str` | Yes | — | Azure subscription key |
+| `region` | `str` | Yes | — | Azure region (e.g., `eastasia`) |
+| `voice_name` | `str` | Yes | — | Voice name (e.g., `zh-CN-XiaoxiaoNeural`) |
+| `sample_rate` | `int` | No | `None` | Sample rate: 8000, 16000, 24000, or 48000 Hz |
+| `skip_patterns` | `List[int]` | No | `None` | Skip patterns |
+
+### `CosyVoiceTTS`
+
+| Parameter | Type | Required | Default | Description |
+|---|---|---|---|---|
+| `key` | `str` | Yes | — | CosyVoice API key |
 | `model` | `str` | No | `None` | Model name |
+| `voice` | `str` | No | `None` | Voice name |
+| `skip_patterns` | `List[int]` | No | `None` | Skip patterns |
+
+### `BytedanceDuplexTTS`
+
+| Parameter | Type | Required | Default | Description |
+|---|---|---|---|---|
+| `key` | `str` | Yes | — | Bytedance API key |
+| `voice_type` | `str` | No | `None` | Voice type |
+| `app_id` | `str` | No | `None` | App ID |
+| `cluster` | `str` | No | `None` | Cluster |
+| `skip_patterns` | `List[int]` | No | `None` | Skip patterns |
+
+### `StepFunTTS`
+
+| Parameter | Type | Required | Default | Description |
+|---|---|---|---|---|
+| `key` | `str` | Yes | — | StepFun API key |
+| `model` | `str` | No | `None` | Model name |
+| `voice` | `str` | No | `None` | Voice name |
 | `skip_patterns` | `List[int]` | No | `None` | Skip patterns |
 
 ---
 
 ## STT Vendors
 
-### `SpeechmaticsSTT`
+### `FengmingSTT`
 
 | Parameter | Type | Required | Default | Description |
 |---|---|---|---|---|
-| `api_key` | `str` | Yes | — | Speechmatics API key |
-| `language` | `str` | Yes | — | Language code (e.g., `en`) |
+| `language` | `str` | No | `None` | Language code |
 | `additional_params` | `Dict[str, Any]` | No | `None` | Additional parameters |
 
-### `DeepgramSTT`
+```python
+from agent.agentkit.vendors import FengmingSTT
+
+stt = FengmingSTT(language='zh-CN')
+```
+
+### `TencentSTT`
 
 | Parameter | Type | Required | Default | Description |
 |---|---|---|---|---|
-| `api_key` | `str` | No | `None` | Deepgram API key |
-| `model` | `str` | No | `None` | Model (e.g., `nova-2`) |
-| `language` | `str` | No | `None` | Language code (e.g., `en-US`) |
-| `smart_format` | `bool` | No | `None` | Enable smart formatting |
-| `punctuation` | `bool` | No | `None` | Enable punctuation |
+| `app_id` | `str` | Yes | — | Tencent App ID |
+| `secret_id` | `str` | Yes | — | Tencent Secret ID |
+| `secret_key` | `str` | Yes | — | Tencent Secret Key |
+| `language` | `str` | No | `None` | Language code |
 | `additional_params` | `Dict[str, Any]` | No | `None` | Additional parameters |
 
 ### `MicrosoftSTT`
@@ -254,125 +227,51 @@ Fixed sample rate: 24000 Hz.
 | Parameter | Type | Required | Default | Description |
 |---|---|---|---|---|
 | `key` | `str` | Yes | — | Azure subscription key |
-| `region` | `str` | Yes | — | Azure region (e.g., `eastus`) |
-| `language` | `str` | No | `None` | Language code (e.g., `en-US`) |
-| `additional_params` | `Dict[str, Any]` | No | `None` | Additional parameters |
-
-### `OpenAISTT`
-
-| Parameter | Type | Required | Default | Description |
-|---|---|---|---|---|
-| `api_key` | `str` | Yes | — | OpenAI API key |
-| `model` | `str` | No | `None` | Model (default: `whisper-1`) |
+| `region` | `str` | Yes | — | Azure region |
 | `language` | `str` | No | `None` | Language code |
 | `additional_params` | `Dict[str, Any]` | No | `None` | Additional parameters |
 
-### `GoogleSTT`
+### `XfyunSTT`
 
 | Parameter | Type | Required | Default | Description |
 |---|---|---|---|---|
-| `api_key` | `str` | Yes | — | Google Cloud API key |
-| `language` | `str` | No | `None` | Language code (e.g., `en-US`) |
-| `additional_params` | `Dict[str, Any]` | No | `None` | Additional parameters |
-
-### `AmazonSTT`
-
-| Parameter | Type | Required | Default | Description |
-|---|---|---|---|---|
-| `access_key` | `str` | Yes | — | AWS Access Key ID |
-| `secret_key` | `str` | Yes | — | AWS Secret Access Key |
-| `region` | `str` | Yes | — | AWS region (e.g., `us-east-1`) |
+| `app_id` | `str` | Yes | — | Xfyun App ID |
+| `api_key` | `str` | Yes | — | Xfyun API key |
 | `language` | `str` | No | `None` | Language code |
 | `additional_params` | `Dict[str, Any]` | No | `None` | Additional parameters |
 
-### `AssemblyAISTT`
+### `XfyunBigModelSTT`
 
 | Parameter | Type | Required | Default | Description |
 |---|---|---|---|---|
-| `api_key` | `str` | Yes | — | AssemblyAI API key |
+| `app_id` | `str` | Yes | — | Xfyun App ID |
+| `api_key` | `str` | Yes | — | Xfyun API key |
 | `language` | `str` | No | `None` | Language code |
 | `additional_params` | `Dict[str, Any]` | No | `None` | Additional parameters |
 
-### `AresSTT`
+### `XfyunDialectSTT`
 
 | Parameter | Type | Required | Default | Description |
 |---|---|---|---|---|
-| `language` | `str` | No | `None` | Language code |
-| `additional_params` | `Dict[str, Any]` | No | `None` | Additional parameters |
-
-### `SonioxSTT`
-
-| Parameter | Type | Required | Default | Description |
-|---|---|---|---|---|
-| `api_key` | `str` | Yes | — | Soniox API key |
-| `language` | `str` | Yes | — | Language code (e.g., `en`) |
-| `additional_params` | `Dict[str, Any]` | No | `None` | Additional parameters |
-
-### `SarvamSTT`
-
-| Parameter | Type | Required | Default | Description |
-|---|---|---|---|---|
-| `api_key` | `str` | Yes | — | Sarvam API key |
-| `language` | `str` | Yes | — | Language code (e.g., `en`, `hi`) |
-| `additional_params` | `Dict[str, Any]` | No | `None` | Additional parameters |
-
----
-
-## MLLM Vendors
-
-### `OpenAIRealtime`
-
-| Parameter | Type | Required | Default | Description |
-|---|---|---|---|---|
-| `api_key` | `str` | Yes | — | OpenAI API key |
-| `model` | `str` | No | `None` | Model (e.g., `gpt-4o-realtime-preview`) |
-| `url` | `str` | No | `None` | Custom WebSocket URL |
-| `greeting_message` | `str` | No | `None` | Greeting message |
-| `input_modalities` | `List[str]` | No | `None` | Input modalities |
-| `output_modalities` | `List[str]` | No | `None` | Output modalities |
-| `messages` | `List[Dict]` | No | `None` | Conversation messages |
-| `params` | `Dict[str, Any]` | No | `None` | Additional parameters |
-
-### `VertexAI`
-
-| Parameter | Type | Required | Default | Description |
-|---|---|---|---|---|
-| `model` | `str` | Yes | — | Model name (e.g., `gemini-2.0-flash-exp`) |
-| `project_id` | `str` | Yes | — | Google Cloud project ID |
-| `location` | `str` | Yes | — | Google Cloud location (e.g., `us-central1`) |
-| `adc_credentials_string` | `str` | Yes | — | Application Default Credentials JSON string |
-| `instructions` | `str` | No | `None` | System instructions |
-| `voice` | `str` | No | `None` | Voice name (e.g., `Aoede`, `Charon`) |
-| `greeting_message` | `str` | No | `None` | Greeting message |
-| `input_modalities` | `List[str]` | No | `None` | Input modalities |
-| `output_modalities` | `List[str]` | No | `None` | Output modalities |
-| `messages` | `List[Dict]` | No | `None` | Conversation messages |
+| `app_id` | `str` | Yes | — | Xfyun App ID |
+| `api_key` | `str` | Yes | — | Xfyun API key |
+| `language` | `str` | No | `None` | Language/dialect code |
 | `additional_params` | `Dict[str, Any]` | No | `None` | Additional parameters |
 
 ---
 
 ## Avatar Vendors
 
-### `HeyGenAvatar`
-
-Required TTS sample rate: **24000 Hz**
+### `SensetimeAvatar`
 
 | Parameter | Type | Required | Default | Description |
 |---|---|---|---|---|
-| `api_key` | `str` | Yes | — | HeyGen API key |
-| `quality` | `str` | Yes | — | Avatar quality: `low`, `medium`, or `high` |
-| `agora_uid` | `str` | Yes | — | Agora UID for avatar video stream |
-| `avatar_name` | `str` | No | `None` | Avatar name |
-| `voice_id` | `str` | No | `None` | Voice ID |
-| `language` | `str` | No | `None` | Language code |
-| `version` | `str` | No | `None` | API version (`v1` or `v2`) |
-
-### `AkoolAvatar`
-
-Required TTS sample rate: **16000 Hz**
-
-| Parameter | Type | Required | Default | Description |
-|---|---|---|---|---|
-| `api_key` | `str` | Yes | — | Akool API key |
+| `api_key` | `str` | Yes | — | Sensetime API key |
 | `agora_uid` | `str` | Yes | — | Agora UID for avatar video stream |
 | `avatar_id` | `str` | No | `None` | Avatar ID |
+
+```python
+from agent.agentkit.vendors import SensetimeAvatar
+
+avatar = SensetimeAvatar(api_key='your-key', agora_uid='2')
+```

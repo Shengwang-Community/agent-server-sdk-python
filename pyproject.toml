@@ -1,8 +1,8 @@
 [project]
-name = "agora-agent-server-sdk"
+name = "agent-server-sdk"
 
 [tool.poetry]
-name = "agora-agent-server-sdk"
+name = "agent-server-sdk"
 version = "1.0.0"
 description = ""
 readme = "README.md"
@@ -27,11 +27,11 @@ classifiers = [
     "Typing :: Typed"
 ]
 packages = [
-    { include = "agora_agent", from = "src"}
+    { include = "agent", from = "src"}
 ]
 
 [tool.poetry.urls]
-Repository = 'https://github.com/AgoraIO-Conversational-AI/agent-server-sdk-python'
+Repository = 'https://github.com/Shengwang-Community/agent-server-sdk-python'
 
 [tool.poetry.dependencies]
 python = "^3.8"

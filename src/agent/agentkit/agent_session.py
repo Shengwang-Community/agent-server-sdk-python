@@ -203,12 +203,12 @@ class AgentSession(_AgentSessionBase):
 
     Examples
     --------
-    >>> from agora_agent import Agora, Area
-    >>> from agora_agent.agentkit import Agent
+    >>> from agent import Agora, Area
+    >>> from agent.agentkit import Agent
     >>>
     >>> client = Agora(area=Area.US, app_id="...", app_certificate="...")
     >>> agent = Agent(name="assistant", instructions="You are a helpful voice assistant.")
-    >>> from agora_agent.agentkit.vendors import AliyunLLM, MiniMaxTTS
+    >>> from agent.agentkit.vendors import AliyunLLM, MiniMaxTTS
     >>> agent = agent.with_llm(AliyunLLM(url="https://...", api_key="...")).with_tts(MiniMaxTTS(key="...", model="speech-01-turbo", voice_setting={"voice_id": "female-shaonv"}))
     >>> session = agent.create_session(client, channel="room-123", agent_uid="1", remote_uids=["100"])
     >>> agent_id = session.start()
@@ -395,12 +395,12 @@ class AsyncAgentSession(_AgentSessionBase):
 
     Examples
     --------
-    >>> from agora_agent import AsyncAgora, Area
-    >>> from agora_agent.agentkit import Agent
+    >>> from agent import AsyncAgora, Area
+    >>> from agent.agentkit import Agent
     >>>
     >>> client = AsyncAgora(area=Area.US, app_id="...", app_certificate="...")
     >>> agent = Agent(name="assistant", instructions="You are helpful.")
-    >>> from agora_agent.agentkit.vendors import AliyunLLM, MiniMaxTTS
+    >>> from agent.agentkit.vendors import AliyunLLM, MiniMaxTTS
     >>> agent = agent.with_llm(AliyunLLM(url="https://...", api_key="...")).with_tts(MiniMaxTTS(key="...", model="speech-01-turbo", voice_setting={"voice_id": "female-shaonv"}))
     >>> session = agent.create_async_session(client, channel="room-123", agent_uid="1", remote_uids=["100"])
     >>> agent_id = await session.start()

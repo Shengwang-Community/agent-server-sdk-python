@@ -1,11 +1,10 @@
-# Agora Agent Server SDK for Python
+# Agent Server SDK for Python
 
-[![fern shield](https://img.shields.io/badge/%F0%9F%8C%BF-Built%20with%20Fern-brightgreen)](https://buildwithfern.com?utm_source=github&utm_medium=github&utm_campaign=readme&utm_source=https%3A%2F%2Fgithub.com%2FAgoraIO-Conversational-AI%2Fagent-server-sdk-python)
-[![pypi](https://img.shields.io/pypi/v/agent-server-sdk-python)](https://pypi.python.org/pypi/agent-server-sdk-python)
+[![fern shield](https://img.shields.io/badge/%F0%9F%8C%BF-Built%20with%20Fern-brightgreen)](https://buildwithfern.com?utm_source=github&utm_medium=github&utm_campaign=readme&utm_source=https%3A%2F%2Fgithub.com%2FShengwang-Community%2Fagent-server-sdk-python)
+[![pypi](https://img.shields.io/pypi/v/agent-server-sdk)](https://pypi.python.org/pypi/agent-server-sdk)
 
-The Agora Conversational AI SDK provides convenient access to the Agora Conversational AI APIs, 
-enabling you to build voice-powered AI agents with support for both cascading flows (ASR -> LLM -> TTS) 
-and multimodal flows (MLLM) for real-time audio processing.
+The Conversational AI SDK provides convenient access to the Conversational AI APIs,
+enabling you to build voice-powered AI agents with support for cascading flows (ASR -> LLM -> TTS).
 
 
 ## Table of Contents
@@ -14,8 +13,6 @@ and multimodal flows (MLLM) for real-time audio processing.
 - [Quick Start](#quick-start)
 - [Documentation](#documentation)
 - [Reference](#reference)
-- [Mllm Flow Multimodal](#mllm-flow-multimodal)
-- [Mllm Flow Multimodal](#mllm-flow-multimodal)
 - [Usage](#usage)
 - [Async Client](#async-client)
 - [Exception Handling](#exception-handling)
@@ -30,7 +27,7 @@ and multimodal flows (MLLM) for real-time audio processing.
 ## Installation
 
 ```sh
-pip install agent-server-sdk-python
+pip install agent-server-sdk
 ```
 
 ## Quick Start
@@ -38,23 +35,23 @@ pip install agent-server-sdk-python
 Use the **builder pattern** with `Agent` and `AgentSession`. The SDK auto-generates all required tokens:
 
 ```python
-from agora_agent import Agora, Area
-from agora_agent.agentkit import Agent, expires_in_hours
-from agora_agent.agentkit.vendors import OpenAI, ElevenLabsTTS, DeepgramSTT
+from agent import Agora, Area
+from agent.agentkit import Agent, expires_in_hours
+from agent.agentkit.vendors import AliyunLLM, MiniMaxTTS, FengmingSTT
 
 client = Agora(
-    area=Area.US,
+    area=Area.CN,
     app_id="your-app-id",
     app_certificate="your-app-certificate",
 )
 
 agent = (
-    Agent(name="support-assistant", instructions="You are a helpful voice assistant.")
+    Agent(name="support-assistant", instructions="你是一个智能语音助手。")
     # Create Agent: STT → LLM → TTS → (optional) Avatar
-    .with_stt(DeepgramSTT(api_key="your-deepgram-key", language="en-US"))
-    .with_llm(OpenAI(api_key="your-openai-key", model="gpt-4o-mini"))
-    .with_tts(ElevenLabsTTS(key="your-elevenlabs-key", model_id="eleven_flash_v2_5", voice_id="your-voice-id", sample_rate=24000))
-    # .with_avatar(HeyGenAvatar(...))  # optional
+    .with_stt(FengmingSTT(language="zh-CN"))
+    .with_llm(AliyunLLM(api_key="your-aliyun-key", model="qwen-max"))
+    .with_tts(MiniMaxTTS(key="your-minimax-key", voice_id="your-voice-id"))
+    # .with_avatar(SensetimeAvatar(...))  # optional
 )
 
 session = agent.create_session(
@@ -62,7 +59,7 @@ session = agent.create_session(
     channel="support-room-123",
     agent_uid="1",
     remote_uids=["100"],
-    expires_in=expires_in_hours(12),  # optional — default is 24 h (Agora max)
+    expires_in=expires_in_hours(12),  # optional — default is 24 h
 )
 
 # start() returns a session ID unique to this agent session
@@ -98,7 +95,7 @@ agent_session_id = session.start()
 # ... return agent_session_id to client ...
 
 # stop-session handler: client sends back agent_session_id
-client = Agora(area=Area.US, app_id="...", app_certificate="...")
+client = Agora(area=Area.CN, app_id="...", app_certificate="...")
 client.stop_agent(agent_session_id)
 ```
 
@@ -107,8 +104,8 @@ client.stop_agent(agent_session_id)
 Generate tokens yourself and pass them in — useful when inspecting or reusing tokens:
 
 ```python
-from agora_agent import Agora, Area
-from agora_agent.agentkit.token import generate_convo_ai_token, expires_in_hours
+from agent import Agora, Area
+from agent.agentkit.token import generate_convo_ai_token, expires_in_hours
 
 APP_ID = "your-app-id"
 APP_CERT = "your-app-certificate"
@@ -130,7 +127,7 @@ join_token = generate_convo_ai_token(
 )
 
 client = Agora(
-    area=Area.US,
+    area=Area.CN,
     app_id=APP_ID,
     app_certificate=APP_CERT,
     auth_token=auth_token,  # SDK sets Authorization: agora token=<auth_token>
@@ -144,140 +141,11 @@ session = agent.create_session(
 
 ## Documentation
 
-API reference documentation is available [here](https://docs.agora.io/en/conversational-ai/overview).
+API reference documentation is available [here](docs/index.md).
 
 ## Reference
 
-A full reference for this library is available [here](https://github.com/AgoraIO-Conversational-AI/agent-server-sdk-python/blob/HEAD/./reference.md).
-
-## MLLM Flow (Multimodal)
-
-For real-time audio processing using OpenAI's Realtime API or Google Gemini Live, use the MLLM (Multimodal Large Language Model) flow instead of the cascading ASR -> LLM -> TTS flow. See the [MLLM Overview](https://docs.agora.io/en/conversational-ai/models/mllm/overview) for more details.
-
-```python
-from agora_agent import Agora, Area
-from agora_agent.agentkit import (
-    AdvancedFeatures,
-    TurnDetectionConfig,
-    TurnDetectionTypeValues,
-)
-from agora_agent.agents import (
-    StartAgentsRequestProperties,
-    StartAgentsRequestPropertiesMllm,
-    StartAgentsRequestPropertiesMllmVendor,
-    StartAgentsRequestPropertiesTts,
-    StartAgentsRequestPropertiesTtsVendor,
-    StartAgentsRequestPropertiesLlm,
-)
-
-client = Agora(
-    area=Area.US,
-    app_id="YOUR_APP_ID",
-    app_certificate="YOUR_APP_CERTIFICATE",
-)
-
-client.agents.start(
-    client.app_id,
-    name="mllm_agent",
-    properties=StartAgentsRequestProperties(
-        channel="channel_name",
-        token="your_token",
-        agent_rtc_uid="1001",
-        remote_rtc_uids=["1002"],
-        idle_timeout=120,
-        advanced_features=AdvancedFeatures(enable_mllm=True),
-        mllm=StartAgentsRequestPropertiesMllm(
-            url="wss://api.openai.com/v1/realtime",
-            api_key="<your_openai_api_key>",
-            vendor=StartAgentsRequestPropertiesMllmVendor.OPENAI,
-            params={
-                "model": "gpt-4o-realtime-preview",
-                "voice": "alloy",
-            },
-            input_modalities=["audio"],
-            output_modalities=["text", "audio"],
-            greeting_message="Hello! I'm ready to chat in real-time.",
-        ),
-        turn_detection=TurnDetectionConfig(
-            type=TurnDetectionTypeValues.SERVER_VAD,  # deprecated; use config.end_of_speech instead
-            threshold=0.5,
-            silence_duration_ms=500,
-        ),
-        # TTS and LLM are still required but not used when MLLM is enabled
-        tts=StartAgentsRequestPropertiesTts(
-            vendor=StartAgentsRequestPropertiesTtsVendor.MICROSOFT,
-            params={},
-        ),
-        llm=StartAgentsRequestPropertiesLlm(
-            url="https://api.openai.com/v1/chat/completions",
-        ),
-    ),
-)
-```
-
-## MLLM Flow (Multimodal)
-
-For real-time audio processing using OpenAI's Realtime API or Google Gemini Live, use the MLLM (Multimodal Large Language Model) flow instead of the cascading ASR -> LLM -> TTS flow. See the [MLLM Overview](https://docs.agora.io/en/conversational-ai/models/mllm/overview) for more details.
-
-```python
-from agora-agent-server-sdk import Agora
-from agora-agent-server-sdk.agents import (
-    StartAgentsRequestProperties,
-    StartAgentsRequestPropertiesAdvancedFeatures,
-    StartAgentsRequestPropertiesMllm,
-    StartAgentsRequestPropertiesMllmVendor,
-    StartAgentsRequestPropertiesTts,
-    StartAgentsRequestPropertiesTtsVendor,
-    StartAgentsRequestPropertiesLlm,
-    StartAgentsRequestPropertiesTurnDetection,
-    StartAgentsRequestPropertiesTurnDetectionType,
-)
-
-client = Agora(
-    customer_id="YOUR_CUSTOMER_ID",
-    customer_secret="YOUR_CUSTOMER_SECRET",
-)
-
-client.agents.start(
-    appid="your_app_id",
-    name="mllm_agent",
-    properties=StartAgentsRequestProperties(
-        channel="channel_name",
-        token="your_token",
-        agent_rtc_uid="1001",
-        remote_rtc_uids=["1002"],
-        idle_timeout=120,
-        advanced_features=StartAgentsRequestPropertiesAdvancedFeatures(
-            enable_mllm=True,
-        ),
-        mllm=StartAgentsRequestPropertiesMllm(
-            url="wss://api.openai.com/v1/realtime",
-            api_key="<your_openai_api_key>",
-            vendor=StartAgentsRequestPropertiesMllmVendor.OPENAI,
-            params={
-                "model": "gpt-4o-realtime-preview",
-                "voice": "alloy",
-            },
-            input_modalities=["audio"],
-            output_modalities=["text", "audio"],
-            greeting_message="Hello! I'm ready to chat in real-time.",
-        ),
-        turn_detection=StartAgentsRequestPropertiesTurnDetection(
-            type=StartAgentsRequestPropertiesTurnDetectionType.SERVER_VAD,
-            threshold=0.5,
-            silence_duration_ms=500,
-        ),
-        # TTS and LLM are still required but not used when MLLM is enabled
-        tts=StartAgentsRequestPropertiesTts(
-            vendor=StartAgentsRequestPropertiesTtsVendor.MICROSOFT,
-            params={},
-        ),
-        llm=StartAgentsRequestPropertiesLlm(
-            url="https://api.openai.com/v1/chat/completions",
-        ),
-    ),
-)
-```
+A full reference for this library is available [here](https://github.com/Shengwang-Community/agent-server-sdk-python/blob/HEAD/./reference.md).
 
 
 ## Usage
@@ -285,8 +153,8 @@ client.agents.start(
 Instantiate and use the client with the following:
 
 ```python
-from agora_agent import Agora, MicrosoftTtsParams, Tts_Microsoft
-from agora_agent.agents import (
+from agent import Agora, MicrosoftTtsParams, Tts_Microsoft
+from agent.agents import (
     StartAgentsRequestProperties,
     StartAgentsRequestPropertiesAsr,
     StartAgentsRequestPropertiesLlm,
@@ -307,25 +175,25 @@ client.agents.start(
         remote_rtc_uids=["1002"],
         idle_timeout=120,
         asr=StartAgentsRequestPropertiesAsr(
-            language="en-US",
+            language="zh-CN",
         ),
         tts=Tts_Microsoft(
             params=MicrosoftTtsParams(
                 key="key",
-                region="region",
-                voice_name="voice_name",
+                region="eastasia",
+                voice_name="zh-CN-XiaoxiaoNeural",
             ),
         ),
         llm=StartAgentsRequestPropertiesLlm(
-            url="https://api.openai.com/v1/chat/completions",
+            url="https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions",
             api_key="<your_llm_key>",
             system_messages=[
-                {"role": "system", "content": "You are a helpful chatbot."}
+                {"role": "system", "content": "你是一个智能助手。"}
             ],
-            params={"model": "gpt-4o-mini"},
+            params={"model": "qwen-max"},
             max_history=32,
-            greeting_message="Hello, how can I assist you today?",
-            failure_message="Please hold on a second.",
+            greeting_message="你好，有什么可以帮助你的？",
+            failure_message="请稍等一下。",
         ),
     ),
 )
@@ -338,8 +206,8 @@ The SDK also exports an `async` client so that you can make non-blocking calls t
 ```python
 import asyncio
 
-from agora_agent import AsyncAgora, MicrosoftTtsParams, Tts_Microsoft
-from agora_agent.agents import (
+from agent import AsyncAgora, MicrosoftTtsParams, Tts_Microsoft
+from agent.agents import (
     StartAgentsRequestProperties,
     StartAgentsRequestPropertiesAsr,
     StartAgentsRequestPropertiesLlm,
@@ -363,25 +231,25 @@ async def main() -> None:
             remote_rtc_uids=["1002"],
             idle_timeout=120,
             asr=StartAgentsRequestPropertiesAsr(
-                language="en-US",
+                language="zh-CN",
             ),
             tts=Tts_Microsoft(
                 params=MicrosoftTtsParams(
                     key="key",
-                    region="region",
-                    voice_name="voice_name",
+                    region="eastasia",
+                    voice_name="zh-CN-XiaoxiaoNeural",
                 ),
             ),
             llm=StartAgentsRequestPropertiesLlm(
-                url="https://api.openai.com/v1/chat/completions",
+                url="https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions",
                 api_key="<your_llm_key>",
                 system_messages=[
-                    {"role": "system", "content": "You are a helpful chatbot."}
+                    {"role": "system", "content": "你是一个智能助手。"}
                 ],
-                params={"model": "gpt-4o-mini"},
+                params={"model": "qwen-max"},
                 max_history=32,
-                greeting_message="Hello, how can I assist you today?",
-                failure_message="Please hold on a second.",
+                greeting_message="你好，有什么可以帮助你的？",
+                failure_message="请稍等一下。",
             ),
         ),
     )
@@ -396,7 +264,7 @@ When the API returns a non-success status code (4xx or 5xx response), a subclass
 will be thrown.
 
 ```python
-from agora_agent.core.api_error import ApiError
+from agent.core.api_error import ApiError
 
 try:
     client.agents.start(...)
@@ -410,7 +278,7 @@ except ApiError as e:
 Paginated requests will return a `SyncPager` or `AsyncPager`, which can be used as generators for the underlying object.
 
 ```python
-from agora_agent import Agora
+from agent import Agora
 
 client = Agora(
     authorization="YOUR_AUTHORIZATION",
@@ -444,7 +312,7 @@ The SDK provides access to raw response data, including headers, through the `.w
 The `.with_raw_response` property returns a "raw" client that can be used to access the `.headers` and `.data` attributes.
 
 ```python
-from agora_agent import Agora
+from agent import Agora
 
 client = Agora(
     ...,
@@ -488,7 +356,7 @@ The SDK defaults to a 60 second timeout. You can configure this with a timeout o
 
 ```python
 
-from agora_agent import Agora
+from agent import Agora
 
 client = Agora(
     ...,
@@ -509,7 +377,7 @@ and transports.
 
 ```python
 import httpx
-from agora_agent import Agora
+from agent import Agora
 
 client = Agora(
     ...,

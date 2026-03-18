@@ -9,7 +9,7 @@ description: Handle API errors with ApiError and subclasses.
 When the API returns a non-success status code (4xx or 5xx response), a subclass of `ApiError` is raised.
 
 ```python
-from agora_agent.core.api_error import ApiError
+from agent.core.api_error import ApiError
 
 try:
     client.agents.start(...)

@@ -49,7 +49,7 @@ class Agora:
 
     Examples
     --------
-    from agora_agent import Agora
+    from agent import Agora
 
     client = Agora(
         authorization="YOUR_AUTHORIZATION",
@@ -151,7 +151,7 @@ class AsyncAgora:
 
     Examples
     --------
-    from agora_agent import AsyncAgora
+    from agent import AsyncAgora
 
     client = AsyncAgora(
         authorization="YOUR_AUTHORIZATION",

@@ -9,10 +9,10 @@ description: Constructor options and public methods for the Agora Python client.
 ## `Agora` Constructor
 
 ```python
-from agora_agent import Agora, Area
+from agent import Agora, Area
 
 client = Agora(
-    area=Area.US,
+    area=Area.CN,
     app_id='your-app-id',
     app_certificate='your-app-certificate',
 )
@@ -42,10 +42,10 @@ Identical to `Agora` except:
 | `httpx_client` | Accepts `httpx.AsyncClient` instead of `httpx.Client` |
 
 ```python
-from agora_agent import AsyncAgora, Area
+from agent import AsyncAgora, Area
 
 client = AsyncAgora(
-    area=Area.US,
+    area=Area.CN,
     app_id='your-app-id',
     app_certificate='your-app-certificate',
 )

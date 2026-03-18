@@ -1,7 +1,7 @@
 ---
 sidebar_position: 1
 title: Installation
-description: Install the Agora Conversational AI Python SDK.
+description: Install the Conversational AI Python SDK.
 ---
 
 # Installation
@@ -13,13 +13,13 @@ description: Install the Agora Conversational AI Python SDK.
 ## Install with pip
 
 ```sh
-pip install agora-agent-sdk
+pip install agent-server-sdk
 ```
 
 ## Install with Poetry
 
 ```sh
-poetry add agora-agent-sdk
+poetry add agent-server-sdk
 ```
 
 ## Dependencies
@@ -36,15 +36,15 @@ The following packages are installed automatically:
 
 The SDK supports both synchronous and asynchronous usage:
 
-- **Synchronous** — import `Agora` from `agora_agent` and use blocking method calls
-- **Asynchronous** — import `AsyncAgora` and `AsyncAgentSession` from `agora_agent` and use `await` with all API calls
+- **Synchronous** — import `Agora` from `agent` and use blocking method calls
+- **Asynchronous** — import `AsyncAgora` and `AsyncAgentSession` from `agent` and use `await` with all API calls
 
 ```python
 # Sync
-from agora_agent import Agora, Area
+from agent import Agora, Area
 
 # Async
-from agora_agent import AsyncAgora, AsyncAgentSession, Area
+from agent import AsyncAgora, AsyncAgentSession, Area
 ```
 
 Both clients share the same constructor parameters and capabilities. See [Authentication](./authentication.md) for setup details.

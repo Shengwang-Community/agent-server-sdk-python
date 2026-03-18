@@ -8,10 +8,10 @@ description: Full API reference for the Python AgentSession class.
 
 **Import:**
 ```python
-from agora_agent.agentkit import AgentSession
-from agora_agent.agentkit.agent_session import AsyncAgentSession
+from agent.agentkit import AgentSession
+from agent.agentkit.agent_session import AsyncAgentSession
 # or from top-level:
-from agora_agent import AgentSession, AsyncAgentSession
+from agent import AgentSession, AsyncAgentSession
 ```
 
 ## Constructor
@@ -138,7 +138,7 @@ Update the agent configuration at runtime.
 | **Raises** | `RuntimeError` if not in `running` state | Same |
 
 ```python
-from agora_agent.agents.types import UpdateAgentsRequestProperties
+from agent.agents.types import UpdateAgentsRequestProperties
 
 # Sync
 session.update(properties)

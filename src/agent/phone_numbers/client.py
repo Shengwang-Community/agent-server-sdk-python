@@ -52,7 +52,7 @@ class PhoneNumbersClient:
 
         Examples
         --------
-        from agora_agent import Agora
+        from agent import Agora
 
         client = Agora(
             authorization="YOUR_AUTHORIZATION",
@@ -114,8 +114,8 @@ class PhoneNumbersClient:
 
         Examples
         --------
-        from agora_agent import Agora
-        from agora_agent.phone_numbers import (
+        from agent import Agora
+        from agent.phone_numbers import (
             AddPhoneNumbersRequestInboundConfig,
             AddPhoneNumbersRequestOutboundConfig,
         )
@@ -173,7 +173,7 @@ class PhoneNumbersClient:
 
         Examples
         --------
-        from agora_agent import Agora
+        from agent import Agora
 
         client = Agora(
             authorization="YOUR_AUTHORIZATION",
@@ -208,7 +208,7 @@ class PhoneNumbersClient:
 
         Examples
         --------
-        from agora_agent import Agora
+        from agent import Agora
 
         client = Agora(
             authorization="YOUR_AUTHORIZATION",
@@ -254,8 +254,8 @@ class PhoneNumbersClient:
 
         Examples
         --------
-        from agora_agent import Agora
-        from agora_agent.phone_numbers import (
+        from agent import Agora
+        from agent.phone_numbers import (
             UpdatePhoneNumbersRequestInboundConfig,
             UpdatePhoneNumbersRequestOutboundConfig,
         )
@@ -319,7 +319,7 @@ class AsyncPhoneNumbersClient:
         --------
         import asyncio
 
-        from agora_agent import AsyncAgora
+        from agent import AsyncAgora
 
         client = AsyncAgora(
             authorization="YOUR_AUTHORIZATION",
@@ -389,8 +389,8 @@ class AsyncPhoneNumbersClient:
         --------
         import asyncio
 
-        from agora_agent import AsyncAgora
-        from agora_agent.phone_numbers import (
+        from agent import AsyncAgora
+        from agent.phone_numbers import (
             AddPhoneNumbersRequestInboundConfig,
             AddPhoneNumbersRequestOutboundConfig,
         )
@@ -456,7 +456,7 @@ class AsyncPhoneNumbersClient:
         --------
         import asyncio
 
-        from agora_agent import AsyncAgora
+        from agent import AsyncAgora
 
         client = AsyncAgora(
             authorization="YOUR_AUTHORIZATION",
@@ -499,7 +499,7 @@ class AsyncPhoneNumbersClient:
         --------
         import asyncio
 
-        from agora_agent import AsyncAgora
+        from agent import AsyncAgora
 
         client = AsyncAgora(
             authorization="YOUR_AUTHORIZATION",
@@ -553,8 +553,8 @@ class AsyncPhoneNumbersClient:
         --------
         import asyncio
 
-        from agora_agent import AsyncAgora
-        from agora_agent.phone_numbers import (
+        from agent import AsyncAgora
+        from agent.phone_numbers import (
             UpdatePhoneNumbersRequestInboundConfig,
             UpdatePhoneNumbersRequestOutboundConfig,
         )

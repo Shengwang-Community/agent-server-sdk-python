@@ -25,7 +25,7 @@ def _validate_expires_in(seconds: float) -> int:
     if seconds <= 0:
         raise ValueError("expires_in must be between 1 and 86400 seconds (24h)")
     if seconds > MAX_EXPIRY_SECONDS:
-        warnings.warn("agora-agent-sdk: expires_in capped at 24h (Agora max)", stacklevel=3)
+        warnings.warn("agent-sdk: expires_in capped at 24h (max)", stacklevel=3)
         return MAX_EXPIRY_SECONDS
     return int(seconds)
 

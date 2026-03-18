@@ -1,17 +1,17 @@
 ---
 sidebar_position: 4
 title: Vendors
-description: Typed vendor classes for LLM, TTS, STT, MLLM, and Avatar providers.
+description: Typed vendor classes for LLM, TTS, STT, and Avatar providers.
 ---
 
 # Vendors
 
 The SDK provides typed vendor classes for every supported provider. Each vendor class validates its configuration with Pydantic and produces the correct API payload automatically.
 
-All vendor classes are available from `agora_agent.agentkit.vendors`:
+All vendor classes are available from `agent.agentkit.vendors`:
 
 ```python
-from agora_agent.agentkit.vendors import OpenAI, ElevenLabsTTS, DeepgramSTT
+from agent.agentkit.vendors import AliyunLLM, MiniMaxTTS, FengmingSTT
 ```
 
 ## LLM Vendors
@@ -20,45 +20,36 @@ Used with `agent.with_llm()` for the cascading flow (ASR → LLM → TTS).
 
 | Class | Provider | Required Parameters |
 |---|---|---|
-| `OpenAI` | OpenAI | `api_key` |
-| `AzureOpenAI` | Azure OpenAI | `api_key`, `endpoint`, `deployment_name` |
-| `Anthropic` | Anthropic | `api_key` |
-| `Gemini` | Google Gemini | `api_key` |
+| `AliyunLLM` | Aliyun (Qwen) | `api_key` |
+| `BytedanceLLM` | Bytedance (Doubao) | `api_key` |
+| `DeepSeekLLM` | DeepSeek | `api_key` |
+| `TencentLLM` | Tencent (Hunyuan) | `api_key` |
+| `CustomLLM` | Custom endpoint | `api_key` |
 
 ```python
-from agora_agent.agentkit.vendors import OpenAI
+from agent.agentkit.vendors import AliyunLLM
 
-llm = OpenAI(api_key='your-openai-key', model='gpt-4o-mini')
+llm = AliyunLLM(api_key='your-aliyun-key', model='qwen-max')
 ```
 
 ## TTS Vendors
 
 Used with `agent.with_tts()`. Each TTS vendor produces audio at a specific sample rate — this matters when using [avatars](../guides/avatars.md).
 
-| Class | Provider | Required Parameters | Sample Rate |
-|---|---|---|---|
-| `ElevenLabsTTS` | ElevenLabs | `key`, `model_id`, `voice_id` | 16000, 22050, 24000, or 44100 Hz |
-| `MicrosoftTTS` | Microsoft Azure | `key`, `region`, `voice_name` | 8000, 16000, 24000, or 48000 Hz |
-| `OpenAITTS` | OpenAI | `key`, `voice` | 24000 Hz (fixed) |
-| `CartesiaTTS` | Cartesia | `key`, `voice_id` | 8000–48000 Hz |
-| `GoogleTTS` | Google Cloud | `key`, `voice_name` | — |
-| `AmazonTTS` | Amazon Polly | `access_key`, `secret_key`, `region`, `voice_id` | — |
-| `HumeAITTS` | Hume AI | `key` | — |
-| `RimeTTS` | Rime | `key`, `speaker` | — |
-| `FishAudioTTS` | Fish Audio | `key`, `reference_id` | — |
-| `GroqTTS` | Groq | `key` | — |
-| `MiniMaxTTS` | MiniMax | `key` | — |
-| `SarvamTTS` | Sarvam | `api_key` | — |
+| Class | Provider | Required Parameters |
+|---|---|---|
+| `MiniMaxTTS` | MiniMax | `key` |
+| `TencentTTS` | Tencent | `key` |
+| `BytedanceTTS` | Bytedance | `key` |
+| `MicrosoftTTS` | Microsoft Azure | `key`, `region`, `voice_name` |
+| `CosyVoiceTTS` | CosyVoice (Aliyun) | `key` |
+| `BytedanceDuplexTTS` | Bytedance Duplex | `key` |
+| `StepFunTTS` | StepFun | `key` |
 
 ```python
-from agora_agent.agentkit.vendors import ElevenLabsTTS
+from agent.agentkit.vendors import MiniMaxTTS
 
-tts = ElevenLabsTTS(
-    key='your-elevenlabs-key',
-    model_id='eleven_flash_v2_5',
-    voice_id='your-voice-id',
-    sample_rate=24000,
-)
+tts = MiniMaxTTS(key='your-minimax-key', voice_id='your-voice-id')
 ```
 
 ## STT Vendors
@@ -67,51 +58,31 @@ Used with `agent.with_stt()`.
 
 | Class | Provider | Required Parameters |
 |---|---|---|
-| `SpeechmaticsSTT` | Speechmatics | `api_key`, `language` |
-| `DeepgramSTT` | Deepgram | — (all optional) |
+| `FengmingSTT` | Agora Fengming ASR | — (all optional) |
+| `TencentSTT` | Tencent | `app_id`, `secret_id`, `secret_key` |
 | `MicrosoftSTT` | Microsoft Azure | `key`, `region` |
-| `OpenAISTT` | OpenAI | `api_key` |
-| `GoogleSTT` | Google Cloud | `api_key` |
-| `AmazonSTT` | Amazon Transcribe | `access_key`, `secret_key`, `region` |
-| `AssemblyAISTT` | AssemblyAI | `api_key` |
-| `AresSTT` | Ares | — (all optional) |
-| `SonioxSTT` | Soniox | `api_key`, `language` |
-| `SarvamSTT` | Sarvam | `api_key`, `language` |
+| `XfyunSTT` | Xfyun (iFlytek) | `app_id`, `api_key` |
+| `XfyunBigModelSTT` | Xfyun Big Model | `app_id`, `api_key` |
+| `XfyunDialectSTT` | Xfyun Dialect | `app_id`, `api_key` |
 
 ```python
-from agora_agent.agentkit.vendors import DeepgramSTT
+from agent.agentkit.vendors import FengmingSTT
 
-stt = DeepgramSTT(api_key='your-deepgram-key', language='en-US', model='nova-2')
-```
-
-## MLLM Vendors
-
-Used with `agent.with_mllm()` for the [MLLM flow](../guides/mllm-flow.md). These handle audio input and output end-to-end.
-
-| Class | Provider | Required Parameters |
-|---|---|---|
-| `OpenAIRealtime` | OpenAI Realtime | `api_key` |
-| `VertexAI` | Vertex AI (Gemini Live) | `model`, `project_id`, `location`, `adc_credentials_string` |
-
-```python
-from agora_agent.agentkit.vendors import OpenAIRealtime
-
-mllm = OpenAIRealtime(api_key='your-openai-key', model='gpt-4o-realtime-preview')
+stt = FengmingSTT(language='zh-CN')
 ```
 
 ## Avatar Vendors
 
 Used with `agent.with_avatar()`. Avatars require specific TTS sample rates — see [Avatar Integration](../guides/avatars.md).
 
-| Class | Provider | Required Parameters | Required TTS Sample Rate |
-|---|---|---|---|
-| `HeyGenAvatar` | HeyGen | `api_key`, `quality`, `agora_uid` | 24000 Hz |
-| `AkoolAvatar` | Akool | `api_key`, `agora_uid` | 16000 Hz |
+| Class | Provider | Required Parameters |
+|---|---|---|
+| `SensetimeAvatar` | Sensetime | `api_key`, `agora_uid` |
 
 ```python
-from agora_agent.agentkit.vendors import HeyGenAvatar
+from agent.agentkit.vendors import SensetimeAvatar
 
-avatar = HeyGenAvatar(api_key='your-heygen-key', quality='medium', agora_uid='2')
+avatar = SensetimeAvatar(api_key='your-sensetime-key', agora_uid='2')
 ```
 
 ## Base Classes

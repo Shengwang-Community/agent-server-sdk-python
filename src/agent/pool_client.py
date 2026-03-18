@@ -15,7 +15,7 @@ from .core.domain import Area, Pool
 from .agentkit.token import generate_convo_ai_token
 
 _AUTH_MODE = typing.Literal["app-credentials", "basic", "token"]
-_DEBUG_LOGGER = logging.getLogger("agora_agent")
+_DEBUG_LOGGER = logging.getLogger("agent")
 
 
 def _redact_headers(headers: typing.Mapping[str, str]) -> typing.Dict[str, str]:
@@ -164,15 +164,15 @@ class Agora(BaseAgora):
 
     debug : bool
         If True, log HTTP requests and responses (method, URL, headers, status).
-        Uses the ``agora_agent`` logger; enable with
-        ``logging.getLogger("agora_agent").setLevel(logging.DEBUG)`` or pass
+        Uses the ``agent`` logger; enable with
+        ``logging.getLogger("agent").setLevel(logging.DEBUG)`` or pass
         ``debug=True`` which configures the logger automatically. Ignored when
         ``httpx_client`` is provided.
 
     Examples
     --------
     # App-credentials mode (auto token generation per request)
-    from agora_agent import Agora, Area
+    from agent import Agora, Area
 
     client = Agora(
         area=Area.US,
@@ -181,7 +181,7 @@ class Agora(BaseAgora):
     )
 
     # Basic auth mode
-    from agora_agent import Agora, Area
+    from agent import Agora, Area
 
     client = Agora(
         area=Area.US,
@@ -192,8 +192,8 @@ class Agora(BaseAgora):
     )
 
     # Pre-built token mode (for debugging or custom token lifecycles)
-    from agora_agent import Agora, Area
-    from agora_agent.agentkit.token import generate_convo_ai_token
+    from agent import Agora, Area
+    from agent.agentkit.token import generate_convo_ai_token
 
     raw_token = generate_convo_ai_token(app_id="...", app_certificate="...", channel_name="...", account="1")
     client = Agora(
@@ -395,7 +395,7 @@ class AsyncAgora(BaseAsyncAgora):
     Examples
     --------
     # App-credentials mode (auto token generation per request)
-    from agora_agent import AsyncAgora, Area
+    from agent import AsyncAgora, Area
 
     client = AsyncAgora(
         area=Area.US,
@@ -404,7 +404,7 @@ class AsyncAgora(BaseAsyncAgora):
     )
 
     # Basic auth mode
-    from agora_agent import AsyncAgora, Area
+    from agent import AsyncAgora, Area
 
     client = AsyncAgora(
         area=Area.US,

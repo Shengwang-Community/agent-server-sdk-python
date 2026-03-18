@@ -12,31 +12,31 @@ The cascading flow is the most common pattern for building voice agents. Audio f
 User audio → STT → LLM → TTS → Agent audio
 ```
 
-## Combo 1: OpenAI + ElevenLabs + Deepgram
+## Combo 1: Aliyun + MiniMax + Fengming
 
 ### Sync
 
 ```python
-from agora_agent import Agora, Area
-from agora_agent.agentkit import Agent
-from agora_agent.agentkit.vendors import OpenAI, ElevenLabsTTS, DeepgramSTT
+from agent import Agora, Area
+from agent.agentkit import Agent
+from agent.agentkit.vendors import AliyunLLM, MiniMaxTTS, FengmingSTT
 
 client = Agora(
-    area=Area.US,
+    area=Area.CN,
     app_id='your-app-id',
     app_certificate='your-app-certificate',
 )
 
 agent = (
-    Agent(name='assistant', instructions='You are a friendly customer support agent.')
-    .with_llm(OpenAI(api_key='your-openai-key', model='gpt-4o-mini'))
-    .with_tts(ElevenLabsTTS(key='your-elevenlabs-key', model_id='eleven_flash_v2_5', voice_id='your-voice-id', sample_rate=24000))
-    .with_stt(DeepgramSTT(api_key='your-deepgram-key', language='en-US', model='nova-2'))
+    Agent(name='assistant', instructions='你是一个友好的客服助手。')
+    .with_llm(AliyunLLM(api_key='your-aliyun-key', model='qwen-max'))
+    .with_tts(MiniMaxTTS(key='your-minimax-key', voice_id='your-voice-id'))
+    .with_stt(FengmingSTT(language='zh-CN'))
 )
 
 session = agent.create_session(client, channel='support-room', agent_uid='1', remote_uids=['100'])
 agent_id = session.start()
-session.say('Welcome! How can I assist you today?')
+session.say('你好！有什么可以帮助你的？')
 # ... agent listens and responds automatically ...
 session.stop()
 ```
@@ -45,71 +45,70 @@ session.stop()
 
 ```python
 import asyncio
-from agora_agent import AsyncAgora, Area
-from agora_agent.agentkit import Agent
-from agora_agent.agentkit.vendors import OpenAI, ElevenLabsTTS, DeepgramSTT
+from agent import AsyncAgora, Area
+from agent.agentkit import Agent
+from agent.agentkit.vendors import AliyunLLM, MiniMaxTTS, FengmingSTT
 
 async def main():
     client = AsyncAgora(
-        area=Area.US,
+        area=Area.CN,
         app_id='your-app-id',
         app_certificate='your-app-certificate',
     )
 
     agent = (
-        Agent(name='assistant', instructions='You are a friendly customer support agent.')
-        .with_llm(OpenAI(api_key='your-openai-key', model='gpt-4o-mini'))
-        .with_tts(ElevenLabsTTS(key='your-elevenlabs-key', model_id='eleven_flash_v2_5', voice_id='your-voice-id', sample_rate=24000))
-        .with_stt(DeepgramSTT(api_key='your-deepgram-key', language='en-US', model='nova-2'))
+        Agent(name='assistant', instructions='你是一个友好的客服助手。')
+        .with_llm(AliyunLLM(api_key='your-aliyun-key', model='qwen-max'))
+        .with_tts(MiniMaxTTS(key='your-minimax-key', voice_id='your-voice-id'))
+        .with_stt(FengmingSTT(language='zh-CN'))
     )
 
     session = agent.create_session(client, channel='support-room', agent_uid='1', remote_uids=['100'])
     agent_id = await session.start()
-    await session.say('Welcome! How can I assist you today?')
+    await session.say('你好！有什么可以帮助你的？')
     # ... agent listens and responds automatically ...
     await session.stop()
 
 asyncio.run(main())
 ```
 
-## Combo 2: Azure OpenAI + Microsoft TTS + Microsoft STT
+## Combo 2: DeepSeek + Microsoft TTS + Microsoft STT
 
-This combination keeps everything within the Azure ecosystem:
+This combination uses DeepSeek for LLM and Microsoft Azure for speech services:
 
 ```python
-from agora_agent import Agora, Area
-from agora_agent.agentkit import Agent
-from agora_agent.agentkit.vendors import AzureOpenAI, MicrosoftTTS, MicrosoftSTT
+from agent import Agora, Area
+from agent.agentkit import Agent
+from agent.agentkit.vendors import DeepSeekLLM, MicrosoftTTS, MicrosoftSTT
 
 client = Agora(
-    area=Area.EU,
+    area=Area.CN,
     app_id='your-app-id',
     app_certificate='your-app-certificate',
 )
 
 agent = (
-    Agent(name='azure-agent', instructions='You are a helpful assistant for enterprise customers.')
-    .with_llm(AzureOpenAI(
-        api_key='your-azure-key',
-        endpoint='https://your-resource.openai.azure.com',
-        deployment_name='gpt-4o-mini',
+    Agent(name='deepseek-agent', instructions='你是一个企业客户的智能助手。')
+    .with_llm(DeepSeekLLM(
+        api_key='your-deepseek-key',
+        model='deepseek-chat',
     ))
     .with_tts(MicrosoftTTS(
         key='your-azure-speech-key',
-        region='eastus',
-        voice_name='en-US-JennyNeural',
+        region='eastasia',
+        voice_name='zh-CN-XiaoxiaoNeural',
         sample_rate=24000,
     ))
     .with_stt(MicrosoftSTT(
         key='your-azure-speech-key',
-        region='eastus',
-        language='en-US',
+        region='eastasia',
+        language='zh-CN',
     ))
 )
 
 session = agent.create_session(client, channel='enterprise-room', agent_uid='1', remote_uids=['100'])
 agent_id = session.start()
-session.say('Hello! I am your enterprise assistant.')
+session.say('你好！我是你的企业助手。')
 session.stop()
 ```
 
@@ -118,11 +117,11 @@ session.stop()
 All LLM vendors support optional parameters for fine-tuning:
 
 ```python
-from agora_agent.agentkit.vendors import OpenAI
+from agent.agentkit.vendors import AliyunLLM
 
-llm = OpenAI(
-    api_key='your-openai-key',
-    model='gpt-4o-mini',
+llm = AliyunLLM(
+    api_key='your-aliyun-key',
+    model='qwen-max',
     temperature=0.7,
     top_p=0.9,
     max_tokens=1024,
@@ -136,13 +135,12 @@ The `greeting` parameter on `Agent` makes the agent speak automatically when the
 ```python
 agent = Agent(
     name='greeter',
-    instructions='You are a helpful assistant.',
-    greeting='Hi there! What can I do for you?',
+    instructions='你是一个智能助手。',
+    greeting='你好！有什么可以帮你的？',
 )
 ```
 
 ## Next Steps
 
-- For audio-native models, see [MLLM Flow](./mllm-flow.md)
 - To add a visual avatar, see [Avatars](./avatars.md)
 - For the full vendor catalog, see [Vendors](../concepts/vendors.md)

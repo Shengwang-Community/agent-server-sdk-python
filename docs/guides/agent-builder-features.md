@@ -29,23 +29,23 @@ For string values with a finite set of options (e.g. `data_channel`, `sal_mode`,
 SAL helps the agent focus on the primary speaker and suppress background noise. Enable it via `advanced_features` and configure with `with_sal`:
 
 ```python
-from agora_agent import Agora, Area
-from agora_agent.agentkit import Agent, AdvancedFeatures, SalConfig, SalModeValues
-from agora_agent.agentkit.vendors import OpenAI, ElevenLabsTTS, DeepgramSTT
+from agent import Agora, Area
+from agent.agentkit import Agent, AdvancedFeatures, SalConfig, SalModeValues
+from agent.agentkit.vendors import AliyunLLM, MiniMaxTTS, FengmingSTT
 
 agent = (
     Agent(
         name='sal-assistant',
-        instructions='You are a helpful assistant.',
+        instructions='你是一个智能助手。',
         advanced_features=AdvancedFeatures(enable_sal=True),
     )
     .with_sal(SalConfig(
         sal_mode=SalModeValues.LOCKING,
         sample_urls={'primary-speaker': 'https://example.com/voiceprint.pcm'},
     ))
-    .with_llm(OpenAI(api_key='your-key', model='gpt-4o-mini'))
-    .with_tts(ElevenLabsTTS(key='your-key', model_id='eleven_flash_v2_5', voice_id='your-voice-id', sample_rate=24000))
-    .with_stt(DeepgramSTT(api_key='your-key', model='nova-2', language='en-US'))
+    .with_llm(AliyunLLM(api_key='your-key', model='qwen-max'))
+    .with_tts(MiniMaxTTS(key='your-key', voice_id='your-voice-id'))
+    .with_stt(FengmingSTT(language='zh-CN'))
 )
 ```
 
@@ -56,11 +56,7 @@ Use `SalModeValues.LOCKING` or `SalModeValues.RECOGNITION` for type safety.
 Enable MLLM, RTM, SAL, or tools:
 
 ```python
-from agora_agent.agentkit import Agent, AdvancedFeatures
-from agora_agent.agentkit.vendors import OpenAIRealtime
-
-# MLLM mode (see mllm-flow guide)
-agent = Agent(advanced_features=AdvancedFeatures(enable_mllm=True)).with_mllm(OpenAIRealtime(api_key='...'))
+from agent.agentkit import Agent, AdvancedFeatures
 
 # RTM signaling for custom data delivery
 agent = Agent(advanced_features=AdvancedFeatures(enable_rtm=True))
@@ -74,7 +70,7 @@ agent = Agent(advanced_features=AdvancedFeatures(enable_tools=True))
 Configure silence handling, farewell behavior, and data channel:
 
 ```python
-from agora_agent.agentkit import (
+from agent.agentkit import (
     Agent,
     SessionParams,
     SilenceConfig,
@@ -89,7 +85,7 @@ agent = (
         silence_config=SilenceConfig(
             timeout_ms=10000,
             action=SilenceActionValues.SPEAK,
-            content="I'm still here. Take your time.",
+            content="我还在，请慢慢说。",
         ),
         farewell_config=FarewellConfig(
             graceful_enabled=True,
@@ -97,9 +93,9 @@ agent = (
         ),
         data_channel=DataChannel.RTM,  # or DataChannel.DATASTREAM
     ))
-    .with_llm(OpenAI(api_key='...', model='gpt-4o-mini'))
-    .with_tts(ElevenLabsTTS(key='...', model_id='...', voice_id='...', sample_rate=24000))
-    .with_stt(DeepgramSTT(api_key='...', model='nova-2'))
+    .with_llm(AliyunLLM(api_key='...', model='qwen-max'))
+    .with_tts(MiniMaxTTS(key='...', voice_id='...'))
+    .with_stt(FengmingSTT(language='zh-CN'))
 )
 ```
 
@@ -109,22 +105,22 @@ agent = (
 agent = (
     Agent(
         name='assistant',
-        failure_message='Sorry, I encountered an error. Please try again.',
+        failure_message='抱歉，遇到了错误，请重试。',
         max_history=20,
     )
-    .with_llm(OpenAI(api_key='...', model='gpt-4o-mini'))
-    .with_tts(ElevenLabsTTS(key='...', model_id='...', voice_id='...', sample_rate=24000))
-    .with_stt(DeepgramSTT(api_key='...', model='nova-2'))
+    .with_llm(AliyunLLM(api_key='...', model='qwen-max'))
+    .with_tts(MiniMaxTTS(key='...', voice_id='...'))
+    .with_stt(FengmingSTT(language='zh-CN'))
 )
 
 # Or via builder methods
 agent = (
     Agent()
-    .with_failure_message('Something went wrong.')
+    .with_failure_message('出了点问题。')
     .with_max_history(15)
-    .with_llm(OpenAI(api_key='...', model='gpt-4o-mini'))
-    .with_tts(ElevenLabsTTS(key='...', model_id='...', voice_id='...', sample_rate=24000))
-    .with_stt(DeepgramSTT(api_key='...', model='nova-2'))
+    .with_llm(AliyunLLM(api_key='...', model='qwen-max'))
+    .with_tts(MiniMaxTTS(key='...', voice_id='...'))
+    .with_stt(FengmingSTT(language='zh-CN'))
 )
 ```
 
@@ -133,23 +129,23 @@ agent = (
 Restrict which geographic regions the backend can use:
 
 ```python
-from agora_agent.agentkit import Agent, GeofenceConfig, GeofenceArea, GeofenceExcludeArea
+from agent.agentkit import Agent, GeofenceConfig, GeofenceArea, GeofenceExcludeArea
 
 agent = (
     Agent()
     .with_geofence(GeofenceConfig(area=GeofenceArea.NORTH_AMERICA))
-    .with_llm(OpenAI(api_key='...', model='gpt-4o-mini'))
-    .with_tts(ElevenLabsTTS(key='...', model_id='...', voice_id='...', sample_rate=24000))
-    .with_stt(DeepgramSTT(api_key='...', model='nova-2'))
+    .with_llm(AliyunLLM(api_key='...', model='qwen-max'))
+    .with_tts(MiniMaxTTS(key='...', voice_id='...'))
+    .with_stt(FengmingSTT(language='zh-CN'))
 )
 
 # Global with exclusion
 agent = (
     Agent()
     .with_geofence(GeofenceConfig(area=GeofenceArea.GLOBAL, exclude_area=GeofenceExcludeArea.EUROPE))
-    .with_llm(OpenAI(api_key='...', model='gpt-4o-mini'))
-    .with_tts(ElevenLabsTTS(key='...', model_id='...', voice_id='...', sample_rate=24000))
-    .with_stt(DeepgramSTT(api_key='...', model='nova-2'))
+    .with_llm(AliyunLLM(api_key='...', model='qwen-max'))
+    .with_tts(MiniMaxTTS(key='...', voice_id='...'))
+    .with_stt(FengmingSTT(language='zh-CN'))
 )
 ```
 
@@ -167,9 +163,9 @@ agent = (
         'team': 'support',
         'version': '1.2.0',
     })
-    .with_llm(OpenAI(api_key='...', model='gpt-4o-mini'))
-    .with_tts(ElevenLabsTTS(key='...', model_id='...', voice_id='...', sample_rate=24000))
-    .with_stt(DeepgramSTT(api_key='...', model='nova-2'))
+    .with_llm(AliyunLLM(api_key='...', model='qwen-max'))
+    .with_tts(MiniMaxTTS(key='...', voice_id='...'))
+    .with_stt(FengmingSTT(language='zh-CN'))
 )
 ```
 
@@ -178,7 +174,7 @@ agent = (
 Configure RTC media encryption:
 
 ```python
-from agora_agent.agentkit import Agent, RtcConfig
+from agent.agentkit import Agent, RtcConfig
 
 agent = (
     Agent()
@@ -186,9 +182,9 @@ agent = (
         encryption_key='your-32-byte-key',
         encryption_mode=5,  # AES_128_GCM
     ))
-    .with_llm(OpenAI(api_key='...', model='gpt-4o-mini'))
-    .with_tts(ElevenLabsTTS(key='...', model_id='...', voice_id='...', sample_rate=24000))
-    .with_stt(DeepgramSTT(api_key='...', model='nova-2'))
+    .with_llm(AliyunLLM(api_key='...', model='qwen-max'))
+    .with_tts(MiniMaxTTS(key='...', voice_id='...'))
+    .with_stt(FengmingSTT(language='zh-CN'))
 )
 ```
 
@@ -197,7 +193,7 @@ agent = (
 Play filler words while waiting for the LLM response:
 
 ```python
-from agora_agent.agentkit import (
+from agent.agentkit import (
     Agent,
     FillerWordsConfig,
     FillerWordsTrigger,
@@ -218,14 +214,14 @@ agent = (
         content=FillerWordsContent(
             mode='static',
             static_config=FillerWordsContentStaticConfig(
-                phrases=['Let me think...', 'One moment...', 'Hmm...'],
+                phrases=['让我想想...', '稍等一下...', '嗯...'],
                 selection_rule=FillerWordsSelectionRule.SHUFFLE,
             ),
         ),
     ))
-    .with_llm(OpenAI(api_key='...', model='gpt-4o-mini'))
-    .with_tts(ElevenLabsTTS(key='...', model_id='...', voice_id='...', sample_rate=24000))
-    .with_stt(DeepgramSTT(api_key='...', model='nova-2'))
+    .with_llm(AliyunLLM(api_key='...', model='qwen-max'))
+    .with_tts(MiniMaxTTS(key='...', voice_id='...'))
+    .with_stt(FengmingSTT(language='zh-CN'))
 )
 ```
 
@@ -234,7 +230,7 @@ agent = (
 Read back configuration via properties:
 
 ```python
-from agora_agent.agentkit import Agent, GeofenceConfig, GeofenceArea
+from agent.agentkit import Agent, GeofenceConfig, GeofenceArea
 
 agent = (
     Agent(max_history=20)
@@ -258,8 +254,8 @@ agent.config         # Full read-only snapshot
 ## Chaining All Features
 
 ```python
-from agora_agent import Agora, Area
-from agora_agent.agentkit import (
+from agent import Agora, Area
+from agent.agentkit import (
     Agent,
     AdvancedFeatures,
     SessionParams,
@@ -276,10 +272,10 @@ from agora_agent.agentkit import (
     DataChannel,
     FillerWordsSelectionRule,
 )
-from agora_agent.agentkit.vendors import OpenAI, ElevenLabsTTS, DeepgramSTT
+from agent.agentkit.vendors import AliyunLLM, MiniMaxTTS, FengmingSTT
 
 client = Agora(
-    area=Area.US,
+    area=Area.CN,
     app_id='your-app-id',
     app_certificate='your-app-certificate',
 )
@@ -287,20 +283,20 @@ client = Agora(
 agent = (
     Agent(
         name='full-featured-assistant',
-        instructions='You are a helpful voice assistant.',
-        greeting='Hello! How can I help?',
-        failure_message='Sorry, I had trouble processing that.',
+        instructions='你是一个智能语音助手。',
+        greeting='你好！有什么可以帮你的？',
+        failure_message='抱歉，处理出了点问题。',
         max_history=20,
     )
-    .with_llm(OpenAI(api_key='your-key', model='gpt-4o-mini'))
-    .with_tts(ElevenLabsTTS(key='your-key', model_id='eleven_flash_v2_5', voice_id='your-voice-id', sample_rate=24000))
-    .with_stt(DeepgramSTT(api_key='your-key', model='nova-2', language='en-US'))
+    .with_llm(AliyunLLM(api_key='your-key', model='qwen-max'))
+    .with_tts(MiniMaxTTS(key='your-key', voice_id='your-voice-id'))
+    .with_stt(FengmingSTT(language='zh-CN'))
     .with_advanced_features(AdvancedFeatures(enable_rtm=True))
     .with_parameters(SessionParams(
         silence_config=SilenceConfig(
             timeout_ms=8000,
             action=SilenceActionValues.SPEAK,
-            content="I'm listening.",
+            content="我在听。",
         ),
         farewell_config=FarewellConfig(
             graceful_enabled=True,
@@ -318,7 +314,7 @@ agent = (
         content=FillerWordsContent(
             mode='static',
             static_config=FillerWordsContentStaticConfig(
-                phrases=['Let me think...', 'One moment please.'],
+                phrases=['让我想想...', '请稍等。'],
                 selection_rule=FillerWordsSelectionRule.SHUFFLE,
             ),
         ),
@@ -340,5 +336,4 @@ agent_id = session.start()
 
 - [Agent Reference](../reference/agent.md) — full API signatures
 - [Cascading Flow](./cascading-flow.md) — ASR → LLM → TTS setup
-- [MLLM Flow](./mllm-flow.md) — multimodal flow with `enable_mllm`
 - [Regional Routing](./regional-routing.md) — client area and geofence

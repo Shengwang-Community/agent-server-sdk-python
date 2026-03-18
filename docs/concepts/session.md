@@ -1,7 +1,7 @@
 ---
 sidebar_position: 3
 title: AgentSession
-description: Manage the full lifecycle of a running Agora Conversational AI agent.
+description: Manage the full lifecycle of a running Conversational AI agent.
 ---
 
 # AgentSession
@@ -34,17 +34,17 @@ You can check the current state with `session.status`.
 Use `Agent.create_session()` to create a session:
 
 ```python
-from agora_agent import Agora, Area
-from agora_agent.agentkit import Agent
-from agora_agent.agentkit.vendors import OpenAI, ElevenLabsTTS, DeepgramSTT
+from agent import Agora, Area
+from agent.agentkit import Agent
+from agent.agentkit.vendors import AliyunLLM, MiniMaxTTS, FengmingSTT
 
-client = Agora(area=Area.US, app_id='your-app-id', app_certificate='your-app-certificate')
+client = Agora(area=Area.CN, app_id='your-app-id', app_certificate='your-app-certificate')
 
 agent = (
-    Agent(name='my-agent', instructions='You are helpful.')
-    .with_llm(OpenAI(api_key='your-openai-key', model='gpt-4o-mini'))
-    .with_tts(ElevenLabsTTS(key='your-elevenlabs-key', model_id='eleven_flash_v2_5', voice_id='your-voice-id'))
-    .with_stt(DeepgramSTT(api_key='your-deepgram-key', language='en-US'))
+    Agent(name='my-agent', instructions='你是一个智能助手。')
+    .with_llm(AliyunLLM(api_key='your-aliyun-key', model='qwen-max'))
+    .with_tts(MiniMaxTTS(key='your-minimax-key', voice_id='your-voice-id'))
+    .with_stt(FengmingSTT(language='zh-CN'))
 )
 
 session = agent.create_session(client, channel='my-channel', agent_uid='1', remote_uids=['100'])
@@ -57,10 +57,10 @@ session = agent.create_session(client, channel='my-channel', agent_uid='1', remo
 agent_id = session.start()
 
 # Send text to be spoken
-session.say('Hello! How can I help?')
+session.say('你好！有什么可以帮你的？')
 
 # Send with priority and interruptability
-session.say('Important message', priority='INTERRUPT', interruptable=False)
+session.say('重要消息', priority='INTERRUPT', interruptable=False)
 
 # Interrupt the agent while speaking
 session.interrupt()
@@ -84,8 +84,8 @@ session.stop()
 
 ```python
 agent_id = await session.start()
-await session.say('Hello! How can I help?')
-await session.say('Important message', priority='INTERRUPT', interruptable=False)
+await session.say('你好！有什么可以帮你的？')
+await session.say('重要消息', priority='INTERRUPT', interruptable=False)
 await session.interrupt()
 await session.update(properties)
 history = await session.get_history()
@@ -140,7 +140,7 @@ session.off('started', on_started)
 | `session.id` | `Optional[str]` | The agent ID (set after `start()`) |
 | `session.status` | `str` | Current state (`idle`, `starting`, `running`, etc.) |
 | `session.agent` | `Agent` | The agent configuration |
-| `session.app_id` | `str` | The Agora App ID |
+| `session.app_id` | `str` | The App ID |
 | `session.raw` | `AgentsClient` | Direct access to the Fern-generated agents client |
 
 ## `session.raw` — Escape Hatch

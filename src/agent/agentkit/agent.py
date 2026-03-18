@@ -106,8 +106,8 @@ class Agent:
 
     Examples
     --------
-    >>> from agora_agent.agentkit import Agent
-    >>> from agora_agent.agentkit.vendors import AliyunLLM, MiniMaxTTS, FengmingSTT
+    >>> from agent.agentkit import Agent
+    >>> from agent.agentkit.vendors import AliyunLLM, MiniMaxTTS, FengmingSTT
     >>>
     >>> agent = Agent(instructions="You are a helpful voice assistant.")
     >>> agent = (
@@ -417,10 +417,10 @@ class Agent:
         enable_string_uid: typing.Optional[bool] = None,
         expires_in: typing.Optional[int] = None,
     ) -> "AsyncAgentSession":
-        """Create an async session for use with :class:`~agora_agent.AsyncAgora`.
+        """Create an async session for use with :class:`~agent.AsyncAgora`.
 
         Equivalent to :meth:`create_session` but returns an
-        :class:`~agora_agent.agentkit.AsyncAgentSession`.
+        :class:`~agent.agentkit.AsyncAgentSession`.
         """
         from .agent_session import AsyncAgentSession
 
