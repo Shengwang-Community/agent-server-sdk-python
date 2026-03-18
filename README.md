@@ -35,9 +35,9 @@ pip install agent-server-sdk
 Use the **builder pattern** with `Agent` and `AgentSession`. The SDK auto-generates all required tokens:
 
 ```python
-from agent import AgentClient, Area
-from agent.agentkit import Agent, expires_in_hours
-from agent.agentkit.vendors import AliyunLLM, MiniMaxTTS, FengmingSTT
+from shengwang_agent import AgentClient, Area
+from shengwang_agent.agentkit import Agent, expires_in_hours
+from shengwang_agent.agentkit.vendors import AliyunLLM, MiniMaxTTS, FengmingSTT
 
 client = AgentClient(
     area=Area.CN,
@@ -104,8 +104,8 @@ client.stop_agent(agent_session_id)
 Generate tokens yourself and pass them in — useful when inspecting or reusing tokens:
 
 ```python
-from agent import AgentClient, Area
-from agent.agentkit.token import generate_convo_ai_token, expires_in_hours
+from shengwang_agent import AgentClient, Area
+from shengwang_agent.agentkit.token import generate_convo_ai_token, expires_in_hours
 
 APP_ID = "your-app-id"
 APP_CERT = "your-app-certificate"
@@ -153,8 +153,8 @@ A full reference for this library is available [here](https://github.com/Shengwa
 Instantiate and use the client with the following:
 
 ```python
-from agent import AgentClient, MicrosoftTtsParams, Tts_Microsoft
-from agent.agents import (
+from shengwang_agent import AgentClient, MicrosoftTtsParams, Tts_Microsoft
+from shengwang_agent.agents import (
     StartAgentsRequestProperties,
     StartAgentsRequestPropertiesAsr,
     StartAgentsRequestPropertiesLlm,
@@ -206,8 +206,8 @@ The SDK also exports an `async` client so that you can make non-blocking calls t
 ```python
 import asyncio
 
-from agent import AsyncAgentClient, MicrosoftTtsParams, Tts_Microsoft
-from agent.agents import (
+from shengwang_agent import AsyncAgentClient, MicrosoftTtsParams, Tts_Microsoft
+from shengwang_agent.agents import (
     StartAgentsRequestProperties,
     StartAgentsRequestPropertiesAsr,
     StartAgentsRequestPropertiesLlm,
@@ -264,7 +264,7 @@ When the API returns a non-success status code (4xx or 5xx response), a subclass
 will be thrown.
 
 ```python
-from agent.core.api_error import ApiError
+from shengwang_agent.core.api_error import ApiError
 
 try:
     client.agents.start(...)
@@ -278,7 +278,7 @@ except ApiError as e:
 Paginated requests will return a `SyncPager` or `AsyncPager`, which can be used as generators for the underlying object.
 
 ```python
-from agent import AgentClient
+from shengwang_agent import AgentClient
 
 client = AgentClient(
     authorization="YOUR_AUTHORIZATION",
@@ -312,7 +312,7 @@ The SDK provides access to raw response data, including headers, through the `.w
 The `.with_raw_response` property returns a "raw" client that can be used to access the `.headers` and `.data` attributes.
 
 ```python
-from agent import AgentClient
+from shengwang_agent import AgentClient
 
 client = AgentClient(
     ...,
@@ -356,7 +356,7 @@ The SDK defaults to a 60 second timeout. You can configure this with a timeout o
 
 ```python
 
-from agent import AgentClient
+from shengwang_agent import AgentClient
 
 client = AgentClient(
     ...,
@@ -377,7 +377,7 @@ and transports.
 
 ```python
 import httpx
-from agent import AgentClient
+from shengwang_agent import AgentClient
 
 client = AgentClient(
     ...,

@@ -52,7 +52,7 @@ class PhoneNumbersClient:
 
         Examples
         --------
-        from agent import AgentClient
+        from shengwang_agent import AgentClient
 
         client = AgentClient(
             authorization="YOUR_AUTHORIZATION",
@@ -114,8 +114,8 @@ class PhoneNumbersClient:
 
         Examples
         --------
-        from agent import AgentClient
-        from agent.phone_numbers import (
+        from shengwang_agent import AgentClient
+        from shengwang_agent.phone_numbers import (
             AddPhoneNumbersRequestInboundConfig,
             AddPhoneNumbersRequestOutboundConfig,
         )
@@ -173,7 +173,7 @@ class PhoneNumbersClient:
 
         Examples
         --------
-        from agent import AgentClient
+        from shengwang_agent import AgentClient
 
         client = AgentClient(
             authorization="YOUR_AUTHORIZATION",
@@ -208,7 +208,7 @@ class PhoneNumbersClient:
 
         Examples
         --------
-        from agent import AgentClient
+        from shengwang_agent import AgentClient
 
         client = AgentClient(
             authorization="YOUR_AUTHORIZATION",
@@ -254,8 +254,8 @@ class PhoneNumbersClient:
 
         Examples
         --------
-        from agent import AgentClient
-        from agent.phone_numbers import (
+        from shengwang_agent import AgentClient
+        from shengwang_agent.phone_numbers import (
             UpdatePhoneNumbersRequestInboundConfig,
             UpdatePhoneNumbersRequestOutboundConfig,
         )
@@ -319,7 +319,7 @@ class AsyncPhoneNumbersClient:
         --------
         import asyncio
 
-        from agent import AsyncAgentClient
+        from shengwang_agent import AsyncAgentClient
 
         client = AsyncAgentClient(
             authorization="YOUR_AUTHORIZATION",
@@ -389,8 +389,8 @@ class AsyncPhoneNumbersClient:
         --------
         import asyncio
 
-        from agent import AsyncAgentClient
-        from agent.phone_numbers import (
+        from shengwang_agent import AsyncAgentClient
+        from shengwang_agent.phone_numbers import (
             AddPhoneNumbersRequestInboundConfig,
             AddPhoneNumbersRequestOutboundConfig,
         )
@@ -456,7 +456,7 @@ class AsyncPhoneNumbersClient:
         --------
         import asyncio
 
-        from agent import AsyncAgentClient
+        from shengwang_agent import AsyncAgentClient
 
         client = AsyncAgentClient(
             authorization="YOUR_AUTHORIZATION",
@@ -499,7 +499,7 @@ class AsyncPhoneNumbersClient:
         --------
         import asyncio
 
-        from agent import AsyncAgentClient
+        from shengwang_agent import AsyncAgentClient
 
         client = AsyncAgentClient(
             authorization="YOUR_AUTHORIZATION",
@@ -553,8 +553,8 @@ class AsyncPhoneNumbersClient:
         --------
         import asyncio
 
-        from agent import AsyncAgentClient
-        from agent.phone_numbers import (
+        from shengwang_agent import AsyncAgentClient
+        from shengwang_agent.phone_numbers import (
             UpdatePhoneNumbersRequestInboundConfig,
             UpdatePhoneNumbersRequestOutboundConfig,
         )

@@ -11,7 +11,7 @@ description: Debug logging, raw response data, retries, timeouts, and custom htt
 Enable HTTP request/response logging by passing `debug=True` when creating the client. This logs each request (method, URL, headers, body preview) and response (status, headers) before and after it is sent. Authorization headers are redacted.
 
 ```python
-from agent import AgentClient, Area
+from shengwang_agent import AgentClient, Area
 
 client = AgentClient(
     area=Area.US,
@@ -38,7 +38,7 @@ logging.getLogger("agent").setLevel(logging.DEBUG)
 Use `.with_raw_response` to get a client that returns raw responses with `.headers` and `.data`:
 
 ```python
-from agent import AgentClient, Area
+from shengwang_agent import AgentClient, Area
 
 client = AgentClient(
     area=Area.US,
@@ -86,7 +86,7 @@ Pass a custom `httpx.Client` or `httpx.AsyncClient` for proxies, custom transpor
 
 ```python
 import httpx
-from agent import AgentClient, Area
+from shengwang_agent import AgentClient, Area
 
 client = AgentClient(
     area=Area.US,

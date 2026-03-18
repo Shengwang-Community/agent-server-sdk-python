@@ -11,7 +11,7 @@ The `Agent` class is a fluent builder for configuring AI agent properties. It co
 ## Constructor
 
 ```python
-from agent.agentkit import Agent
+from shengwang_agent.agentkit import Agent
 
 agent = Agent(
     name='support-assistant',
@@ -73,8 +73,8 @@ Each `with_*` method returns a **new** `Agent` instance — the original is unch
 ## Chaining Example
 
 ```python
-from agent.agentkit import Agent
-from agent.agentkit.vendors import AliyunLLM, MiniMaxTTS, FengmingSTT
+from shengwang_agent.agentkit import Agent
+from shengwang_agent.agentkit.vendors import AliyunLLM, MiniMaxTTS, FengmingSTT
 
 agent = (
     Agent(name='my-agent', instructions='你是一个智能助手。')
@@ -89,9 +89,9 @@ agent = (
 Because each `with_*` call returns a new `Agent`, you can build a base configuration and create multiple sessions from it:
 
 ```python
-from agent import AgentClient, Area
-from agent.agentkit import Agent
-from agent.agentkit.vendors import AliyunLLM, MiniMaxTTS, FengmingSTT
+from shengwang_agent import AgentClient, Area
+from shengwang_agent.agentkit import Agent
+from shengwang_agent.agentkit.vendors import AliyunLLM, MiniMaxTTS, FengmingSTT
 
 client = AgentClient(area=Area.CN, app_id='your-app-id', app_certificate='your-app-certificate')
 

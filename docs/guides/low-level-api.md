@@ -11,8 +11,8 @@ For full control over request payloads you can call the generated clients direct
 ## Cascading flow (ASR → LLM → TTS)
 
 ```python
-from agent import AgentClient, Area
-from agent.agents import (
+from shengwang_agent import AgentClient, Area
+from shengwang_agent.agents import (
     StartAgentsRequestProperties,
     StartAgentsRequestPropertiesAsr,
     StartAgentsRequestPropertiesLlm,
@@ -55,8 +55,8 @@ client.agents.start(
 
 ```python
 import asyncio
-from agent import Area, AsyncAgentClient
-from agent.agents import (
+from shengwang_agent import Area, AsyncAgentClient
+from shengwang_agent.agents import (
     StartAgentsRequestProperties,
     StartAgentsRequestPropertiesAsr,
     StartAgentsRequestPropertiesLlm,

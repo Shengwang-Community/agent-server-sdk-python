@@ -15,7 +15,7 @@ The MLLM (Multimodal LLM) flow uses a single model to handle both audio input an
 MLLM mode must be explicitly enabled via `advanced_features`:
 
 ```python
-from agent.agentkit import Agent, AdvancedFeatures
+from shengwang_agent.agentkit import Agent, AdvancedFeatures
 
 agent = Agent(
     name='realtime-agent',

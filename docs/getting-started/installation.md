@@ -41,10 +41,10 @@ The SDK supports both synchronous and asynchronous usage:
 
 ```python
 # Sync
-from agent import AgentClient, Area
+from shengwang_agent import AgentClient, Area
 
 # Async
-from agent import AsyncAgentClient, AsyncAgentSession, Area
+from shengwang_agent import AsyncAgentClient, AsyncAgentSession, Area
 ```
 
 Both clients share the same constructor parameters and capabilities. See [Authentication](./authentication.md) for setup details.

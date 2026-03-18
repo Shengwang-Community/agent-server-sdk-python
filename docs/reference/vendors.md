@@ -9,7 +9,7 @@ description: Constructor options for all LLM, TTS, STT, and Avatar vendor classe
 All vendor classes are available from `agent.agentkit.vendors`:
 
 ```python
-from agent.agentkit.vendors import AliyunLLM, MiniMaxTTS, FengmingSTT, SensetimeAvatar
+from shengwang_agent.agentkit.vendors import AliyunLLM, MiniMaxTTS, FengmingSTT, SensetimeAvatar
 ```
 
 ---
@@ -33,7 +33,7 @@ from agent.agentkit.vendors import AliyunLLM, MiniMaxTTS, FengmingSTT, Sensetime
 | `params` | `Dict[str, Any]` | No | `None` | Additional model parameters |
 
 ```python
-from agent.agentkit.vendors import AliyunLLM
+from shengwang_agent.agentkit.vendors import AliyunLLM
 
 llm = AliyunLLM(api_key='your-key', model='qwen-max')
 ```
@@ -54,7 +54,7 @@ llm = AliyunLLM(api_key='your-key', model='qwen-max')
 | `input_modalities` | `List[str]` | No | `None` | Input modalities |
 
 ```python
-from agent.agentkit.vendors import BytedanceLLM
+from shengwang_agent.agentkit.vendors import BytedanceLLM
 
 llm = BytedanceLLM(api_key='your-key', model='doubao-pro')
 ```
@@ -74,7 +74,7 @@ llm = BytedanceLLM(api_key='your-key', model='doubao-pro')
 | `input_modalities` | `List[str]` | No | `None` | Input modalities |
 
 ```python
-from agent.agentkit.vendors import DeepSeekLLM
+from shengwang_agent.agentkit.vendors import DeepSeekLLM
 
 llm = DeepSeekLLM(api_key='your-key', model='deepseek-chat')
 ```
@@ -94,7 +94,7 @@ llm = DeepSeekLLM(api_key='your-key', model='deepseek-chat')
 | `input_modalities` | `List[str]` | No | `None` | Input modalities |
 
 ```python
-from agent.agentkit.vendors import TencentLLM
+from shengwang_agent.agentkit.vendors import TencentLLM
 
 llm = TencentLLM(api_key='your-key', model='hunyuan-pro')
 ```
@@ -114,7 +114,7 @@ llm = TencentLLM(api_key='your-key', model='hunyuan-pro')
 | `input_modalities` | `List[str]` | No | `None` | Input modalities |
 
 ```python
-from agent.agentkit.vendors import CustomLLM
+from shengwang_agent.agentkit.vendors import CustomLLM
 
 llm = CustomLLM(api_key='your-key', base_url='https://your-endpoint.com/v1')
 ```
@@ -133,7 +133,7 @@ llm = CustomLLM(api_key='your-key', base_url='https://your-endpoint.com/v1')
 | `skip_patterns` | `List[int]` | No | `None` | Skip patterns |
 
 ```python
-from agent.agentkit.vendors import MiniMaxTTS
+from shengwang_agent.agentkit.vendors import MiniMaxTTS
 
 tts = MiniMaxTTS(key='your-key', voice_id='your-voice-id')
 ```
@@ -207,7 +207,7 @@ tts = MiniMaxTTS(key='your-key', voice_id='your-voice-id')
 | `additional_params` | `Dict[str, Any]` | No | `None` | Additional parameters |
 
 ```python
-from agent.agentkit.vendors import FengmingSTT
+from shengwang_agent.agentkit.vendors import FengmingSTT
 
 stt = FengmingSTT(language='zh-CN')
 ```
@@ -271,7 +271,7 @@ stt = FengmingSTT(language='zh-CN')
 | `avatar_id` | `str` | No | `None` | Avatar ID |
 
 ```python
-from agent.agentkit.vendors import SensetimeAvatar
+from shengwang_agent.agentkit.vendors import SensetimeAvatar
 
 avatar = SensetimeAvatar(api_key='your-key', agora_uid='2')
 ```

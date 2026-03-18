@@ -29,9 +29,9 @@ For string values with a finite set of options (e.g. `data_channel`, `sal_mode`,
 SAL helps the agent focus on the primary speaker and suppress background noise. Enable it via `advanced_features` and configure with `with_sal`:
 
 ```python
-from agent import AgentClient, Area
-from agent.agentkit import Agent, AdvancedFeatures, SalConfig, SalModeValues
-from agent.agentkit.vendors import AliyunLLM, MiniMaxTTS, FengmingSTT
+from shengwang_agent import AgentClient, Area
+from shengwang_agent.agentkit import Agent, AdvancedFeatures, SalConfig, SalModeValues
+from shengwang_agent.agentkit.vendors import AliyunLLM, MiniMaxTTS, FengmingSTT
 
 agent = (
     Agent(
@@ -56,7 +56,7 @@ Use `SalModeValues.LOCKING` or `SalModeValues.RECOGNITION` for type safety.
 Enable MLLM, RTM, SAL, or tools:
 
 ```python
-from agent.agentkit import Agent, AdvancedFeatures
+from shengwang_agent.agentkit import Agent, AdvancedFeatures
 
 # RTM signaling for custom data delivery
 agent = Agent(advanced_features=AdvancedFeatures(enable_rtm=True))
@@ -70,7 +70,7 @@ agent = Agent(advanced_features=AdvancedFeatures(enable_tools=True))
 Configure silence handling, farewell behavior, and data channel:
 
 ```python
-from agent.agentkit import (
+from shengwang_agent.agentkit import (
     Agent,
     SessionParams,
     SilenceConfig,
@@ -129,7 +129,7 @@ agent = (
 Restrict which geographic regions the backend can use:
 
 ```python
-from agent.agentkit import Agent, GeofenceConfig, GeofenceArea, GeofenceExcludeArea
+from shengwang_agent.agentkit import Agent, GeofenceConfig, GeofenceArea, GeofenceExcludeArea
 
 agent = (
     Agent()
@@ -174,7 +174,7 @@ agent = (
 Configure RTC media encryption:
 
 ```python
-from agent.agentkit import Agent, RtcConfig
+from shengwang_agent.agentkit import Agent, RtcConfig
 
 agent = (
     Agent()
@@ -193,7 +193,7 @@ agent = (
 Play filler words while waiting for the LLM response:
 
 ```python
-from agent.agentkit import (
+from shengwang_agent.agentkit import (
     Agent,
     FillerWordsConfig,
     FillerWordsTrigger,
@@ -230,7 +230,7 @@ agent = (
 Read back configuration via properties:
 
 ```python
-from agent.agentkit import Agent, GeofenceConfig, GeofenceArea
+from shengwang_agent.agentkit import Agent, GeofenceConfig, GeofenceArea
 
 agent = (
     Agent(max_history=20)
@@ -254,8 +254,8 @@ agent.config         # Full read-only snapshot
 ## Chaining All Features
 
 ```python
-from agent import AgentClient, Area
-from agent.agentkit import (
+from shengwang_agent import AgentClient, Area
+from shengwang_agent.agentkit import (
     Agent,
     AdvancedFeatures,
     SessionParams,
@@ -272,7 +272,7 @@ from agent.agentkit import (
     DataChannel,
     FillerWordsSelectionRule,
 )
-from agent.agentkit.vendors import AliyunLLM, MiniMaxTTS, FengmingSTT
+from shengwang_agent.agentkit.vendors import AliyunLLM, MiniMaxTTS, FengmingSTT
 
 client = AgentClient(
     area=Area.CN,

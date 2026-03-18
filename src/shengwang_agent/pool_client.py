@@ -15,7 +15,7 @@ from .core.domain import Area, Pool
 from .agentkit.token import generate_convo_ai_token
 
 _AUTH_MODE = typing.Literal["app-credentials", "basic", "token"]
-_DEBUG_LOGGER = logging.getLogger("agent")
+_DEBUG_LOGGER = logging.getLogger("shengwang_agent")
 
 
 def _redact_headers(headers: typing.Mapping[str, str]) -> typing.Dict[str, str]:
@@ -164,15 +164,15 @@ class AgentClient(BaseAgentClient):
 
     debug : bool
         If True, log HTTP requests and responses (method, URL, headers, status).
-        Uses the ``agent`` logger; enable with
-        ``logging.getLogger("agent").setLevel(logging.DEBUG)`` or pass
+        Uses the ``shengwang_agent`` logger; enable with
+        ``logging.getLogger("shengwang_agent").setLevel(logging.DEBUG)`` or pass
         ``debug=True`` which configures the logger automatically. Ignored when
         ``httpx_client`` is provided.
 
     Examples
     --------
     # App-credentials mode (auto token generation per request)
-    from agent import AgentClient, Area
+    from shengwang_agent import AgentClient, Area
 
     client = AgentClient(
         area=Area.US,
@@ -181,7 +181,7 @@ class AgentClient(BaseAgentClient):
     )
 
     # Basic auth mode
-    from agent import AgentClient, Area
+    from shengwang_agent import AgentClient, Area
 
     client = AgentClient(
         area=Area.US,
@@ -192,8 +192,8 @@ class AgentClient(BaseAgentClient):
     )
 
     # Pre-built token mode (for debugging or custom token lifecycles)
-    from agent import AgentClient, Area
-    from agent.agentkit.token import generate_convo_ai_token
+    from shengwang_agent import AgentClient, Area
+    from shengwang_agent.agentkit.token import generate_convo_ai_token
 
     raw_token = generate_convo_ai_token(app_id="...", app_certificate="...", channel_name="...", account="1")
     client = AgentClient(
@@ -395,7 +395,7 @@ class AsyncAgentClient(BaseAsyncAgentClient):
     Examples
     --------
     # App-credentials mode (auto token generation per request)
-    from agent import AsyncAgentClient, Area
+    from shengwang_agent import AsyncAgentClient, Area
 
     client = AsyncAgentClient(
         area=Area.US,
@@ -404,7 +404,7 @@ class AsyncAgentClient(BaseAsyncAgentClient):
     )
 
     # Basic auth mode
-    from agent import AsyncAgentClient, Area
+    from shengwang_agent import AsyncAgentClient, Area
 
     client = AsyncAgentClient(
         area=Area.US,

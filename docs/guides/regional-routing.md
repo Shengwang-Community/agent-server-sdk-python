@@ -13,7 +13,7 @@ The `AgentClient` and `AsyncAgentClient` clients include a built-in domain pool 
 When you create a client, you specify an `Area` that determines the pool of regional endpoints:
 
 ```python
-from agent import AgentClient, Area
+from shengwang_agent import AgentClient, Area
 
 client = AgentClient(area=Area.CN, app_id='your-app-id', app_certificate='your-app-certificate')
 ```
@@ -41,7 +41,7 @@ The `Pool` manages region prefixes and domain suffixes:
 `select_best_domain()` is a regular method on the sync client:
 
 ```python
-from agent import AgentClient, Area
+from shengwang_agent import AgentClient, Area
 
 client = AgentClient(area=Area.CN, app_id='your-app-id', app_certificate='your-app-certificate')
 
@@ -57,7 +57,7 @@ On `AsyncAgentClient`, `select_best_domain()` is a **coroutine** — you must ca
 
 ```python
 import asyncio
-from agent import AsyncAgentClient, Area
+from shengwang_agent import AsyncAgentClient, Area
 
 async def main():
     client = AsyncAgentClient(area=Area.CN, app_id='your-app-id', app_certificate='your-app-certificate')
@@ -85,7 +85,7 @@ await client.select_best_domain()
 If a request fails, cycle to the next region prefix:
 
 ```python
-from agent import AgentClient, Area
+from shengwang_agent import AgentClient, Area
 
 client = AgentClient(area=Area.CN, app_id='your-app-id', app_certificate='your-app-certificate')
 
