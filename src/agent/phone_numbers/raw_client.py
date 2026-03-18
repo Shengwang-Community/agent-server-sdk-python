@@ -195,7 +195,7 @@ class RawPhoneNumbersClient:
         Remove an imported phone number from the system.
 
         After calling this endpoint, the number stops receiving calls routed through this system. To delete the number from the service provider, remove it in the service provider's console.
-        > This operation only removes the number configuration from the Agora system; the number stored with the phone service provider is not deleted.
+        > This operation only removes the number configuration from the system; the number stored with the phone service provider is not deleted.
 
         Parameters
         ----------
@@ -460,7 +460,7 @@ class AsyncRawPhoneNumbersClient:
         Remove an imported phone number from the system.
 
         After calling this endpoint, the number stops receiving calls routed through this system. To delete the number from the service provider, remove it in the service provider's console.
-        > This operation only removes the number configuration from the Agora system; the number stored with the phone service provider is not deleted.
+        > This operation only removes the number configuration from the system; the number stored with the phone service provider is not deleted.
 
         Parameters
         ----------

@@ -6,7 +6,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
 ## [v1.0.0] — 2026-03-11
 
-Initial stable release of the Agora Agent Server SDK for Python.
+Initial stable release of the Agent Server SDK for Python.
 
 ### Added
 
@@ -22,8 +22,7 @@ Initial stable release of the Agora Agent Server SDK for Python.
 - Advanced features (MLLM mode) via `AdvancedFeatures`
 - Type-safe constants: `DataChannel`, `SilenceActionValues`, `SalModeValues`, `GeofenceArea`, `FillerWordsSelectionRule`, `TurnDetectionTypeValues`
 - Vendor integrations:
-  - **LLM**: `OpenAI`, `AzureOpenAI`, `Anthropic`, `Gemini`, `VertexAI`
-  - **MLLM**: `OpenAIRealtime`
-  - **TTS**: `ElevenLabsTTS`, `MicrosoftTTS`, `OpenAITTS`, `CartesiaTTS`, `GoogleTTS`, `AmazonTTS`, `HumeAITTS`, `RimeTTS`, `FishAudioTTS`, `MiniMaxTTS`, `SarvamTTS`
-  - **STT**: `DeepgramSTT`, `MicrosoftSTT`, `OpenAISTT`, `GoogleSTT`, `AmazonSTT`, `AssemblyAISTT`, `AresSTT`, `SarvamSTT`, `SpeechmaticsSTT`
-  - **Avatar**: `HeyGenAvatar`, `AkoolAvatar`
+  - **LLM**: `AliyunLLM`, `BytedanceLLM`, `DeepSeekLLM`, `TencentLLM`, `CustomLLM`
+  - **TTS**: `MiniMaxTTS`, `TencentTTS`, `BytedanceTTS`, `MicrosoftTTS`, `CosyVoiceTTS`, `BytedanceDuplexTTS`, `StepFunTTS`
+  - **STT**: `FengmingSTT`, `TencentSTT`, `MicrosoftSTT`, `XfyunSTT`, `XfyunBigModelSTT`, `XfyunDialectSTT`
+  - **Avatar**: `SensetimeAvatar`

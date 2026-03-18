@@ -27,14 +27,14 @@ Create and start a Conversational AI agent instance.
 <dd>
 
 ```python
-from agent import Agora, MicrosoftTtsParams, Tts_Microsoft
+from agent import AgentClient, MicrosoftTtsParams, Tts_Microsoft
 from agent.agents import (
     StartAgentsRequestProperties,
     StartAgentsRequestPropertiesAsr,
     StartAgentsRequestPropertiesLlm,
 )
 
-client = Agora(
+client = AgentClient(
     authorization="YOUR_AUTHORIZATION",
     username="YOUR_USERNAME",
     password="YOUR_PASSWORD",
@@ -149,9 +149,9 @@ Retrieve a list of agents that meet the specified conditions.
 <dd>
 
 ```python
-from agent import Agora
+from agent import AgentClient
 
-client = Agora(
+client = AgentClient(
     authorization="YOUR_AUTHORIZATION",
     username="YOUR_USERNAME",
     password="YOUR_PASSWORD",
@@ -283,9 +283,9 @@ Get the current state information of the specified agent instance.
 <dd>
 
 ```python
-from agent import Agora
+from agent import AgentClient
 
-client = Agora(
+client = AgentClient(
     authorization="YOUR_AUTHORIZATION",
     username="YOUR_USERNAME",
     password="YOUR_PASSWORD",
@@ -366,9 +366,9 @@ Call this endpoint while the agent is running to retrieve the conversation histo
 <dd>
 
 ```python
-from agent import Agora
+from agent import AgentClient
 
-client = Agora(
+client = AgentClient(
     authorization="YOUR_AUTHORIZATION",
     username="YOUR_USERNAME",
     password="YOUR_PASSWORD",
@@ -447,9 +447,9 @@ Stop the specified conversational agent instance.
 <dd>
 
 ```python
-from agent import Agora
+from agent import AgentClient
 
-client = Agora(
+client = AgentClient(
     authorization="YOUR_AUTHORIZATION",
     username="YOUR_USERNAME",
     password="YOUR_PASSWORD",
@@ -528,13 +528,13 @@ Adjust Conversation AI Engine parameters at runtime.
 <dd>
 
 ```python
-from agent import Agora
+from agent import AgentClient
 from agent.agents import (
     UpdateAgentsRequestProperties,
     UpdateAgentsRequestPropertiesLlm,
 )
 
-client = Agora(
+client = AgentClient(
     authorization="YOUR_AUTHORIZATION",
     username="YOUR_USERNAME",
     password="YOUR_PASSWORD",
@@ -641,9 +641,9 @@ Note: The speak API is not supported when using `mllm` configuration.
 <dd>
 
 ```python
-from agent import Agora
+from agent import AgentClient
 
-client = Agora(
+client = AgentClient(
     authorization="YOUR_AUTHORIZATION",
     username="YOUR_USERNAME",
     password="YOUR_PASSWORD",
@@ -758,9 +758,9 @@ Interrupt the specified agent while speaking or thinking.
 <dd>
 
 ```python
-from agent import Agora
+from agent import AgentClient
 
-client = Agora(
+client = AgentClient(
     authorization="YOUR_AUTHORIZATION",
     username="YOUR_USERNAME",
     password="YOUR_PASSWORD",
@@ -840,9 +840,9 @@ Query historical call records for a specified appid based on the filter criteria
 <dd>
 
 ```python
-from agent import Agora
+from agent import AgentClient
 
-client = Agora(
+client = AgentClient(
     authorization="YOUR_AUTHORIZATION",
     username="YOUR_USERNAME",
     password="YOUR_PASSWORD",
@@ -973,13 +973,13 @@ Use this endpoint to initiate an outbound call to the specified number and creat
 <dd>
 
 ```python
-from agent import Agora
+from agent import AgentClient
 from agent.telephony import (
     CallTelephonyRequestProperties,
     CallTelephonyRequestSip,
 )
 
-client = Agora(
+client = AgentClient(
     authorization="YOUR_AUTHORIZATION",
     username="YOUR_USERNAME",
     password="YOUR_PASSWORD",
@@ -1098,9 +1098,9 @@ Retrieve the call status and related information of a specified agent.
 <dd>
 
 ```python
-from agent import Agora
+from agent import AgentClient
 
-client = Agora(
+client = AgentClient(
     authorization="YOUR_AUTHORIZATION",
     username="YOUR_USERNAME",
     password="YOUR_PASSWORD",
@@ -1179,9 +1179,9 @@ Instruct the agent to proactively hang up the ongoing call and leave the RTC cha
 <dd>
 
 ```python
-from agent import Agora
+from agent import AgentClient
 
-client = Agora(
+client = AgentClient(
     authorization="YOUR_AUTHORIZATION",
     username="YOUR_USERNAME",
     password="YOUR_PASSWORD",
@@ -1261,9 +1261,9 @@ Retrieve a list of all imported phone numbers under the current account.
 <dd>
 
 ```python
-from agent import Agora
+from agent import AgentClient
 
-client = Agora(
+client = AgentClient(
     authorization="YOUR_AUTHORIZATION",
     username="YOUR_USERNAME",
     password="YOUR_PASSWORD",
@@ -1323,13 +1323,13 @@ Import a pre-configured phone number that can be used for inbound or outbound ca
 <dd>
 
 ```python
-from agent import Agora
+from agent import AgentClient
 from agent.phone_numbers import (
     AddPhoneNumbersRequestInboundConfig,
     AddPhoneNumbersRequestOutboundConfig,
 )
 
-client = Agora(
+client = AgentClient(
     authorization="YOUR_AUTHORIZATION",
     username="YOUR_USERNAME",
     password="YOUR_PASSWORD",
@@ -1462,9 +1462,9 @@ Retrieve detailed information for a specific phone number.
 <dd>
 
 ```python
-from agent import Agora
+from agent import AgentClient
 
-client = Agora(
+client = AgentClient(
     authorization="YOUR_AUTHORIZATION",
     username="YOUR_USERNAME",
     password="YOUR_PASSWORD",
@@ -1522,7 +1522,7 @@ client.phone_numbers.get(
 Remove an imported phone number from the system.
 
 After calling this endpoint, the number stops receiving calls routed through this system. To delete the number from the service provider, remove it in the service provider's console.
-> This operation only removes the number configuration from the Agora system; the number stored with the phone service provider is not deleted.
+> This operation only removes the number configuration from the system; the number stored with the phone service provider is not deleted.
 </dd>
 </dl>
 </dd>
@@ -1537,9 +1537,9 @@ After calling this endpoint, the number stops receiving calls routed through thi
 <dd>
 
 ```python
-from agent import Agora
+from agent import AgentClient
 
-client = Agora(
+client = AgentClient(
     authorization="YOUR_AUTHORIZATION",
     username="YOUR_USERNAME",
     password="YOUR_PASSWORD",
@@ -1609,13 +1609,13 @@ Update the configuration for a phone number.
 <dd>
 
 ```python
-from agent import Agora
+from agent import AgentClient
 from agent.phone_numbers import (
     UpdatePhoneNumbersRequestInboundConfig,
     UpdatePhoneNumbersRequestOutboundConfig,
 )
 
-client = Agora(
+client = AgentClient(
     authorization="YOUR_AUTHORIZATION",
     username="YOUR_USERNAME",
     password="YOUR_PASSWORD",

@@ -6,7 +6,7 @@ from .base import BaseSTT
 
 
 class FengmingSTTOptions(BaseModel):
-    """Agora Fengming ASR (default for Shengwang)."""
+    """Fengming ASR."""
 
     language: Optional[str] = Field(default="zh-CN", description="Language code (e.g., zh-CN, en-US)")
     additional_params: Optional[Dict[str, Any]] = Field(default=None)

@@ -87,7 +87,7 @@ Get the current base URL being used for requests.
 
 ```python
 url = client.get_current_url()
-# "https://api-us-west-1.agora.io/api/conversational-ai-agent"
+# "https://api-cn-east-1.sd-rtn.com/api/conversational-ai-agent"
 ```
 
 - **Returns:** `str`

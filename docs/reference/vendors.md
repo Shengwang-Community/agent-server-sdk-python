@@ -267,7 +267,7 @@ stt = FengmingSTT(language='zh-CN')
 | Parameter | Type | Required | Default | Description |
 |---|---|---|---|---|
 | `api_key` | `str` | Yes | — | Sensetime API key |
-| `agora_uid` | `str` | Yes | — | Agora UID for avatar video stream |
+| `agora_uid` | `str` | Yes | — | UID for avatar video stream |
 | `avatar_id` | `str` | No | `None` | Avatar ID |
 
 ```python

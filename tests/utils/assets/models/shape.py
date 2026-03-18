@@ -8,7 +8,7 @@ import typing
 
 import typing_extensions
 
-from agora_agent.core.serialization import FieldMetadata
+from agent.core.serialization import FieldMetadata
 
 
 class Base(typing_extensions.TypedDict):

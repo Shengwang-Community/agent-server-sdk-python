@@ -11,7 +11,7 @@ from .color import Color
 from .shape import ShapeParams
 from .undiscriminated_shape import UndiscriminatedShapeParams
 
-from agora_agent.core.serialization import FieldMetadata
+from agent.core.serialization import FieldMetadata
 
 
 class ObjectWithOptionalFieldParams(typing_extensions.TypedDict):

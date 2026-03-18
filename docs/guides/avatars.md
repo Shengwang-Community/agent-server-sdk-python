@@ -75,5 +75,5 @@ If you call `with_avatar()` before `with_tts()`, the sample rate check is deferr
 | Parameter | Type | Required | Description |
 |---|---|---|---|
 | `api_key` | `str` | Yes | Sensetime API key |
-| `agora_uid` | `str` | Yes | Agora UID for the avatar video stream |
+| `agora_uid` | `str` | Yes | UID for the avatar video stream |
 | `avatar_id` | `str` | No | Avatar ID |

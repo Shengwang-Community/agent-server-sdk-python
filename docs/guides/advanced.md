@@ -24,11 +24,11 @@ session = agent.create_session(client, ...)
 session.start()  # Logs: HTTP request POST .../agents/start ...
 ```
 
-The SDK uses the `agora_agent` logger. To control output without `debug=True`, configure it directly:
+The SDK uses the `agent` logger. To control output without `debug=True`, configure it directly:
 
 ```python
 import logging
-logging.getLogger("agora_agent").setLevel(logging.DEBUG)
+logging.getLogger("agent").setLevel(logging.DEBUG)
 ```
 
 `debug=True` is ignored when you pass a custom `httpx_client`; use an httpx client with `event_hooks` for logging in that case.
