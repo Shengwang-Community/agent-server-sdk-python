@@ -7,20 +7,11 @@ from typing_extensions import Literal
 SampleRate = Literal[8000, 16000, 22050, 24000, 44100, 48000]
 
 # Provider-specific sample rate constraints.
-# These are used to validate TTS/avatar compatibility at the type level and at runtime.
-ElevenLabsSampleRate = Literal[16000, 22050, 24000, 44100]
 MicrosoftSampleRate = Literal[8000, 16000, 24000, 48000]
-OpenAISampleRate = Literal[24000]
-CartesiaSampleRate = Literal[8000, 16000, 22050, 24000, 44100, 48000]
-GoogleTTSSampleRate = Literal[8000, 16000, 22050, 24000, 44100, 48000]
 
 
 class BaseLLM(ABC):
-    """Abstract base class for all LLM vendor implementations.
-
-    Subclasses must implement :meth:`to_config` to return a dict that maps to
-    the ``llm`` field of the Agora ``StartAgentsRequest.Properties`` payload.
-    """
+    """Abstract base class for all LLM vendor implementations."""
 
     @abstractmethod
     def to_config(self) -> Dict[str, Any]:
@@ -28,16 +19,7 @@ class BaseLLM(ABC):
 
 
 class BaseTTS(ABC):
-    """Abstract base class for all TTS vendor implementations.
-
-    Subclasses must implement :meth:`to_config` and :attr:`sample_rate`.
-
-    ``sample_rate`` is used by :class:`~agora_agent.agentkit.AgentSession` to
-    validate TTS/avatar compatibility at runtime (avatars require a specific
-    sample rate).  Subclasses should return ``None`` when the user has not
-    explicitly configured a sample rate, which will cause a warning at session
-    start time rather than a hard error.
-    """
+    """Abstract base class for all TTS vendor implementations."""
 
     @abstractmethod
     def to_config(self) -> Dict[str, Any]:
@@ -50,11 +32,7 @@ class BaseTTS(ABC):
 
 
 class BaseSTT(ABC):
-    """Abstract base class for all STT vendor implementations.
-
-    Subclasses must implement :meth:`to_config` to return a dict that maps to
-    the ``stt`` field of the Agora ``StartAgentsRequest.Properties`` payload.
-    """
+    """Abstract base class for all STT vendor implementations."""
 
     @abstractmethod
     def to_config(self) -> Dict[str, Any]:
@@ -62,13 +40,7 @@ class BaseSTT(ABC):
 
 
 class BaseMLLM(ABC):
-    """Abstract base class for all MLLM (multimodal LLM) vendor implementations.
-
-    When an MLLM is configured via :meth:`~agora_agent.agentkit.Agent.with_mllm`,
-    the ``enable_mllm`` flag is set on the request and the ``llm``/``tts`` fields
-    are omitted.  Subclasses must implement :meth:`to_config` to return a dict
-    that maps to the ``mllm`` field of the payload.
-    """
+    """Abstract base class for all MLLM (multimodal LLM) vendor implementations."""
 
     @abstractmethod
     def to_config(self) -> Dict[str, Any]:
@@ -76,13 +48,7 @@ class BaseMLLM(ABC):
 
 
 class BaseAvatar(ABC):
-    """Abstract base class for all avatar vendor implementations.
-
-    Avatars render a visual representation of the agent and impose a specific TTS
-    sample rate requirement.  Subclasses must expose :attr:`required_sample_rate`
-    so that :class:`~agora_agent.agentkit.AgentSession` can verify that the
-    configured TTS uses a compatible sample rate before starting the session.
-    """
+    """Abstract base class for all avatar vendor implementations."""
 
     @property
     @abstractmethod

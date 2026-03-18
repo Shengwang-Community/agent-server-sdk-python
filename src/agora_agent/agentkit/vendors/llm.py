@@ -15,257 +15,118 @@ def _ensure_mcp_transport(servers: List[Dict[str, Any]]) -> List[Dict[str, Any]]
         result.append(item)
     return result
 
-class OpenAIOptions(BaseModel):
-    api_key: str = Field(..., description="OpenAI API key")
-    model: str = Field(default="gpt-4o-mini", description="Model name")
-    base_url: Optional[str] = Field(default=None, description="Custom base URL")
+
+class _BaseLLMOptions(BaseModel):
+    """Common LLM options shared across all vendors."""
+
+    url: str = Field(..., description="LLM callback URL (OpenAI-compatible)")
+    api_key: Optional[str] = Field(default=None, description="LLM API key")
+    model: Optional[str] = Field(default=None, description="Model name")
+    max_tokens: Optional[int] = Field(default=None, gt=0)
     temperature: Optional[float] = Field(default=None, ge=0.0, le=2.0)
     top_p: Optional[float] = Field(default=None, ge=0.0, le=1.0)
-    max_tokens: Optional[int] = Field(default=None, gt=0)
     system_messages: Optional[List[Dict[str, Any]]] = Field(default=None)
     greeting_message: Optional[str] = Field(default=None)
     failure_message: Optional[str] = Field(default=None)
+    max_history: Optional[int] = Field(default=None, description="Short-term memory entries [1,1024]")
     input_modalities: Optional[List[str]] = Field(default=None)
-    params: Optional[Dict[str, Any]] = Field(default=None)
     output_modalities: Optional[List[str]] = Field(default=None)
     greeting_configs: Optional[Dict[str, Any]] = Field(default=None)
     template_variables: Optional[Dict[str, str]] = Field(default=None)
-    vendor: Optional[str] = Field(default=None)
+    params: Optional[Dict[str, Any]] = Field(default=None, description="Additional LLM params")
     mcp_servers: Optional[List[Dict[str, Any]]] = Field(default=None)
 
     class Config:
         extra = "forbid"
 
 
-class OpenAI(BaseLLM):
+def _build_llm_config(options: _BaseLLMOptions, vendor: Optional[str]) -> Dict[str, Any]:
+    """Build the LLM config dict from common options."""
+    params: Dict[str, Any] = {}
+    if options.model is not None:
+        params["model"] = options.model
+    if options.params is not None:
+        params.update(options.params)
+    if options.max_tokens is not None:
+        params["max_tokens"] = options.max_tokens
+    if options.temperature is not None:
+        params["temperature"] = options.temperature
+    if options.top_p is not None:
+        params["top_p"] = options.top_p
+
+    config: Dict[str, Any] = {"url": options.url}
+    if options.api_key is not None:
+        config["api_key"] = options.api_key
+    if params:
+        config["params"] = params
+    if vendor is not None:
+        config["vendor"] = vendor
+    if options.system_messages is not None:
+        config["system_messages"] = options.system_messages
+    if options.greeting_message is not None:
+        config["greeting_message"] = options.greeting_message
+    if options.failure_message is not None:
+        config["failure_message"] = options.failure_message
+    if options.max_history is not None:
+        config["max_history"] = options.max_history
+    if options.input_modalities is not None:
+        config["input_modalities"] = options.input_modalities
+    if options.output_modalities is not None:
+        config["output_modalities"] = options.output_modalities
+    if options.greeting_configs is not None:
+        config["greeting_configs"] = options.greeting_configs
+    if options.template_variables is not None:
+        config["template_variables"] = options.template_variables
+    if options.mcp_servers is not None:
+        config["mcp_servers"] = _ensure_mcp_transport(options.mcp_servers)
+    return config
+
+
+class AliyunLLM(BaseLLM):
+    """Alibaba Cloud LLM."""
+
     def __init__(self, **kwargs: Any):
-        self.options = OpenAIOptions(**kwargs)
+        self.options = _BaseLLMOptions(**kwargs)
 
     def to_config(self) -> Dict[str, Any]:
-        # model is the default; explicit params entries extend/override it.
-        # This matches the TS SDK behaviour: { model, ...params }.
-        params: Dict[str, Any] = {"model": self.options.model, **(self.options.params or {})}
-
-        # Named fields take precedence over anything in the generic params dict.
-        if self.options.max_tokens is not None:
-            params["max_tokens"] = self.options.max_tokens
-        if self.options.temperature is not None:
-            params["temperature"] = self.options.temperature
-        if self.options.top_p is not None:
-            params["top_p"] = self.options.top_p
-
-        config: Dict[str, Any] = {
-            "url": self.options.base_url or "https://api.openai.com/v1/chat/completions",
-            "api_key": self.options.api_key,
-            "params": params,
-            "style": "openai",
-            "input_modalities": self.options.input_modalities or ["text"],
-        }
-
-        if self.options.system_messages is not None:
-            config["system_messages"] = self.options.system_messages
-        if self.options.greeting_message is not None:
-            config["greeting_message"] = self.options.greeting_message
-        if self.options.failure_message is not None:
-            config["failure_message"] = self.options.failure_message
-        if self.options.output_modalities is not None:
-            config["output_modalities"] = self.options.output_modalities
-        if self.options.greeting_configs is not None:
-            config["greeting_configs"] = self.options.greeting_configs
-        if self.options.template_variables is not None:
-            config["template_variables"] = self.options.template_variables
-        if self.options.vendor is not None:
-            config["vendor"] = self.options.vendor
-        if self.options.mcp_servers is not None:
-            config["mcp_servers"] = _ensure_mcp_transport(self.options.mcp_servers)
-
-        return config
+        return _build_llm_config(self.options, vendor="aliyun")
 
 
-class AzureOpenAIOptions(BaseModel):
-    api_key: str = Field(..., description="Azure OpenAI API key")
-    endpoint: str = Field(..., description="Azure endpoint URL")
-    deployment_name: str = Field(..., description="Azure deployment name")
-    api_version: str = Field(default="2024-08-01-preview", description="Azure API version")
-    temperature: Optional[float] = Field(default=None, ge=0.0, le=2.0)
-    top_p: Optional[float] = Field(default=None, ge=0.0, le=1.0)
-    max_tokens: Optional[int] = Field(default=None, gt=0)
-    system_messages: Optional[List[Dict[str, Any]]] = Field(default=None)
-    greeting_message: Optional[str] = Field(default=None)
-    failure_message: Optional[str] = Field(default=None)
-    input_modalities: Optional[List[str]] = Field(default=None)
-    output_modalities: Optional[List[str]] = Field(default=None)
-    greeting_configs: Optional[Dict[str, Any]] = Field(default=None)
-    template_variables: Optional[Dict[str, str]] = Field(default=None)
-    vendor: Optional[str] = Field(default=None)
-    mcp_servers: Optional[List[Dict[str, Any]]] = Field(default=None)
+class BytedanceLLM(BaseLLM):
+    """Bytedance (Volcengine) LLM."""
 
-    class Config:
-        extra = "forbid"
-
-
-class AzureOpenAI(BaseLLM):
     def __init__(self, **kwargs: Any):
-        self.options = AzureOpenAIOptions(**kwargs)
+        self.options = _BaseLLMOptions(**kwargs)
 
     def to_config(self) -> Dict[str, Any]:
-        url = (
-            f"{self.options.endpoint}/openai/deployments/"
-            f"{self.options.deployment_name}/chat/completions"
-            f"?api-version={self.options.api_version}"
-        )
-        config: Dict[str, Any] = {
-            "url": url,
-            "api_key": self.options.api_key,
-            "vendor": self.options.vendor or "azure",
-            "style": "openai",
-            "input_modalities": self.options.input_modalities or ["text"],
-        }
-
-        params: Dict[str, Any] = {}
-        if self.options.temperature is not None:
-            params["temperature"] = self.options.temperature
-        if self.options.top_p is not None:
-            params["top_p"] = self.options.top_p
-        if self.options.max_tokens is not None:
-            params["max_tokens"] = self.options.max_tokens
-        if params:
-            config["params"] = params
-
-        if self.options.system_messages is not None:
-            config["system_messages"] = self.options.system_messages
-        if self.options.greeting_message is not None:
-            config["greeting_message"] = self.options.greeting_message
-        if self.options.failure_message is not None:
-            config["failure_message"] = self.options.failure_message
-        if self.options.output_modalities is not None:
-            config["output_modalities"] = self.options.output_modalities
-        if self.options.greeting_configs is not None:
-            config["greeting_configs"] = self.options.greeting_configs
-        if self.options.template_variables is not None:
-            config["template_variables"] = self.options.template_variables
-        if self.options.mcp_servers is not None:
-            config["mcp_servers"] = _ensure_mcp_transport(self.options.mcp_servers)
-
-        return config
+        return _build_llm_config(self.options, vendor="bytedance")
 
 
-class AnthropicOptions(BaseModel):
-    api_key: str = Field(..., description="Anthropic API key")
-    model: str = Field(default="claude-3-5-sonnet-20241022", description="Model name")
-    max_tokens: Optional[int] = Field(default=None, gt=0)
-    temperature: Optional[float] = Field(default=None, ge=0.0, le=1.0)
-    top_p: Optional[float] = Field(default=None, ge=0.0, le=1.0)
-    system_messages: Optional[List[Dict[str, Any]]] = Field(default=None)
-    greeting_message: Optional[str] = Field(default=None)
-    failure_message: Optional[str] = Field(default=None)
-    input_modalities: Optional[List[str]] = Field(default=None)
-    output_modalities: Optional[List[str]] = Field(default=None)
-    greeting_configs: Optional[Dict[str, Any]] = Field(default=None)
-    template_variables: Optional[Dict[str, str]] = Field(default=None)
-    vendor: Optional[str] = Field(default=None)
-    mcp_servers: Optional[List[Dict[str, Any]]] = Field(default=None)
+class DeepSeekLLM(BaseLLM):
+    """DeepSeek LLM."""
 
-    class Config:
-        extra = "forbid"
-
-
-class Anthropic(BaseLLM):
     def __init__(self, **kwargs: Any):
-        self.options = AnthropicOptions(**kwargs)
+        self.options = _BaseLLMOptions(**kwargs)
 
     def to_config(self) -> Dict[str, Any]:
-        config: Dict[str, Any] = {
-            "url": "https://api.anthropic.com/v1/messages",
-            "api_key": self.options.api_key,
-            "params": {"model": self.options.model},
-            "style": "anthropic",
-            "input_modalities": self.options.input_modalities or ["text"],
-        }
-
-        if self.options.max_tokens is not None:
-            config["params"]["max_tokens"] = self.options.max_tokens
-        if self.options.temperature is not None:
-            config["params"]["temperature"] = self.options.temperature
-        if self.options.top_p is not None:
-            config["params"]["top_p"] = self.options.top_p
-        if self.options.system_messages is not None:
-            config["system_messages"] = self.options.system_messages
-        if self.options.greeting_message is not None:
-            config["greeting_message"] = self.options.greeting_message
-        if self.options.failure_message is not None:
-            config["failure_message"] = self.options.failure_message
-        if self.options.output_modalities is not None:
-            config["output_modalities"] = self.options.output_modalities
-        if self.options.greeting_configs is not None:
-            config["greeting_configs"] = self.options.greeting_configs
-        if self.options.template_variables is not None:
-            config["template_variables"] = self.options.template_variables
-        if self.options.vendor is not None:
-            config["vendor"] = self.options.vendor
-        if self.options.mcp_servers is not None:
-            config["mcp_servers"] = _ensure_mcp_transport(self.options.mcp_servers)
-
-        return config
+        return _build_llm_config(self.options, vendor="deepseek")
 
 
-class GeminiOptions(BaseModel):
-    api_key: str = Field(..., description="Google AI API key")
-    model: str = Field(default="gemini-2.0-flash-exp", description="Model name")
-    temperature: Optional[float] = Field(default=None, ge=0.0, le=2.0)
-    top_p: Optional[float] = Field(default=None, ge=0.0, le=1.0)
-    top_k: Optional[int] = Field(default=None, gt=0)
-    max_output_tokens: Optional[int] = Field(default=None, gt=0)
-    system_messages: Optional[List[Dict[str, Any]]] = Field(default=None)
-    greeting_message: Optional[str] = Field(default=None)
-    failure_message: Optional[str] = Field(default=None)
-    input_modalities: Optional[List[str]] = Field(default=None)
-    output_modalities: Optional[List[str]] = Field(default=None)
-    greeting_configs: Optional[Dict[str, Any]] = Field(default=None)
-    template_variables: Optional[Dict[str, str]] = Field(default=None)
-    vendor: Optional[str] = Field(default=None)
-    mcp_servers: Optional[List[Dict[str, Any]]] = Field(default=None)
+class TencentLLM(BaseLLM):
+    """Tencent LLM."""
 
-    class Config:
-        extra = "forbid"
-
-
-class Gemini(BaseLLM):
     def __init__(self, **kwargs: Any):
-        self.options = GeminiOptions(**kwargs)
+        self.options = _BaseLLMOptions(**kwargs)
 
     def to_config(self) -> Dict[str, Any]:
-        config: Dict[str, Any] = {
-            "url": "https://generativelanguage.googleapis.com/v1beta/models",
-            "api_key": self.options.api_key,
-            "params": {"model": self.options.model},
-            "style": "gemini",
-            "input_modalities": self.options.input_modalities or ["text"],
-        }
+        return _build_llm_config(self.options, vendor="tencent")
 
-        if self.options.temperature is not None:
-            config["params"]["temperature"] = self.options.temperature
-        if self.options.top_p is not None:
-            config["params"]["top_p"] = self.options.top_p
-        if self.options.top_k is not None:
-            config["params"]["top_k"] = self.options.top_k
-        if self.options.max_output_tokens is not None:
-            config["params"]["max_output_tokens"] = self.options.max_output_tokens
-        if self.options.system_messages is not None:
-            config["system_messages"] = self.options.system_messages
-        if self.options.greeting_message is not None:
-            config["greeting_message"] = self.options.greeting_message
-        if self.options.failure_message is not None:
-            config["failure_message"] = self.options.failure_message
-        if self.options.output_modalities is not None:
-            config["output_modalities"] = self.options.output_modalities
-        if self.options.greeting_configs is not None:
-            config["greeting_configs"] = self.options.greeting_configs
-        if self.options.template_variables is not None:
-            config["template_variables"] = self.options.template_variables
-        if self.options.vendor is not None:
-            config["vendor"] = self.options.vendor
-        if self.options.mcp_servers is not None:
-            config["mcp_servers"] = _ensure_mcp_transport(self.options.mcp_servers)
 
-        return config
+class CustomLLM(BaseLLM):
+    """Custom LLM (carries extra turn_id and timestamp in requests)."""
+
+    def __init__(self, **kwargs: Any):
+        self.options = _BaseLLMOptions(**kwargs)
+
+    def to_config(self) -> Dict[str, Any]:
+        return _build_llm_config(self.options, vendor="custom")

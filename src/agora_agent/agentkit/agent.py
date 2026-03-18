@@ -73,8 +73,8 @@ TurnDetectionType = StartAgentsRequestPropertiesTurnDetectionType
 # corresponding vad_config, keywords_config, or disabled_config instead.
 InterruptMode = StartAgentsRequestPropertiesTurnDetectionInterruptMode
 
-# Deprecated: Only applies to server_vad/semantic_vad modes with OpenAI Realtime
-# (MLLM). Has no equivalent in the ASR + LLM + TTS pipeline.
+# Deprecated: Only applies to server_vad/semantic_vad modes
+# Has no equivalent in the ASR + LLM + TTS pipeline.
 Eagerness = StartAgentsRequestPropertiesTurnDetectionEagerness
 
 # Parameters (SessionParams) sub-type aliases
@@ -107,14 +107,14 @@ class Agent:
     Examples
     --------
     >>> from agora_agent.agentkit import Agent
-    >>> from agora_agent.agentkit.vendors import OpenAI, ElevenLabsTTS, DeepgramSTT
+    >>> from agora_agent.agentkit.vendors import AliyunLLM, MiniMaxTTS, FengmingSTT
     >>>
     >>> agent = Agent(instructions="You are a helpful voice assistant.")
     >>> agent = (
     ...     agent
-    ...     .with_llm(OpenAI(api_key="...", model="gpt-4"))
-    ...     .with_tts(ElevenLabsTTS(key="...", model_id="...", voice_id="...", sample_rate=24000))
-    ...     .with_stt(DeepgramSTT(api_key="...", model="nova-2"))
+    ...     .with_llm(AliyunLLM(url="https://...", api_key="...", model="..."))
+    ...     .with_tts(MiniMaxTTS(key="...", model="speech-01-turbo", voice_setting={"voice_id": "female-shaonv"}))
+    ...     .with_stt(FengmingSTT(language="zh-CN"))
     ... )
     """
 

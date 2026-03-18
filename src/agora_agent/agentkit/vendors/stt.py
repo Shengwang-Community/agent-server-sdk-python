@@ -1,81 +1,82 @@
-from typing import Any, Dict, Optional
+from typing import Any, Dict, List, Optional
 
 from pydantic import BaseModel, Field
 
 from .base import BaseSTT
 
 
-class SpeechmaticsSTTOptions(BaseModel):
-    api_key: str = Field(..., description="Speechmatics API key")
-    language: str = Field(..., description="Language code (e.g., en, es, fr)")
+class FengmingSTTOptions(BaseModel):
+    """Agora Fengming ASR (default for Shengwang)."""
+
+    language: Optional[str] = Field(default="zh-CN", description="Language code (e.g., zh-CN, en-US)")
     additional_params: Optional[Dict[str, Any]] = Field(default=None)
 
     class Config:
         extra = "forbid"
 
 
-class SpeechmaticsSTT(BaseSTT):
+class FengmingSTT(BaseSTT):
     def __init__(self, **kwargs: Any):
-        self.options = SpeechmaticsSTTOptions(**kwargs)
+        self.options = FengmingSTTOptions(**kwargs)
 
     def to_config(self) -> Dict[str, Any]:
-        params: Dict[str, Any] = {
-            "api_key": self.options.api_key,
-            "language": self.options.language,
-        }
+        params: Dict[str, Any] = {}
         if self.options.additional_params is not None:
             params.update(self.options.additional_params)
 
         return {
-            "vendor": "speechmatics",
+            "vendor": "fengming",
             "language": self.options.language,
             "params": params,
         }
 
 
-class DeepgramSTTOptions(BaseModel):
-    api_key: Optional[str] = Field(default=None, description="Deepgram API key")
-    model: Optional[str] = Field(default=None, description="Model (e.g., nova-2, enhanced, base)")
-    language: Optional[str] = Field(default=None, description="Language code (e.g., en-US)")
-    smart_format: Optional[bool] = Field(default=None, description="Enable smart formatting")
-    punctuation: Optional[bool] = Field(default=None, description="Enable punctuation")
+class TencentSTTOptions(BaseModel):
+    """Tencent Cloud ASR. See https://cloud.tencent.com/document/product/1093/48982"""
+
+    key: str = Field(..., description="Tencent secret key")
+    app_id: str = Field(..., description="Tencent app ID")
+    secret: str = Field(..., description="Tencent secret")
+    engine_model_type: Optional[str] = Field(default=None, description="Engine model type (e.g., 16k_zh)")
+    voice_id: Optional[str] = Field(default=None, description="Voice ID")
+    language: Optional[str] = Field(default="zh-CN", description="Language code")
     additional_params: Optional[Dict[str, Any]] = Field(default=None)
 
     class Config:
         extra = "forbid"
 
 
-class DeepgramSTT(BaseSTT):
+class TencentSTT(BaseSTT):
     def __init__(self, **kwargs: Any):
-        self.options = DeepgramSTTOptions(**kwargs)
+        self.options = TencentSTTOptions(**kwargs)
 
     def to_config(self) -> Dict[str, Any]:
-        params: Dict[str, Any] = {}
-
-        if self.options.api_key is not None:
-            params["api_key"] = self.options.api_key
-        if self.options.model is not None:
-            params["model"] = self.options.model
-        if self.options.language is not None:
-            params["language"] = self.options.language
-        if self.options.smart_format is not None:
-            params["smart_format"] = self.options.smart_format
-        if self.options.punctuation is not None:
-            params["punctuation"] = self.options.punctuation
+        params: Dict[str, Any] = {
+            "key": self.options.key,
+            "app_id": self.options.app_id,
+            "secret": self.options.secret,
+        }
+        if self.options.engine_model_type is not None:
+            params["engine_model_type"] = self.options.engine_model_type
+        if self.options.voice_id is not None:
+            params["voice_id"] = self.options.voice_id
         if self.options.additional_params is not None:
             params.update(self.options.additional_params)
 
         return {
-            "vendor": "deepgram",
+            "vendor": "tencent",
             "language": self.options.language,
             "params": params,
         }
 
 
 class MicrosoftSTTOptions(BaseModel):
+    """Microsoft Azure ASR."""
+
     key: str = Field(..., description="Azure subscription key")
-    region: str = Field(..., description="Azure region (e.g., eastus)")
-    language: Optional[str] = Field(default=None, description="Language code (e.g., en-US)")
+    region: str = Field(..., description="Azure region (e.g., chinaeast2)")
+    language: Optional[str] = Field(default="zh-CN", description="Language code")
+    phrase_list: Optional[List[str]] = Field(default=None, description="Phrase list for hotwords")
     additional_params: Optional[Dict[str, Any]] = Field(default=None)
 
     class Config:
@@ -93,6 +94,8 @@ class MicrosoftSTT(BaseSTT):
         }
         if self.options.language is not None:
             params["language"] = self.options.language
+        if self.options.phrase_list is not None:
+            params["phrase_list"] = self.options.phrase_list
         if self.options.additional_params is not None:
             params.update(self.options.additional_params)
 
@@ -103,170 +106,109 @@ class MicrosoftSTT(BaseSTT):
         }
 
 
-class OpenAISTTOptions(BaseModel):
-    api_key: str = Field(..., description="OpenAI API key")
-    model: Optional[str] = Field(default=None, description="Model (default: whisper-1)")
-    language: Optional[str] = Field(default=None, description="Language code")
+class XfyunSTTOptions(BaseModel):
+    """iFlytek (Xfyun) traditional ASR. See https://www.xfyun.cn/doc/spark/asr_llm/rtasr_llm.html"""
+
+    api_key: str = Field(..., description="Xfyun API key")
+    app_id: str = Field(..., description="Xfyun app ID")
+    api_secret: str = Field(..., description="Xfyun API secret")
+    language: Optional[str] = Field(default="zh_cn", description="Language code")
     additional_params: Optional[Dict[str, Any]] = Field(default=None)
 
     class Config:
         extra = "forbid"
 
 
-class OpenAISTT(BaseSTT):
+class XfyunSTT(BaseSTT):
     def __init__(self, **kwargs: Any):
-        self.options = OpenAISTTOptions(**kwargs)
-
-    def to_config(self) -> Dict[str, Any]:
-        params: Dict[str, Any] = {"api_key": self.options.api_key}
-
-        if self.options.model is not None:
-            params["model"] = self.options.model
-        if self.options.additional_params is not None:
-            params.update(self.options.additional_params)
-
-        return {
-            "vendor": "openai",
-            "language": self.options.language,
-            "params": params,
-        }
-
-
-class GoogleSTTOptions(BaseModel):
-    api_key: str = Field(..., description="Google Cloud API key")
-    language: Optional[str] = Field(default=None, description="Language code (e.g., en-US)")
-    additional_params: Optional[Dict[str, Any]] = Field(default=None)
-
-    class Config:
-        extra = "forbid"
-
-
-class GoogleSTT(BaseSTT):
-    def __init__(self, **kwargs: Any):
-        self.options = GoogleSTTOptions(**kwargs)
-
-    def to_config(self) -> Dict[str, Any]:
-        params: Dict[str, Any] = {"api_key": self.options.api_key}
-
-        if self.options.language is not None:
-            params["language"] = self.options.language
-        if self.options.additional_params is not None:
-            params.update(self.options.additional_params)
-
-        return {
-            "vendor": "google",
-            "language": self.options.language,
-            "params": params,
-        }
-
-
-class AmazonSTTOptions(BaseModel):
-    access_key: str = Field(..., description="AWS Access Key ID")
-    secret_key: str = Field(..., description="AWS Secret Access Key")
-    region: str = Field(..., description="AWS region (e.g., us-east-1)")
-    language: Optional[str] = Field(default=None, description="Language code")
-    additional_params: Optional[Dict[str, Any]] = Field(default=None)
-
-    class Config:
-        extra = "forbid"
-
-
-class AmazonSTT(BaseSTT):
-    def __init__(self, **kwargs: Any):
-        self.options = AmazonSTTOptions(**kwargs)
-
-    def to_config(self) -> Dict[str, Any]:
-        params: Dict[str, Any] = {
-            "access_key": self.options.access_key,
-            "secret_key": self.options.secret_key,
-            "region": self.options.region,
-        }
-        if self.options.language is not None:
-            params["language"] = self.options.language
-        if self.options.additional_params is not None:
-            params.update(self.options.additional_params)
-
-        return {
-            "vendor": "amazon",
-            "language": self.options.language,
-            "params": params,
-        }
-
-
-class AssemblyAISTTOptions(BaseModel):
-    api_key: str = Field(..., description="AssemblyAI API key")
-    language: Optional[str] = Field(default=None, description="Language code")
-    additional_params: Optional[Dict[str, Any]] = Field(default=None)
-
-    class Config:
-        extra = "forbid"
-
-
-class AssemblyAISTT(BaseSTT):
-    def __init__(self, **kwargs: Any):
-        self.options = AssemblyAISTTOptions(**kwargs)
-
-    def to_config(self) -> Dict[str, Any]:
-        params: Dict[str, Any] = {"api_key": self.options.api_key}
-        if self.options.additional_params is not None:
-            params.update(self.options.additional_params)
-
-        return {
-            "vendor": "assemblyai",
-            "language": self.options.language,
-            "params": params,
-        }
-
-
-class AresSTTOptions(BaseModel):
-    language: Optional[str] = Field(default=None, description="Language code")
-    additional_params: Optional[Dict[str, Any]] = Field(default=None)
-
-    class Config:
-        extra = "forbid"
-
-
-class AresSTT(BaseSTT):
-    def __init__(self, **kwargs: Any):
-        self.options = AresSTTOptions(**kwargs)
-
-    def to_config(self) -> Dict[str, Any]:
-        params: Dict[str, Any] = {}
-        if self.options.language is not None:
-            params["language"] = self.options.language
-        if self.options.additional_params is not None:
-            params.update(self.options.additional_params)
-
-        return {
-            "vendor": "ares",
-            "language": self.options.language,
-            "params": params,
-        }
-
-
-class SarvamSTTOptions(BaseModel):
-    api_key: str = Field(..., description="Sarvam API key")
-    language: str = Field(..., description="Language code (e.g., en, hi, ta)")
-    additional_params: Optional[Dict[str, Any]] = Field(default=None)
-
-    class Config:
-        extra = "forbid"
-
-
-class SarvamSTT(BaseSTT):
-    def __init__(self, **kwargs: Any):
-        self.options = SarvamSTTOptions(**kwargs)
+        self.options = XfyunSTTOptions(**kwargs)
 
     def to_config(self) -> Dict[str, Any]:
         params: Dict[str, Any] = {
             "api_key": self.options.api_key,
-            "language": self.options.language,
+            "app_id": self.options.app_id,
+            "api_secret": self.options.api_secret,
         }
+        if self.options.language is not None:
+            params["language"] = self.options.language
         if self.options.additional_params is not None:
             params.update(self.options.additional_params)
 
         return {
-            "vendor": "sarvam",
+            "vendor": "xfyun",
+            "language": self.options.language,
+            "params": params,
+        }
+
+
+class XfyunBigModelSTTOptions(BaseModel):
+    """iFlytek (Xfyun) Big Model ASR."""
+
+    api_key: str = Field(..., description="Xfyun API key")
+    app_id: str = Field(..., description="Xfyun app ID")
+    api_secret: str = Field(..., description="Xfyun API secret")
+    language_name: Optional[str] = Field(default="cn", description="Language name")
+    language: Optional[str] = Field(default="mix", description="Language mode")
+    additional_params: Optional[Dict[str, Any]] = Field(default=None)
+
+    class Config:
+        extra = "forbid"
+
+
+class XfyunBigModelSTT(BaseSTT):
+    def __init__(self, **kwargs: Any):
+        self.options = XfyunBigModelSTTOptions(**kwargs)
+
+    def to_config(self) -> Dict[str, Any]:
+        params: Dict[str, Any] = {
+            "api_key": self.options.api_key,
+            "app_id": self.options.app_id,
+            "api_secret": self.options.api_secret,
+        }
+        if self.options.language_name is not None:
+            params["language_name"] = self.options.language_name
+        if self.options.language is not None:
+            params["language"] = self.options.language
+        if self.options.additional_params is not None:
+            params.update(self.options.additional_params)
+
+        return {
+            "vendor": "xfyun_bigmodel",
+            "language": self.options.language,
+            "params": params,
+        }
+
+
+class XfyunDialectSTTOptions(BaseModel):
+    """iFlytek (Xfyun) Dialect ASR."""
+
+    app_id: str = Field(..., description="Xfyun app ID")
+    access_key_id: str = Field(..., description="Xfyun access key ID")
+    access_key_secret: str = Field(..., description="Xfyun access key secret")
+    language: Optional[str] = Field(default="zh-CN", description="Language code")
+    additional_params: Optional[Dict[str, Any]] = Field(default=None)
+
+    class Config:
+        extra = "forbid"
+
+
+class XfyunDialectSTT(BaseSTT):
+    def __init__(self, **kwargs: Any):
+        self.options = XfyunDialectSTTOptions(**kwargs)
+
+    def to_config(self) -> Dict[str, Any]:
+        params: Dict[str, Any] = {
+            "app_id": self.options.app_id,
+            "access_key_id": self.options.access_key_id,
+            "access_key_secret": self.options.access_key_secret,
+        }
+        if self.options.language is not None:
+            params["language"] = self.options.language
+        if self.options.additional_params is not None:
+            params.update(self.options.additional_params)
+
+        return {
+            "vendor": "xfyun_dialect",
             "language": self.options.language,
             "params": params,
         }
