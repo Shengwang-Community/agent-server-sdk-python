@@ -8,48 +8,13 @@ import pydantic
 import typing_extensions
 from ..core.pydantic_utilities import IS_PYDANTIC_V2
 from ..core.unchecked_base_model import UncheckedBaseModel, UnionMetadata
-from .amazon_tts_params import AmazonTtsParams
-from .cartesia_tts_params import CartesiaTtsParams
-from .eleven_labs_tts_params import ElevenLabsTtsParams
-from .fish_audio_tts_params import FishAudioTtsParams
-from .google_tts_params import GoogleTtsParams
-from .hume_ai_tts_params import HumeAiTtsParams
+from .bytedance_duplex_tts_params import BytedanceDuplexTtsParams
+from .bytedance_tts_params import BytedanceTtsParams
+from .cosyvoice_tts_params import CosyvoiceTtsParams
 from .microsoft_tts_params import MicrosoftTtsParams
 from .minimax_tts_params import MinimaxTtsParams
-from .murf_tts_params import MurfTtsParams
-from .open_ai_tts_params import OpenAiTtsParams
-from .rime_tts_params import RimeTtsParams
-from .sarvam_tts_params import SarvamTtsParams
-
-
-class Tts_Microsoft(UncheckedBaseModel):
-    vendor: typing.Literal["microsoft"] = "microsoft"
-    params: MicrosoftTtsParams
-    skip_patterns: typing.Optional[typing.List[int]] = None
-
-    if IS_PYDANTIC_V2:
-        model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2
-    else:
-
-        class Config:
-            frozen = True
-            smart_union = True
-            extra = pydantic.Extra.allow
-
-
-class Tts_Elevenlabs(UncheckedBaseModel):
-    vendor: typing.Literal["elevenlabs"] = "elevenlabs"
-    params: ElevenLabsTtsParams
-    skip_patterns: typing.Optional[typing.List[int]] = None
-
-    if IS_PYDANTIC_V2:
-        model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2
-    else:
-
-        class Config:
-            frozen = True
-            smart_union = True
-            extra = pydantic.Extra.allow
+from .stepfun_tts_params import StepfunTtsParams
+from .tencent_tts_params import TencentTtsParams
 
 
 class Tts_Minimax(UncheckedBaseModel):
@@ -67,9 +32,9 @@ class Tts_Minimax(UncheckedBaseModel):
             extra = pydantic.Extra.allow
 
 
-class Tts_Murf(UncheckedBaseModel):
-    vendor: typing.Literal["murf"] = "murf"
-    params: MurfTtsParams
+class Tts_Tencent(UncheckedBaseModel):
+    vendor: typing.Literal["tencent"] = "tencent"
+    params: TencentTtsParams
     skip_patterns: typing.Optional[typing.List[int]] = None
 
     if IS_PYDANTIC_V2:
@@ -82,9 +47,9 @@ class Tts_Murf(UncheckedBaseModel):
             extra = pydantic.Extra.allow
 
 
-class Tts_Cartesia(UncheckedBaseModel):
-    vendor: typing.Literal["cartesia"] = "cartesia"
-    params: CartesiaTtsParams
+class Tts_Bytedance(UncheckedBaseModel):
+    vendor: typing.Literal["bytedance"] = "bytedance"
+    params: BytedanceTtsParams
     skip_patterns: typing.Optional[typing.List[int]] = None
 
     if IS_PYDANTIC_V2:
@@ -97,9 +62,9 @@ class Tts_Cartesia(UncheckedBaseModel):
             extra = pydantic.Extra.allow
 
 
-class Tts_Openai(UncheckedBaseModel):
-    vendor: typing.Literal["openai"] = "openai"
-    params: OpenAiTtsParams
+class Tts_Microsoft(UncheckedBaseModel):
+    vendor: typing.Literal["microsoft"] = "microsoft"
+    params: MicrosoftTtsParams
     skip_patterns: typing.Optional[typing.List[int]] = None
 
     if IS_PYDANTIC_V2:
@@ -112,9 +77,9 @@ class Tts_Openai(UncheckedBaseModel):
             extra = pydantic.Extra.allow
 
 
-class Tts_Humeai(UncheckedBaseModel):
-    vendor: typing.Literal["humeai"] = "humeai"
-    params: HumeAiTtsParams
+class Tts_Cosyvoice(UncheckedBaseModel):
+    vendor: typing.Literal["cosyvoice"] = "cosyvoice"
+    params: CosyvoiceTtsParams
     skip_patterns: typing.Optional[typing.List[int]] = None
 
     if IS_PYDANTIC_V2:
@@ -127,9 +92,9 @@ class Tts_Humeai(UncheckedBaseModel):
             extra = pydantic.Extra.allow
 
 
-class Tts_Rime(UncheckedBaseModel):
-    vendor: typing.Literal["rime"] = "rime"
-    params: RimeTtsParams
+class Tts_BytedanceDuplex(UncheckedBaseModel):
+    vendor: typing.Literal["bytedance_duplex"] = "bytedance_duplex"
+    params: BytedanceDuplexTtsParams
     skip_patterns: typing.Optional[typing.List[int]] = None
 
     if IS_PYDANTIC_V2:
@@ -142,54 +107,9 @@ class Tts_Rime(UncheckedBaseModel):
             extra = pydantic.Extra.allow
 
 
-class Tts_Fishaudio(UncheckedBaseModel):
-    vendor: typing.Literal["fishaudio"] = "fishaudio"
-    params: FishAudioTtsParams
-    skip_patterns: typing.Optional[typing.List[int]] = None
-
-    if IS_PYDANTIC_V2:
-        model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2
-    else:
-
-        class Config:
-            frozen = True
-            smart_union = True
-            extra = pydantic.Extra.allow
-
-
-class Tts_Google(UncheckedBaseModel):
-    vendor: typing.Literal["google"] = "google"
-    params: GoogleTtsParams
-    skip_patterns: typing.Optional[typing.List[int]] = None
-
-    if IS_PYDANTIC_V2:
-        model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2
-    else:
-
-        class Config:
-            frozen = True
-            smart_union = True
-            extra = pydantic.Extra.allow
-
-
-class Tts_Amazon(UncheckedBaseModel):
-    vendor: typing.Literal["amazon"] = "amazon"
-    params: AmazonTtsParams
-    skip_patterns: typing.Optional[typing.List[int]] = None
-
-    if IS_PYDANTIC_V2:
-        model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2
-    else:
-
-        class Config:
-            frozen = True
-            smart_union = True
-            extra = pydantic.Extra.allow
-
-
-class Tts_Sarvam(UncheckedBaseModel):
-    vendor: typing.Literal["sarvam"] = "sarvam"
-    params: SarvamTtsParams
+class Tts_Stepfun(UncheckedBaseModel):
+    vendor: typing.Literal["stepfun"] = "stepfun"
+    params: StepfunTtsParams
     skip_patterns: typing.Optional[typing.List[int]] = None
 
     if IS_PYDANTIC_V2:
@@ -204,18 +124,13 @@ class Tts_Sarvam(UncheckedBaseModel):
 
 Tts = typing_extensions.Annotated[
     typing.Union[
-        Tts_Microsoft,
-        Tts_Elevenlabs,
         Tts_Minimax,
-        Tts_Murf,
-        Tts_Cartesia,
-        Tts_Openai,
-        Tts_Humeai,
-        Tts_Rime,
-        Tts_Fishaudio,
-        Tts_Google,
-        Tts_Amazon,
-        Tts_Sarvam,
+        Tts_Tencent,
+        Tts_Bytedance,
+        Tts_Microsoft,
+        Tts_Cosyvoice,
+        Tts_BytedanceDuplex,
+        Tts_Stepfun,
     ],
     UnionMetadata(discriminant="vendor"),
 ]
