@@ -11,7 +11,7 @@ The SDK provides typed vendor classes for every supported provider. Each vendor 
 All vendor classes are available from `agent.agentkit.vendors`:
 
 ```python
-from agent.agentkit.vendors import AliyunLLM, MiniMaxTTS, FengmingSTT
+from shengwang_agent.agentkit.vendors import AliyunLLM, MiniMaxTTS, FengmingSTT
 ```
 
 ## LLM Vendors
@@ -27,7 +27,7 @@ Used with `agent.with_llm()` for the cascading flow (ASR → LLM → TTS).
 | `CustomLLM` | Custom endpoint | `api_key` |
 
 ```python
-from agent.agentkit.vendors import AliyunLLM
+from shengwang_agent.agentkit.vendors import AliyunLLM
 
 llm = AliyunLLM(api_key='your-aliyun-key', model='qwen-max')
 ```
@@ -47,7 +47,7 @@ Used with `agent.with_tts()`. Each TTS vendor produces audio at a specific sampl
 | `StepFunTTS` | StepFun | `key` |
 
 ```python
-from agent.agentkit.vendors import MiniMaxTTS
+from shengwang_agent.agentkit.vendors import MiniMaxTTS
 
 tts = MiniMaxTTS(key='your-minimax-key', voice_id='your-voice-id')
 ```
@@ -66,7 +66,7 @@ Used with `agent.with_stt()`.
 | `XfyunDialectSTT` | Xfyun Dialect | `app_id`, `api_key` |
 
 ```python
-from agent.agentkit.vendors import FengmingSTT
+from shengwang_agent.agentkit.vendors import FengmingSTT
 
 stt = FengmingSTT(language='zh-CN')
 ```
@@ -80,7 +80,7 @@ Used with `agent.with_avatar()`. Avatars require specific TTS sample rates — s
 | `SensetimeAvatar` | Sensetime | `api_key`, `agora_uid` |
 
 ```python
-from agent.agentkit.vendors import SensetimeAvatar
+from shengwang_agent.agentkit.vendors import SensetimeAvatar
 
 avatar = SensetimeAvatar(api_key='your-sensetime-key', agora_uid='2')
 ```

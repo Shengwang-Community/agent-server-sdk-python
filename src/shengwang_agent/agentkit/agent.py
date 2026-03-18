@@ -106,8 +106,8 @@ class Agent:
 
     Examples
     --------
-    >>> from agent.agentkit import Agent
-    >>> from agent.agentkit.vendors import AliyunLLM, MiniMaxTTS, FengmingSTT
+    >>> from shengwang_agent.agentkit import Agent
+    >>> from shengwang_agent.agentkit.vendors import AliyunLLM, MiniMaxTTS, FengmingSTT
     >>>
     >>> agent = Agent(instructions="You are a helpful voice assistant.")
     >>> agent = (

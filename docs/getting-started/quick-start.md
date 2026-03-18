@@ -13,9 +13,9 @@ This guide walks you through building a voice agent using the cascading flow (AS
 This complete script creates an agent with Aliyun for the LLM, MiniMax for TTS, and Fengming for STT:
 
 ```python
-from agent import AgentClient, Area
-from agent.agentkit import Agent
-from agent.agentkit.vendors import AliyunLLM, MiniMaxTTS, FengmingSTT
+from shengwang_agent import AgentClient, Area
+from shengwang_agent.agentkit import Agent
+from shengwang_agent.agentkit.vendors import AliyunLLM, MiniMaxTTS, FengmingSTT
 
 # 1. Create a client with app credentials
 client = AgentClient(
@@ -56,9 +56,9 @@ For async applications, use `AsyncAgentClient` for the client. All session metho
 
 ```python
 import asyncio
-from agent import AsyncAgentClient, Area
-from agent.agentkit import Agent
-from agent.agentkit.vendors import AliyunLLM, MiniMaxTTS, FengmingSTT
+from shengwang_agent import AsyncAgentClient, Area
+from shengwang_agent.agentkit import Agent
+from shengwang_agent.agentkit.vendors import AliyunLLM, MiniMaxTTS, FengmingSTT
 
 async def main():
     # 1. Create an async client

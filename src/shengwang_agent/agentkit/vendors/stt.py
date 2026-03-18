@@ -12,7 +12,7 @@ class FengmingSTTOptions(BaseModel):
     additional_params: Optional[Dict[str, Any]] = Field(default=None)
 
     class Config:
-        extra = "forbid"
+        extra = "allow"
 
 
 class FengmingSTT(BaseSTT):
@@ -23,6 +23,8 @@ class FengmingSTT(BaseSTT):
         params: Dict[str, Any] = {}
         if self.options.additional_params is not None:
             params.update(self.options.additional_params)
+        if self.options.model_extra:
+            params.update(self.options.model_extra)
 
         return {
             "vendor": "fengming",
@@ -43,7 +45,7 @@ class TencentSTTOptions(BaseModel):
     additional_params: Optional[Dict[str, Any]] = Field(default=None)
 
     class Config:
-        extra = "forbid"
+        extra = "allow"
 
 
 class TencentSTT(BaseSTT):
@@ -62,6 +64,8 @@ class TencentSTT(BaseSTT):
             params["voice_id"] = self.options.voice_id
         if self.options.additional_params is not None:
             params.update(self.options.additional_params)
+        if self.options.model_extra:
+            params.update(self.options.model_extra)
 
         return {
             "vendor": "tencent",
@@ -80,7 +84,7 @@ class MicrosoftSTTOptions(BaseModel):
     additional_params: Optional[Dict[str, Any]] = Field(default=None)
 
     class Config:
-        extra = "forbid"
+        extra = "allow"
 
 
 class MicrosoftSTT(BaseSTT):
@@ -98,6 +102,8 @@ class MicrosoftSTT(BaseSTT):
             params["phrase_list"] = self.options.phrase_list
         if self.options.additional_params is not None:
             params.update(self.options.additional_params)
+        if self.options.model_extra:
+            params.update(self.options.model_extra)
 
         return {
             "vendor": "microsoft",
@@ -116,7 +122,7 @@ class XfyunSTTOptions(BaseModel):
     additional_params: Optional[Dict[str, Any]] = Field(default=None)
 
     class Config:
-        extra = "forbid"
+        extra = "allow"
 
 
 class XfyunSTT(BaseSTT):
@@ -133,6 +139,8 @@ class XfyunSTT(BaseSTT):
             params["language"] = self.options.language
         if self.options.additional_params is not None:
             params.update(self.options.additional_params)
+        if self.options.model_extra:
+            params.update(self.options.model_extra)
 
         return {
             "vendor": "xfyun",
@@ -152,7 +160,7 @@ class XfyunBigModelSTTOptions(BaseModel):
     additional_params: Optional[Dict[str, Any]] = Field(default=None)
 
     class Config:
-        extra = "forbid"
+        extra = "allow"
 
 
 class XfyunBigModelSTT(BaseSTT):
@@ -171,6 +179,8 @@ class XfyunBigModelSTT(BaseSTT):
             params["language"] = self.options.language
         if self.options.additional_params is not None:
             params.update(self.options.additional_params)
+        if self.options.model_extra:
+            params.update(self.options.model_extra)
 
         return {
             "vendor": "xfyun_bigmodel",
@@ -189,7 +199,7 @@ class XfyunDialectSTTOptions(BaseModel):
     additional_params: Optional[Dict[str, Any]] = Field(default=None)
 
     class Config:
-        extra = "forbid"
+        extra = "allow"
 
 
 class XfyunDialectSTT(BaseSTT):
@@ -206,6 +216,8 @@ class XfyunDialectSTT(BaseSTT):
             params["language"] = self.options.language
         if self.options.additional_params is not None:
             params.update(self.options.additional_params)
+        if self.options.model_extra:
+            params.update(self.options.model_extra)
 
         return {
             "vendor": "xfyun_dialect",

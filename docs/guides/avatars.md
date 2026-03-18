@@ -27,9 +27,9 @@ Additionally, if the TTS `sample_rate` is not explicitly set (returns `None`), t
 ## Sensetime Avatar
 
 ```python
-from agent import AgentClient, Area
-from agent.agentkit import Agent
-from agent.agentkit.vendors import AliyunLLM, MiniMaxTTS, FengmingSTT, SensetimeAvatar
+from shengwang_agent import AgentClient, Area
+from shengwang_agent.agentkit import Agent
+from shengwang_agent.agentkit.vendors import AliyunLLM, MiniMaxTTS, FengmingSTT, SensetimeAvatar
 
 client = AgentClient(
     area=Area.CN,

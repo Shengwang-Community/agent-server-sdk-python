@@ -49,7 +49,7 @@ class AgentClient:
 
     Examples
     --------
-    from agent import AgentClient
+    from shengwang_agent import AgentClient
 
     client = AgentClient(
         authorization="YOUR_AUTHORIZATION",
@@ -151,7 +151,7 @@ class AsyncAgentClient:
 
     Examples
     --------
-    from agent import AsyncAgentClient
+    from shengwang_agent import AsyncAgentClient
 
     client = AsyncAgentClient(
         authorization="YOUR_AUTHORIZATION",

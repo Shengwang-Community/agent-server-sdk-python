@@ -8,7 +8,7 @@ import typing
 
 import typing_extensions
 
-from agent.core.serialization import FieldMetadata
+from shengwang_agent.core.serialization import FieldMetadata
 
 
 class Base(typing_extensions.TypedDict):

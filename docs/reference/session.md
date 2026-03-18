@@ -8,10 +8,10 @@ description: Full API reference for the Python AgentSession class.
 
 **Import:**
 ```python
-from agent.agentkit import AgentSession
-from agent.agentkit.agent_session import AsyncAgentSession
+from shengwang_agent.agentkit import AgentSession
+from shengwang_agent.agentkit.agent_session import AsyncAgentSession
 # or from top-level:
-from agent import AgentSession, AsyncAgentSession
+from shengwang_agent import AgentSession, AsyncAgentSession
 ```
 
 ## Constructor
@@ -138,7 +138,7 @@ Update the agent configuration at runtime.
 | **Raises** | `RuntimeError` if not in `running` state | Same |
 
 ```python
-from agent.agents.types import UpdateAgentsRequestProperties
+from shengwang_agent.agents.types import UpdateAgentsRequestProperties
 
 # Sync
 session.update(properties)

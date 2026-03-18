@@ -37,7 +37,7 @@ class _BaseLLMOptions(BaseModel):
     mcp_servers: Optional[List[Dict[str, Any]]] = Field(default=None)
 
     class Config:
-        extra = "forbid"
+        extra = "allow"
 
 
 def _build_llm_config(options: _BaseLLMOptions, vendor: Optional[str]) -> Dict[str, Any]:
@@ -79,6 +79,9 @@ def _build_llm_config(options: _BaseLLMOptions, vendor: Optional[str]) -> Dict[s
         config["template_variables"] = options.template_variables
     if options.mcp_servers is not None:
         config["mcp_servers"] = _ensure_mcp_transport(options.mcp_servers)
+    # Forward any extra fields not explicitly defined
+    if options.model_extra:
+        config.update(options.model_extra)
     return config
 
 

@@ -4,7 +4,7 @@
 
 import typing_extensions
 
-from agent.core.serialization import FieldMetadata
+from shengwang_agent.core.serialization import FieldMetadata
 
 
 class SquareParams(typing_extensions.TypedDict):

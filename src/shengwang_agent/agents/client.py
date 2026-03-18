@@ -70,8 +70,8 @@ class AgentsClient:
 
         Examples
         --------
-        from agent import AgentClient, MicrosoftTtsParams, Tts_Microsoft
-        from agent.agents import (
+        from shengwang_agent import AgentClient, MicrosoftTtsParams, Tts_Microsoft
+        from shengwang_agent.agents import (
             StartAgentsRequestProperties,
             StartAgentsRequestPropertiesAsr,
             StartAgentsRequestPropertiesLlm,
@@ -173,7 +173,7 @@ class AgentsClient:
 
         Examples
         --------
-        from agent import AgentClient
+        from shengwang_agent import AgentClient
 
         client = AgentClient(
             authorization="YOUR_AUTHORIZATION",
@@ -224,7 +224,7 @@ class AgentsClient:
 
         Examples
         --------
-        from agent import AgentClient
+        from shengwang_agent import AgentClient
 
         client = AgentClient(
             authorization="YOUR_AUTHORIZATION",
@@ -265,7 +265,7 @@ class AgentsClient:
 
         Examples
         --------
-        from agent import AgentClient
+        from shengwang_agent import AgentClient
 
         client = AgentClient(
             authorization="YOUR_AUTHORIZATION",
@@ -301,7 +301,7 @@ class AgentsClient:
 
         Examples
         --------
-        from agent import AgentClient
+        from shengwang_agent import AgentClient
 
         client = AgentClient(
             authorization="YOUR_AUTHORIZATION",
@@ -348,8 +348,8 @@ class AgentsClient:
 
         Examples
         --------
-        from agent import AgentClient
-        from agent.agents import (
+        from shengwang_agent import AgentClient
+        from shengwang_agent.agents import (
             UpdateAgentsRequestProperties,
             UpdateAgentsRequestPropertiesLlm,
         )
@@ -432,7 +432,7 @@ class AgentsClient:
 
         Examples
         --------
-        from agent import AgentClient
+        from shengwang_agent import AgentClient
 
         client = AgentClient(
             authorization="YOUR_AUTHORIZATION",
@@ -476,7 +476,7 @@ class AgentsClient:
 
         Examples
         --------
-        from agent import AgentClient
+        from shengwang_agent import AgentClient
 
         client = AgentClient(
             authorization="YOUR_AUTHORIZATION",
@@ -541,8 +541,8 @@ class AsyncAgentsClient:
         --------
         import asyncio
 
-        from agent import AsyncAgentClient, MicrosoftTtsParams, Tts_Microsoft
-        from agent.agents import (
+        from shengwang_agent import AsyncAgentClient, MicrosoftTtsParams, Tts_Microsoft
+        from shengwang_agent.agents import (
             StartAgentsRequestProperties,
             StartAgentsRequestPropertiesAsr,
             StartAgentsRequestPropertiesLlm,
@@ -654,7 +654,7 @@ class AsyncAgentsClient:
         --------
         import asyncio
 
-        from agent import AsyncAgentClient
+        from shengwang_agent import AsyncAgentClient
 
         client = AsyncAgentClient(
             authorization="YOUR_AUTHORIZATION",
@@ -714,7 +714,7 @@ class AsyncAgentsClient:
         --------
         import asyncio
 
-        from agent import AsyncAgentClient
+        from shengwang_agent import AsyncAgentClient
 
         client = AsyncAgentClient(
             authorization="YOUR_AUTHORIZATION",
@@ -763,7 +763,7 @@ class AsyncAgentsClient:
         --------
         import asyncio
 
-        from agent import AsyncAgentClient
+        from shengwang_agent import AsyncAgentClient
 
         client = AsyncAgentClient(
             authorization="YOUR_AUTHORIZATION",
@@ -807,7 +807,7 @@ class AsyncAgentsClient:
         --------
         import asyncio
 
-        from agent import AsyncAgentClient
+        from shengwang_agent import AsyncAgentClient
 
         client = AsyncAgentClient(
             authorization="YOUR_AUTHORIZATION",
@@ -862,8 +862,8 @@ class AsyncAgentsClient:
         --------
         import asyncio
 
-        from agent import AsyncAgentClient
-        from agent.agents import (
+        from shengwang_agent import AsyncAgentClient
+        from shengwang_agent.agents import (
             UpdateAgentsRequestProperties,
             UpdateAgentsRequestPropertiesLlm,
         )
@@ -956,7 +956,7 @@ class AsyncAgentsClient:
         --------
         import asyncio
 
-        from agent import AsyncAgentClient
+        from shengwang_agent import AsyncAgentClient
 
         client = AsyncAgentClient(
             authorization="YOUR_AUTHORIZATION",
@@ -1008,7 +1008,7 @@ class AsyncAgentsClient:
         --------
         import asyncio
 
-        from agent import AsyncAgentClient
+        from shengwang_agent import AsyncAgentClient
 
         client = AsyncAgentClient(
             authorization="YOUR_AUTHORIZATION",

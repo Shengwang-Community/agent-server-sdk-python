@@ -6,7 +6,7 @@ description: Full API reference for the Python Agent builder class.
 
 # Agent Reference
 
-**Import:** `from agent.agentkit import Agent` or `from agent import Agent`
+**Import:** `from shengwang_agent.agentkit import Agent` or `from shengwang_agent import Agent`
 
 ## Constructor
 
@@ -53,7 +53,7 @@ All builder methods return a new `Agent` instance (immutable pattern).
 Set the LLM vendor for cascading flow.
 
 ```python
-from agent.agentkit.vendors import AliyunLLM
+from shengwang_agent.agentkit.vendors import AliyunLLM
 agent = Agent().with_llm(AliyunLLM(api_key='your-key', model='qwen-max'))
 ```
 
@@ -62,7 +62,7 @@ agent = Agent().with_llm(AliyunLLM(api_key='your-key', model='qwen-max'))
 Set the TTS vendor. Records the vendor's `sample_rate` for avatar validation.
 
 ```python
-from agent.agentkit.vendors import MiniMaxTTS
+from shengwang_agent.agentkit.vendors import MiniMaxTTS
 agent = Agent().with_tts(MiniMaxTTS(key='your-key', voice_id='your-voice-id'))
 ```
 
@@ -71,7 +71,7 @@ agent = Agent().with_tts(MiniMaxTTS(key='your-key', voice_id='your-voice-id'))
 Set the STT (ASR) vendor.
 
 ```python
-from agent.agentkit.vendors import FengmingSTT
+from shengwang_agent.agentkit.vendors import FengmingSTT
 agent = Agent().with_stt(FengmingSTT(language='zh-CN'))
 ```
 
@@ -80,7 +80,7 @@ agent = Agent().with_stt(FengmingSTT(language='zh-CN'))
 Set the MLLM vendor for multimodal flow. Requires `AdvancedFeatures(enable_mllm=True)`.
 
 ```python
-from agent.agentkit import AdvancedFeatures
+from shengwang_agent.agentkit import AdvancedFeatures
 agent = Agent(advanced_features=AdvancedFeatures(enable_mllm=True)).with_mllm(...)
 ```
 
@@ -89,7 +89,7 @@ agent = Agent(advanced_features=AdvancedFeatures(enable_mllm=True)).with_mllm(..
 Set the avatar vendor. Raises `ValueError` if TTS sample rate does not match the avatar's `required_sample_rate`.
 
 ```python
-from agent.agentkit.vendors import SensetimeAvatar
+from shengwang_agent.agentkit.vendors import SensetimeAvatar
 agent = agent.with_avatar(SensetimeAvatar(api_key='your-key', agora_uid='2'))
 ```
 

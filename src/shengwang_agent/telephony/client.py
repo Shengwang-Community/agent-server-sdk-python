@@ -86,7 +86,7 @@ class TelephonyClient:
 
         Examples
         --------
-        from agent import AgentClient
+        from shengwang_agent import AgentClient
 
         client = AgentClient(
             authorization="YOUR_AUTHORIZATION",
@@ -157,8 +157,8 @@ class TelephonyClient:
 
         Examples
         --------
-        from agent import AgentClient
-        from agent.telephony import (
+        from shengwang_agent import AgentClient
+        from shengwang_agent.telephony import (
             CallTelephonyRequestProperties,
             CallTelephonyRequestSip,
         )
@@ -215,7 +215,7 @@ class TelephonyClient:
 
         Examples
         --------
-        from agent import AgentClient
+        from shengwang_agent import AgentClient
 
         client = AgentClient(
             authorization="YOUR_AUTHORIZATION",
@@ -254,7 +254,7 @@ class TelephonyClient:
 
         Examples
         --------
-        from agent import AgentClient
+        from shengwang_agent import AgentClient
 
         client = AgentClient(
             authorization="YOUR_AUTHORIZATION",
@@ -339,7 +339,7 @@ class AsyncTelephonyClient:
         --------
         import asyncio
 
-        from agent import AsyncAgentClient
+        from shengwang_agent import AsyncAgentClient
 
         client = AsyncAgentClient(
             authorization="YOUR_AUTHORIZATION",
@@ -419,8 +419,8 @@ class AsyncTelephonyClient:
         --------
         import asyncio
 
-        from agent import AsyncAgentClient
-        from agent.telephony import (
+        from shengwang_agent import AsyncAgentClient
+        from shengwang_agent.telephony import (
             CallTelephonyRequestProperties,
             CallTelephonyRequestSip,
         )
@@ -485,7 +485,7 @@ class AsyncTelephonyClient:
         --------
         import asyncio
 
-        from agent import AsyncAgentClient
+        from shengwang_agent import AsyncAgentClient
 
         client = AsyncAgentClient(
             authorization="YOUR_AUTHORIZATION",
@@ -532,7 +532,7 @@ class AsyncTelephonyClient:
         --------
         import asyncio
 
-        from agent import AsyncAgentClient
+        from shengwang_agent import AsyncAgentClient
 
         client = AsyncAgentClient(
             authorization="YOUR_AUTHORIZATION",

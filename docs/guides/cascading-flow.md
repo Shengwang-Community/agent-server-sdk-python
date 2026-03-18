@@ -17,9 +17,9 @@ User audio → STT → LLM → TTS → Agent audio
 ### Sync
 
 ```python
-from agent import AgentClient, Area
-from agent.agentkit import Agent
-from agent.agentkit.vendors import AliyunLLM, MiniMaxTTS, FengmingSTT
+from shengwang_agent import AgentClient, Area
+from shengwang_agent.agentkit import Agent
+from shengwang_agent.agentkit.vendors import AliyunLLM, MiniMaxTTS, FengmingSTT
 
 client = AgentClient(
     area=Area.CN,
@@ -45,9 +45,9 @@ session.stop()
 
 ```python
 import asyncio
-from agent import AsyncAgentClient, Area
-from agent.agentkit import Agent
-from agent.agentkit.vendors import AliyunLLM, MiniMaxTTS, FengmingSTT
+from shengwang_agent import AsyncAgentClient, Area
+from shengwang_agent.agentkit import Agent
+from shengwang_agent.agentkit.vendors import AliyunLLM, MiniMaxTTS, FengmingSTT
 
 async def main():
     client = AsyncAgentClient(
@@ -77,9 +77,9 @@ asyncio.run(main())
 This combination uses DeepSeek for LLM and Microsoft Azure for speech services:
 
 ```python
-from agent import AgentClient, Area
-from agent.agentkit import Agent
-from agent.agentkit.vendors import DeepSeekLLM, MicrosoftTTS, MicrosoftSTT
+from shengwang_agent import AgentClient, Area
+from shengwang_agent.agentkit import Agent
+from shengwang_agent.agentkit.vendors import DeepSeekLLM, MicrosoftTTS, MicrosoftSTT
 
 client = AgentClient(
     area=Area.CN,
@@ -117,7 +117,7 @@ session.stop()
 All LLM vendors support optional parameters for fine-tuning:
 
 ```python
-from agent.agentkit.vendors import AliyunLLM
+from shengwang_agent.agentkit.vendors import AliyunLLM
 
 llm = AliyunLLM(
     api_key='your-aliyun-key',

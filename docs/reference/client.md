@@ -9,7 +9,7 @@ description: Constructor options and public methods for the AgentClient Python c
 ## `AgentClient` Constructor
 
 ```python
-from agent import AgentClient, Area
+from shengwang_agent import AgentClient, Area
 
 client = AgentClient(
     area=Area.CN,
@@ -42,7 +42,7 @@ Identical to `AgentClient` except:
 | `httpx_client` | Accepts `httpx.AsyncClient` instead of `httpx.Client` |
 
 ```python
-from agent import AsyncAgentClient, Area
+from shengwang_agent import AsyncAgentClient, Area
 
 client = AsyncAgentClient(
     area=Area.CN,

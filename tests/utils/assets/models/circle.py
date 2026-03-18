@@ -4,7 +4,7 @@
 
 import typing_extensions
 
-from agent.core.serialization import FieldMetadata
+from shengwang_agent.core.serialization import FieldMetadata
 
 
 class CircleParams(typing_extensions.TypedDict):

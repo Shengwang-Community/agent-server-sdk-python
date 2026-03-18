@@ -9,7 +9,7 @@ description: Iterate over paginated list endpoints.
 Paginated requests return a `SyncPager` or `AsyncPager` that you can iterate over.
 
 ```python
-from agent import AgentClient, Area
+from shengwang_agent import AgentClient, Area
 
 client = AgentClient(
     area=Area.CN,

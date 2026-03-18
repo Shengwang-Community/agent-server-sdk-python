@@ -27,8 +27,8 @@ Create and start a Conversational AI agent instance.
 <dd>
 
 ```python
-from agent import AgentClient, MicrosoftTtsParams, Tts_Microsoft
-from agent.agents import (
+from shengwang_agent import AgentClient, MicrosoftTtsParams, Tts_Microsoft
+from shengwang_agent.agents import (
     StartAgentsRequestProperties,
     StartAgentsRequestPropertiesAsr,
     StartAgentsRequestPropertiesLlm,
@@ -149,7 +149,7 @@ Retrieve a list of agents that meet the specified conditions.
 <dd>
 
 ```python
-from agent import AgentClient
+from shengwang_agent import AgentClient
 
 client = AgentClient(
     authorization="YOUR_AUTHORIZATION",
@@ -283,7 +283,7 @@ Get the current state information of the specified agent instance.
 <dd>
 
 ```python
-from agent import AgentClient
+from shengwang_agent import AgentClient
 
 client = AgentClient(
     authorization="YOUR_AUTHORIZATION",
@@ -366,7 +366,7 @@ Call this endpoint while the agent is running to retrieve the conversation histo
 <dd>
 
 ```python
-from agent import AgentClient
+from shengwang_agent import AgentClient
 
 client = AgentClient(
     authorization="YOUR_AUTHORIZATION",
@@ -447,7 +447,7 @@ Stop the specified conversational agent instance.
 <dd>
 
 ```python
-from agent import AgentClient
+from shengwang_agent import AgentClient
 
 client = AgentClient(
     authorization="YOUR_AUTHORIZATION",
@@ -528,8 +528,8 @@ Adjust Conversation AI Engine parameters at runtime.
 <dd>
 
 ```python
-from agent import AgentClient
-from agent.agents import (
+from shengwang_agent import AgentClient
+from shengwang_agent.agents import (
     UpdateAgentsRequestProperties,
     UpdateAgentsRequestPropertiesLlm,
 )
@@ -641,7 +641,7 @@ Note: The speak API is not supported when using `mllm` configuration.
 <dd>
 
 ```python
-from agent import AgentClient
+from shengwang_agent import AgentClient
 
 client = AgentClient(
     authorization="YOUR_AUTHORIZATION",
@@ -758,7 +758,7 @@ Interrupt the specified agent while speaking or thinking.
 <dd>
 
 ```python
-from agent import AgentClient
+from shengwang_agent import AgentClient
 
 client = AgentClient(
     authorization="YOUR_AUTHORIZATION",
@@ -840,7 +840,7 @@ Query historical call records for a specified appid based on the filter criteria
 <dd>
 
 ```python
-from agent import AgentClient
+from shengwang_agent import AgentClient
 
 client = AgentClient(
     authorization="YOUR_AUTHORIZATION",
@@ -973,8 +973,8 @@ Use this endpoint to initiate an outbound call to the specified number and creat
 <dd>
 
 ```python
-from agent import AgentClient
-from agent.telephony import (
+from shengwang_agent import AgentClient
+from shengwang_agent.telephony import (
     CallTelephonyRequestProperties,
     CallTelephonyRequestSip,
 )
@@ -1098,7 +1098,7 @@ Retrieve the call status and related information of a specified agent.
 <dd>
 
 ```python
-from agent import AgentClient
+from shengwang_agent import AgentClient
 
 client = AgentClient(
     authorization="YOUR_AUTHORIZATION",
@@ -1179,7 +1179,7 @@ Instruct the agent to proactively hang up the ongoing call and leave the RTC cha
 <dd>
 
 ```python
-from agent import AgentClient
+from shengwang_agent import AgentClient
 
 client = AgentClient(
     authorization="YOUR_AUTHORIZATION",
@@ -1261,7 +1261,7 @@ Retrieve a list of all imported phone numbers under the current account.
 <dd>
 
 ```python
-from agent import AgentClient
+from shengwang_agent import AgentClient
 
 client = AgentClient(
     authorization="YOUR_AUTHORIZATION",
@@ -1323,8 +1323,8 @@ Import a pre-configured phone number that can be used for inbound or outbound ca
 <dd>
 
 ```python
-from agent import AgentClient
-from agent.phone_numbers import (
+from shengwang_agent import AgentClient
+from shengwang_agent.phone_numbers import (
     AddPhoneNumbersRequestInboundConfig,
     AddPhoneNumbersRequestOutboundConfig,
 )
@@ -1462,7 +1462,7 @@ Retrieve detailed information for a specific phone number.
 <dd>
 
 ```python
-from agent import AgentClient
+from shengwang_agent import AgentClient
 
 client = AgentClient(
     authorization="YOUR_AUTHORIZATION",
@@ -1537,7 +1537,7 @@ After calling this endpoint, the number stops receiving calls routed through thi
 <dd>
 
 ```python
-from agent import AgentClient
+from shengwang_agent import AgentClient
 
 client = AgentClient(
     authorization="YOUR_AUTHORIZATION",
@@ -1609,8 +1609,8 @@ Update the configuration for a phone number.
 <dd>
 
 ```python
-from agent import AgentClient
-from agent.phone_numbers import (
+from shengwang_agent import AgentClient
+from shengwang_agent.phone_numbers import (
     UpdatePhoneNumbersRequestInboundConfig,
     UpdatePhoneNumbersRequestOutboundConfig,
 )

@@ -17,7 +17,7 @@ class SensetimeAvatarOptions(BaseModel):
     sceneList: List[Dict[str, Any]] = Field(..., description="Scene list with digital_role config")
 
     class Config:
-        extra = "forbid"
+        extra = "allow"
 
 
 class SensetimeAvatar(BaseAvatar):
@@ -36,5 +36,7 @@ class SensetimeAvatar(BaseAvatar):
             "app_key": self.options.app_key,
             "sceneList": self.options.sceneList,
         }
+        if self.options.model_extra:
+            params.update(self.options.model_extra)
 
         return {"vendor": "sensetime", "params": params}

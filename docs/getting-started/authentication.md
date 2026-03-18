@@ -15,7 +15,7 @@ Pass your App ID and App Certificate. The SDK generates a fresh ConvoAI token (c
 ### Sync
 
 ```python
-from agent import AgentClient, Area
+from shengwang_agent import AgentClient, Area
 
 client = AgentClient(
     area=Area.CN,
@@ -27,7 +27,7 @@ client = AgentClient(
 ### Async
 
 ```python
-from agent import AsyncAgentClient, Area
+from shengwang_agent import AsyncAgentClient, Area
 
 client = AsyncAgentClient(
     area=Area.CN,
@@ -43,7 +43,7 @@ Use your customer ID and customer secret. The SDK sends `Authorization: Basic ba
 ### Sync
 
 ```python
-from agent import AgentClient, Area
+from shengwang_agent import AgentClient, Area
 
 client = AgentClient(
     area=Area.CN,
@@ -57,7 +57,7 @@ client = AgentClient(
 ### Async
 
 ```python
-from agent import AsyncAgentClient, Area
+from shengwang_agent import AsyncAgentClient, Area
 
 client = AsyncAgentClient(
     area=Area.CN,
@@ -73,8 +73,8 @@ client = AsyncAgentClient(
 Pass a manually generated `agora token=...` string via `auth_token`. Use this for debugging or when you want to control the REST API token lifecycle yourself:
 
 ```python
-from agent import AgentClient, Area
-from agent.agentkit.token import generate_convo_ai_token
+from shengwang_agent import AgentClient, Area
+from shengwang_agent.agentkit.token import generate_convo_ai_token
 
 raw_token = generate_convo_ai_token(
     app_id='your-app-id',
@@ -104,7 +104,7 @@ client = AgentClient(
 For advanced use cases you can generate tokens directly:
 
 ```python
-from agent.agentkit.token import generate_rtc_token, generate_convo_ai_token
+from shengwang_agent.agentkit.token import generate_rtc_token, generate_convo_ai_token
 
 # RTC-only token (for channel join)
 rtc_token = generate_rtc_token(
@@ -153,7 +153,7 @@ auth_header = f'agora token={convo_token}'
 When the SDK auto-generates a token (app credentials mode, or session without a pre-built `token`), the default lifetime is **86400 seconds (24 hours)**. You can customise this via `expires_in` on `create_session()`:
 
 ```python
-from agent.agentkit import expires_in_hours, expires_in_minutes
+from shengwang_agent.agentkit import expires_in_hours, expires_in_minutes
 
 session = agent.create_session(
     client,

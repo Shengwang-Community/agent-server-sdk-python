@@ -86,18 +86,18 @@ The `Agent` builder class is the same for both — it does not make HTTP calls, 
 
 ```python
 # Top-level client and types
-from agent import AgentClient, AsyncAgentClient, Area, Pool
+from shengwang_agent import AgentClient, AsyncAgentClient, Area, Pool
 
 # Agentkit layer
-from agent.agentkit import Agent, AgentSession
-from agent.agentkit.agent_session import AsyncAgentSession
+from shengwang_agent.agentkit import Agent, AgentSession
+from shengwang_agent.agentkit.agent_session import AsyncAgentSession
 
 # Vendor classes
-from agent.agentkit.vendors import AliyunLLM, MiniMaxTTS, FengmingSTT
+from shengwang_agent.agentkit.vendors import AliyunLLM, MiniMaxTTS, FengmingSTT
 
 # Token helpers
-from agent.agentkit.token import generate_rtc_token
+from shengwang_agent.agentkit.token import generate_rtc_token
 
 # Also available from top-level
-from agent import Agent, AgentSession, AsyncAgentSession, generate_rtc_token
+from shengwang_agent import Agent, AgentSession, AsyncAgentSession, generate_rtc_token
 ```

@@ -34,9 +34,9 @@ You can check the current state with `session.status`.
 Use `Agent.create_session()` to create a session:
 
 ```python
-from agent import AgentClient, Area
-from agent.agentkit import Agent
-from agent.agentkit.vendors import AliyunLLM, MiniMaxTTS, FengmingSTT
+from shengwang_agent import AgentClient, Area
+from shengwang_agent.agentkit import Agent
+from shengwang_agent.agentkit.vendors import AliyunLLM, MiniMaxTTS, FengmingSTT
 
 client = AgentClient(area=Area.CN, app_id='your-app-id', app_certificate='your-app-certificate')
 
