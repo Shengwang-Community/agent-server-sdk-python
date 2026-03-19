@@ -18,7 +18,7 @@ class MinimaxTtsParams(UncheckedBaseModel):
     MiniMax API key
     """
 
-    group_id: str = pydantic.Field()
+    group_id: typing.Optional[str] = pydantic.Field(default=None)
     """
     MiniMax group identifier
     """
@@ -29,9 +29,9 @@ class MinimaxTtsParams(UncheckedBaseModel):
     """
 
     voice_setting: MinimaxTtsParamsVoiceSetting
-    url: str = pydantic.Field()
+    url: typing.Optional[str] = pydantic.Field(default=None)
     """
-    WebSocket endpoint (e.g., wss://api-uw.minimax.io/ws/v1/t2a_v2)
+    WebSocket endpoint (e.g., wss://api.minimax.chat/ws/v1/t2a_v2)
     """
 
     if IS_PYDANTIC_V2:

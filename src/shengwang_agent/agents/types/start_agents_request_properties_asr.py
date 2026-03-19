@@ -21,15 +21,12 @@ class StartAgentsRequestPropertiesAsr(UncheckedBaseModel):
     vendor: typing.Optional[StartAgentsRequestPropertiesAsrVendor] = pydantic.Field(default=None)
     """
     ASR provider:
-    - `ares`: Adaptive Recognition Engine for Speech
-    - `microsoft`: Microsoft Azure
-    - `deepgram`: Deepgram
-    - `openai`: OpenAI (Beta)
-    - `speechmatics`: Speechmatics
-    - `assemblyai`: AssemblyAI (Beta)
-    - `amazon`: Amazon Transcribe (Beta)
-    - `google`: Google (Beta)
-    - `sarvam`: Sarvam (Beta)
+    - `fengming`: Agora Fengming ASR (default)
+    - `tencent`: Tencent ASR
+    - `microsoft`: Microsoft Azure ASR
+    - `xfyun`: iFlytek traditional ASR
+    - `xfyun_bigmodel`: iFlytek Big Model ASR
+    - `xfyun_dialect`: iFlytek Dialect ASR
     """
 
     params: typing.Optional[typing.Dict[str, typing.Any]] = pydantic.Field(default=None)

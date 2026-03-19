@@ -4,7 +4,7 @@ import typing
 
 StartAgentsRequestPropertiesAsrVendor = typing.Union[
     typing.Literal[
-        "ares", "microsoft", "deepgram", "openai", "google", "amazon", "assemblyai", "speechmatics", "sarvam"
+        "fengming", "tencent", "microsoft", "xfyun", "xfyun_bigmodel", "xfyun_dialect"
     ],
     typing.Any,
 ]

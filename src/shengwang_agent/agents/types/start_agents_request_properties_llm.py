@@ -68,10 +68,14 @@ class StartAgentsRequestPropertiesLlm(UncheckedBaseModel):
     vendor: typing.Optional[str] = pydantic.Field(default=None)
     """
     LLM provider, supports the following settings:
-    - `custom`: Custom LLM. When you set this option, the agent includes the following fields, in addition to `role` and `content` when making requests to the custom LLM:
-      - `turn_id`: A unique identifier for each conversation turn. It starts from `0` and increments with each turn. One user-agent interaction corresponds to one `turn_id`.
+    - Commercial LLM providers:
+      - `aliyun`: Alibaba Cloud
+      - `bytedance`: Bytedance (Volcengine)
+      - `deepseek`: DeepSeek
+      - `tencent`: Tencent
+    - `custom`: Custom LLM. When set, the agent includes the following fields in addition to `role` and `content`:
+      - `turn_id`: A unique identifier for each conversation turn. Starts from `0` and increments with each turn.
       - `timestamp`: The request timestamp, in milliseconds.
-    - `azure`: Use this value for Azure OpenAI
     """
 
     style: typing.Optional[StartAgentsRequestPropertiesLlmStyle] = pydantic.Field(default=None)

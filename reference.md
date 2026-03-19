@@ -59,15 +59,15 @@ client.agents.start(
             ),
         ),
         llm=StartAgentsRequestPropertiesLlm(
-            url="https://api.openai.com/v1/chat/completions",
+            url="https://api.minimax.chat/v1/text/chatcompletion_v2",
             api_key="<your_llm_key>",
             system_messages=[
                 {"role": "system", "content": "You are a helpful chatbot."}
             ],
-            params={"model": "gpt-4o-mini"},
+            params={"model": "abab6.5s-chat"},
             max_history=32,
-            greeting_message="Hello, how can I assist you today?",
-            failure_message="Please hold on a second.",
+            greeting_message="你好，有什么可以帮您？",
+            failure_message="请稍等。",
         ),
     ),
 )
